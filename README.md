@@ -117,3 +117,11 @@ class ChangePassword extends React.Component {
 # Forms
 
 # Form validation
+
+# Handling Events
+
+# Lifecycle methods
+
+# Data flow between components
+
+# Lists
