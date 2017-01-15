@@ -1,10 +1,9 @@
 # Frameworks code comparison
-Frameworks approach to solving problems based on React, Angular 1, Angular 2
+Different frameworks' approach to solving problems based on React, Angular 1 and Angular 2.
 
 # Simple component 
 
 ## Angular 1
-Constructor is a place to inject dependencies by the $inject service.
 ```js
 class ChangePasswordController {
     constructor($log, Auth, Notification) {
@@ -48,12 +47,12 @@ import Logger from 'utils/logger'
 import Notification from 'utils/notification'
 import Auth from 'actions/auth'
 
-var Hello = React.createClass({
-	state = {
+const Hello = React.createClass({
+  state = {
     password: ''
   };
   
-	changePassword() {
+  changePassword() {
     Auth.changePassword(this.state,password).then(() => {
       Notification.info('Password has been changes successfully');
     }).catch(error => {
@@ -69,6 +68,49 @@ var Hello = React.createClass({
 ```
 
 # Dependency injection
+
+## Angular 1
+Constructor is a place to inject dependencies, what is done implicitly by the [$inject](https://docs.angularjs.org/api/auto/service/$injector) service.
+
+`'ngInject'` annotation has been used which allows automatic method annotation by the ng-annotate plugin (e.g. [ng-annotate-loader](https://www.npmjs.com/package/ng-annotate-loader) for Webpack). That's essentailly needed to counter minification problems.
+
+```js
+class ChangePasswordController {
+  constructor($log, Auth, Notification) {
+    'ngInject';
+
+    this.$log = $log;
+    this.Auth = Auth;
+    this.Notification = Notification;
+  }
+
+  handleEvent() {
+    this.Notification.info('Event handled successfully');
+  }
+}
+```
+
+## React
+There's no special injection mechanism. For dependency managment ES2015 modules are used.
+```js
+import Logger from 'utils/logger'
+import Notification from 'utils/notification'
+import Auth from 'actions/auth'
+
+class ChangePassword extends React.Component {
+  handleEvent = () => {
+    Notification.info('Event handled successfully');
+  }
+
+  render() {
+    return (
+      <button onClick={this.handleEvent}>
+        Hello world!
+      </button>
+    );
+  }
+}
+```
 
 # Templates
 
