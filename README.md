@@ -116,7 +116,9 @@ class ChangePassword extends React.Component {
 
 # Forms
 
-# Form validation
+## Validation
+
+## model-options
 
 # Handling Events
 
@@ -131,3 +133,5 @@ class ChangePassword extends React.Component {
 ViewChild vs refs
 
 ContentChild vs this.props.children 
+
+# Transclusion
