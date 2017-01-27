@@ -127,6 +127,7 @@ class ChangePassword extends React.Component {
 # Data flow between components
 
 # Lists
+ng-repeat, trackby
 
 # Child nodes
 
@@ -135,3 +136,5 @@ ViewChild vs refs
 ContentChild vs this.props.children 
 
 # Transclusion
+
+# Styling
