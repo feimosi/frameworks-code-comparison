@@ -7,6 +7,9 @@ Note regarding framework names:
 
 See: http://angularjs.blogspot.com/2017/01/branding-guidelines-for-angular-and.html
 
+All examples try to follow the current best practises and convesions inside the given framework community.
+Angular code is written in TypeScript.
+
 # Simple component 
 
 ### AngularJS
@@ -119,6 +122,46 @@ class ChangePassword extends React.Component {
 ```
 
 # Templates
+
+### AngularJS
+Values on custom components must be expressions which are interpolated.
+
+```html
+<primary-button size="'big'"
+                disabled="true"
+                click="$ctrl.saveContent()">
+  Save
+</primary-button>
+```
+
+### Angular
+There are three kinds of possible attributes being passed:
+- text binding e.g. size="string"
+- property binding e.g. [disabled]="value"
+- event binding e.g. (click)="eventHandler()"
+
+```html
+<primary-button size="big"
+                [disabled]="true"
+                (click)="saveContent()">
+  Save
+</primary-button>
+```
+
+### React
+Templates in React are writtien inside the JavaScript file using the [JSX language](https://facebook.github.io/react/docs/jsx-in-depth.html). This allows us to utilize the full JavaScript capabilities. JSX uses the upper vs. lower case convention to distinguish between user-defined components and DOM tags.
+
+```jsx
+<PrimaryButton
+  size="big"
+  disabled
+  onClick={this.saveContent}
+>
+  Save
+</PrimaryButton>
+```
+
+# Interpolation
 
 # Forms
 
