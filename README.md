@@ -1,9 +1,15 @@
 # Frameworks code comparison
-Different frameworks' approach to solving problems based on React, Angular 1 and Angular 2.
+Different frameworks' approach to solving problems based on React, AngularJS and Angular.
+
+Note regarding framework names:
+- AngularJS means Angular v1.x
+- Angular menas Angular v2+
+
+See: http://angularjs.blogspot.com/2017/01/branding-guidelines-for-angular-and.html
 
 # Simple component 
 
-## Angular 1
+### AngularJS
 ```js
 class ChangePasswordController {
     constructor($log, Auth, Notification) {
@@ -41,7 +47,7 @@ const module = angular.module('app.changePassword', [])
 
 ```
 
-## React
+### React
 ```js
 import Logger from 'utils/logger'
 import Notification from 'utils/notification'
@@ -69,7 +75,7 @@ const Hello = React.createClass({
 
 # Dependency injection
 
-## Angular 1
+### AngularJS
 Constructor is a place to inject dependencies, what is done implicitly by the [$inject](https://docs.angularjs.org/api/auto/service/$injector) service.
 
 `'ngInject'` annotation has been used which allows automatic method annotation by the ng-annotate plugin (e.g. [ng-annotate-loader](https://www.npmjs.com/package/ng-annotate-loader) for Webpack). That's essentailly needed to counter minification problems.
@@ -90,7 +96,7 @@ class ChangePasswordController {
 }
 ```
 
-## React
+### React
 There's no special injection mechanism. For dependency managment ES2015 modules are used.
 ```js
 import Logger from 'utils/logger'
@@ -138,3 +144,27 @@ ContentChild vs this.props.children
 # Transclusion
 
 # Styling
+
+# Inject HTML template (aka. innerHtml)
+
+### AngularJS
+By default, the HTML content will be sanitized using the [$sanitize](https://docs.angularjs.org/api/ngSanitize/service/$sanitize) service. To utilize this functionality you need to include `ngSanitize` in your module's dependencies. [Read more](https://docs.angularjs.org/api/ng/directive/ngBindHtml)
+
+```html
+<p ng-bind-html="$ctrl.article.content"></p>
+```
+
+### Angular
+It automatically sanitizes the values before displaying them using [DomSanitizer](https://angular.io/docs/ts/latest/api/platform-browser/index/DomSanitizer-class.html)
+
+```html
+<p [innerHTML]="article.content"></p>
+```
+
+### React
+All string values are sanitized before being inserted into the DOM. No more details are currently available.
+You need to pass an object containing `__html` property with desired template content.
+
+```jsx
+<p dangerouslySetInnerHTML={{__html: article.content}} />
+```
