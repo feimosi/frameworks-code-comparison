@@ -145,7 +145,7 @@ ContentChild vs this.props.children
 
 # Styling
 
-# Inject HTML template (aka. innerHtml)
+# Inject HTML template (aka. innerHTML)
 
 ### AngularJS
 By default, the HTML content will be sanitized using the [$sanitize](https://docs.angularjs.org/api/ngSanitize/service/$sanitize) service. To utilize this functionality you need to include `ngSanitize` in your module's dependencies. [Read more](https://docs.angularjs.org/api/ng/directive/ngBindHtml)
