@@ -169,6 +169,8 @@ Templates in React are writtien inside the JavaScript file using the [JSX langua
 
 ## model-options
 
+## submit
+
 # Handling Events
 
 # Lifecycle methods
