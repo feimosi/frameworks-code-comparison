@@ -186,7 +186,86 @@ ViewChild vs refs
 
 ContentChild vs this.props.children 
 
-# Transclusion
+# Transclusion / Containment
+
+## Basic
+
+### AngularJS
+
+```js
+angular.module('app.layout', [])
+.component('layout', {
+  bindings: {
+    theme: '@',
+  },
+  controller: LayoutController,
+  transclude : true,
+  template: `<div ng-class="'theme-' + $ctrl.theme">
+               <ng-transclude></ng-transclude>
+             </div>`,
+}).component('content', {
+  template: `<div>Some content</div>`,
+});
+```
+```html
+<layout theme="dark">
+  <content />
+</layout>
+```
+
+### Angular
+
+### React
+
+```jsx
+const Layout = ({ children, theme }) => (
+  <div className={`theme-${theme}`}>
+    {children}
+  </div>
+);
+
+const Content = () => (
+  <div>Some content</div>
+);
+
+<Layout theme='dark'>
+  <Content />
+</Layout>
+```
+
+## Multiple slots
+
+### React
+
+```jsx
+const Layout = ({ children, theme }) => (
+  <div className={`theme-${theme}`}>
+    <header>{children.header}</header>
+    <main>{children.content}</main>
+    <footer>{children.footer}</footer>
+  </div>
+);
+
+const Header = () => (
+  <h1>My Header</h1>
+);
+
+const Footer = () => (
+  <div>My Footer</div>
+);
+
+const Content = () => (
+  <div>Some fancy content</div>
+);
+
+<Layout theme='dark'>
+{{
+  header: <Header />,
+  content: <Content />,
+  footer: <Footer />
+}}
+</Layout>
+```
 
 # Styling
 
