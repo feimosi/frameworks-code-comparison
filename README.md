@@ -163,6 +163,8 @@ Templates in React are writtien inside the JavaScript file using the [JSX langua
 
 # Interpolation
 
+# Inputs / Outputs
+
 # Forms
 
 ## Validation
