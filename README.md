@@ -201,21 +201,56 @@ angular.module('app.layout', [])
     theme: '@',
   },
   controller: LayoutController,
-  transclude : true,
-  template: `<div ng-class="'theme-' + $ctrl.theme">
-               <ng-transclude></ng-transclude>
-             </div>`,
-}).component('content', {
+  transclude: true,
+  template: `
+    <div ng-class="'theme-' + $ctrl.theme">
+      <ng-transclude></ng-transclude>
+    </div>
+  `,
+}).component('pageContent', {
   template: `<div>Some content</div>`,
+}).component('pageFooter', {
+  template: `<footer>Some content</footer>`,
 });
 ```
 ```html
 <layout theme="dark">
-  <content />
+  <page-content></page-content>
+  <page-footer></page-footer>
 </layout>
 ```
 
 ### Angular
+
+```js
+@Component({
+  selector: 'layout',
+  template: `
+    <div>
+      <ng-content></ng-content>
+    </div>
+  `
+})
+export class Layout {}
+
+@Component({
+  selector: 'page-content',
+  template: `<div>Some content</div>`,
+})
+export class PageContent {}
+
+@Component({
+  selector: 'page-footer',
+  template: `<footer>Some content</footer>`,
+})
+export class PageFooter {}
+```
+```html
+<layout>
+  <page-content></page-content>
+  <page-footer></page-footer>
+</layout>
+```
 
 ### React
 
@@ -226,16 +261,55 @@ const Layout = ({ children, theme }) => (
   </div>
 );
 
-const Content = () => (
+const PageContent = () => (
+  <div>Some content</div>
+);
+
+const PageFooter = () => (
   <div>Some content</div>
 );
 
 <Layout theme='dark'>
-  <Content />
+  <PageContent />
+  <PageFooter />
 </Layout>
 ```
 
 ## Multiple slots
+
+### AngularJS
+
+```js
+angular.module('app.layout', [])
+.component('landingSection', {
+  bindings: {},
+  controller: LandingSectionController,
+  transclude: {
+    contentSlot: '?content', // '?' indicates an optional slot
+    iconSlot: '?icon'
+  },
+  template: `
+    <div>
+      <span ng-transclude="contentSlot"></span>
+      <div>
+        <span ng-transclude="iconSlot">This is a default value</span>
+      </dev>
+    </div>
+  `,
+}).component('pageContent', {
+  template: `<div>Some content</div>`,
+});
+```
+```html
+<div>
+  <h1>Page title</h1>
+  <landing-section>
+    <page-content></page-content>
+  </landing-section>
+</div>
+```
+
+### Angular
 
 ### React
 
