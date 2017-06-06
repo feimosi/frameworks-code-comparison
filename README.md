@@ -76,6 +76,52 @@ const Hello = React.createClass({
 }); 
 ```
 
+# Default inputs
+
+### AngularJS
+```js
+class CoursesListController {
+    $onChanges(bindings) {
+        if (typeof bindings.displayPurchased.currentValue === 'undefined') {
+            this.displayPurchased = true;
+        }
+        if (typeof bindings.displayAvailable.currentValue === 'undefined') {
+            this.displayAvailable = true;
+        }
+    }
+}
+
+const component = {
+    bindings: {
+        displayPurchased: '<',
+        displayAvailable: '<',
+    },
+    template,
+    controller: CoursesListController,
+};
+```
+
+### Angular
+
+### React
+```jsx
+class CoursesListController {
+    static propTypes = {
+        displayPurchased: PropTypes.bool,
+        displayAvailable: PropTypes.bool,
+    };
+
+    static defaultProps = {
+        displayPurchased: true,
+        displayAvailable: true,
+    };
+    
+    render() {
+        return <div></div>
+    }
+}
+```
+
 # Dependency injection
 
 ### AngularJS
