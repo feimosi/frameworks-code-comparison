@@ -1,14 +1,26 @@
-# Frameworks code comparison
-Different frameworks' approach to solving problems based on React, AngularJS and Angular.
+<h1 align="center">Frameworks code comparison</h1>
 
-Note regarding framework names:
-- AngularJS means Angular v1.x
-- Angular menas Angular v2+
+### :warning: **Work in progress** :warning:
 
-See: http://angularjs.blogspot.com/2017/01/branding-guidelines-for-angular-and.html
+### :exclamation: PRs and Feedback is welcome :exclamation:
+
+Comparison of different approaches in writing web applications. Based on React, AngularJS and Angular.
+
+> Note regarding framework naming:
+> - AngularJS means Angular v1.x
+> - Angular menas Angular v2+
+>
+> See: http://angularjs.blogspot.com/2017/01/branding-guidelines-for-angular-and.html
 
 All examples try to follow the current best practises and convesions inside the given framework community.
 Angular code is written in TypeScript.
+
+<h1 align="center">Table of contents</h1>
+
+  * [Table of contents](#table-of-contents)
+  * [Simple component](#simple-component)
+  * [Default inputs](#default-inputs)
+  * [Dependency injection](#dependency-injection)
 
 # Simple component 
 
