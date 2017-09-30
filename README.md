@@ -4,7 +4,7 @@
 
 ### :exclamation: PRs and Feedback is welcome :exclamation:
 
-Comparison of different approaches in writing web applications. Based on React, AngularJS and Angular.
+Comparison of different approaches in writing web applications. Based on React, Angular, AngularJS.
 
 > Note regarding framework naming:
 > - AngularJS means Angular v1.x
@@ -21,6 +21,13 @@ Angular code is written in TypeScript.
   * [Simple component](#simple-component)
   * [Default inputs](#default-inputs)
   * [Dependency injection](#dependency-injection)
+  * [Templates](#templates)
+  * [Interpolation](#interpolation)
+  * [Inputs and Outputs](#inputs-and-outputs)
+  * [Forms](#forms)
+  * [Handling Events](#handling-events)
+  * [Lifecycle methods](#lifecycle-methods)
+  
 
 # Simple component 
 
@@ -225,7 +232,7 @@ Templates in React are writtien inside the JavaScript file using the [JSX langua
 
 > TODO
 
-# Inputs / Outputs
+# Inputs and Outputs
 
 > TODO
 
