@@ -68,7 +68,7 @@ import Logger from 'utils/logger'
 import Notification from 'utils/notification'
 import Auth from 'actions/auth'
 
-const Hello = React.createClass({
+class ChangePassword {
   state = {
     password: ''
   };
@@ -82,8 +82,8 @@ const Hello = React.createClass({
     });
   }
 
-  render: function() {
-    return <div>Hello {this.state.password}</div>;
+  render() {
+    return <div>{ /* template */ }</div>;
   }
 }); 
 ```
@@ -114,6 +114,8 @@ const component = {
 ```
 
 ### Angular
+
+> TODO
 
 ### React
 ```jsx
@@ -221,9 +223,15 @@ Templates in React are writtien inside the JavaScript file using the [JSX langua
 
 # Interpolation
 
+> TODO
+
 # Inputs / Outputs
 
+> TODO
+
 # Forms
+
+> TODO
 
 ## Validation
 
@@ -233,18 +241,57 @@ Templates in React are writtien inside the JavaScript file using the [JSX langua
 
 # Handling Events
 
+> TODO
+
 # Lifecycle methods
+
+### React
+
+#### Mounting
+
+`constructor(props)` - the first method called in the lifecycle, before mounting. If used, it must include super(props) as first call:
+
+```js
+constructor(props) {
+  super(props);
+  this.state = {
+    time: new Date();
+  }
+}
+```
+
+`componentWillMount()` - is invoked just before render. Modifying the state here won't trigger a re-render.
+
+`componentDidMount()` - is invoked after render. Useful for initialisations that require DOM nodes.
+
+#### Updating
+
+`componentWillReceiveProps(nextProps)` - is only called after rendering, but before receiving new props. Because React may call this method although props stay the same its recommended to manually implement a check to see if there's a difference.
+
+`shouldComponentUpdate(nextProps, nextState)` - the method is called before receiving new props or state. By default it returns true meaning render is triggered by any change. Modifying this method allows you to only re-render in intended scenarios.
+
+`componentWillUpdate(nextProps, nextState)` - is invoked if shouldComponentUpdate returns true, before render. Note you can't use this.setState() here.
+
+`componentDidUpdate(prevProps, prevState)` - is invoked after render, but not after the initial one. This method is useful for manipulating the DOM when updated
+
+#### Unmounting
+
+`componentWillUnmount()` - is invoked immediately before a component is unmounted and destroyed. Useful for resource cleanup.
 
 # Data flow between components
 
+> TODO
+
 # Lists
-ng-repeat, trackby
+
+> TODO
+> ng-repeat, trackby vs key
 
 # Child nodes
 
-ViewChild vs refs
-
-ContentChild vs this.props.children 
+> TODO
+> ViewChild vs refs
+> ContentChild vs this.props.children 
 
 # Transclusion / Containment
 
@@ -369,6 +416,8 @@ angular.module('app.layout', [])
 
 ### Angular
 
+> TODO
+
 ### React
 
 ```jsx
@@ -402,6 +451,8 @@ const Content = () => (
 ```
 
 # Styling
+
+> TODO
 
 # Inject HTML template (aka. innerHTML)
 
