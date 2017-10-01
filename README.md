@@ -287,7 +287,60 @@ Templates in React are written inside the JavaScript file using the [JSX languag
 
 # Inputs and Outputs
 
-> TODO
+### Angular
+
+```js
+@Component({
+  selector: 'settings',
+  template: `
+    <user-preview
+      [user]="user"
+      (onEdit)="editedUser($event)"
+    >
+
+    </user-preview>
+  `
+})
+
+export class Settings {
+  user: User;
+  constructor() {
+    this.user = {
+      name: 'Foo Bar',
+      email: 'foobar@example.com'
+    }
+  }
+
+  editedUser(user: User){
+    console.log('Name of the edited user is', user.name);
+  }
+}
+
+```
+
+```js
+@Component({
+  selector: 'user-preview',
+  template: `
+    <p>
+      <input type="text" value="{{user.name}}">
+    </p>    
+      <input type="text" value="{{user.email}}">
+    
+    <button (click)="emitEditedUser()">
+  `
+})
+
+export class UserPreview {
+  @Input() user: User;
+  @Output() onEdit: EventEmitter = new EventEmitter<User>();
+
+  emitEditedUser() {
+    this.onEdit.emit(this.user);
+  }
+}
+
+```
 
 # Forms
 
