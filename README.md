@@ -1,18 +1,18 @@
 <h1 align="center">Frameworks code comparison</h1>
 
-Comparison of different approaches in writing web applications. Based on React, Angular, AngularJS. Usefull when migrating between frameworks or switching projects often.
+Comparison of different approaches in writing web applications. Based on React, Angular, AngularJS. Useful when migrating between frameworks or switching between projects often.
 
 ### :warning: **Work in progress** :warning:
 
-### :exclamation: PRs and Feedback is welcome :exclamation:
+### :exclamation: PRs and Feedback are welcome :exclamation:
 
 > Note regarding framework naming:
-> - AngularJS means Angular v1.x
-> - Angular menas Angular v2+
+> - AngularJS refers to Angular v1.x
+> - Angular refers to Angular v2+
 >
 > See: http://angularjs.blogspot.com/2017/01/branding-guidelines-for-angular-and.html
 
-All examples try to follow the current best practises and convesions inside the given framework community.
+All examples intend to follow the current best practises and conventions inside the given framework community.
 Angular code is written in TypeScript.
 
 <h1 align="center">Table of contents</h1>
@@ -48,10 +48,10 @@ class ChangePasswordController {
 
     changePassword() {
         this.Auth.changePassword(this.password).then(() => {
-            this.Notification.info('Password has been changes successfully');
+            this.Notification.info('Password has been changed successfully.');
         }).catch(error => {
             this.$log.error(error);
-            this.Notification.error('There was an error. Please try again');
+            this.Notification.error('There was an error. Please try again.');
         });
     }
 }
@@ -82,10 +82,10 @@ class ChangePassword {
   
   changePassword() {
     Auth.changePassword(this.state,password).then(() => {
-      Notification.info('Password has been changes successfully');
+      Notification.info('Password has been changed successfully.');
     }).catch(error => {
       Logger.error(error);
-      Notification.error('There was an error. Please try again');
+      Notification.error('There was an error. Please try again.');
     });
   }
 
@@ -146,9 +146,9 @@ class CoursesListController {
 # Dependency injection
 
 ### AngularJS
-Constructor is a place to inject dependencies, what is done implicitly by the [$inject](https://docs.angularjs.org/api/auto/service/$injector) service.
+Constructor is used to inject dependencies, what is done implicitly by the [$inject](https://docs.angularjs.org/api/auto/service/$injector) service.
 
-`'ngInject'` annotation has been used which allows automatic method annotation by the ng-annotate plugin (e.g. [ng-annotate-loader](https://www.npmjs.com/package/ng-annotate-loader) for Webpack). That's essentailly needed to counter minification problems.
+`'ngInject'` annotation has been used which allows automatic method annotation by the ng-annotate plugin (e.g. [ng-annotate-loader](https://www.npmjs.com/package/ng-annotate-loader) for Webpack). That's essentially needed to counter minification problems.
 
 ```js
 class ChangePasswordController {
@@ -167,7 +167,7 @@ class ChangePasswordController {
 ```
 
 ### React
-There's no special injection mechanism. For dependency managment ES2015 modules are used.
+There's no special injection mechanism. For dependency managment, ES2015 modules are used.
 ```js
 import Logger from 'utils/logger'
 import Notification from 'utils/notification'
@@ -203,9 +203,9 @@ Values on custom components must be expressions which are interpolated.
 
 ### Angular
 There are three kinds of possible attributes being passed:
-- text binding e.g. size="string"
-- property binding e.g. [disabled]="value"
-- event binding e.g. (click)="eventHandler()"
+- text binding, e.g. size="string"
+- property binding, e.g. [disabled]="value"
+- event binding, e.g. (click)="eventHandler()"
 
 ```html
 <primary-button size="big"
@@ -216,7 +216,7 @@ There are three kinds of possible attributes being passed:
 ```
 
 ### React
-Templates in React are writtien inside the JavaScript file using the [JSX language](https://facebook.github.io/react/docs/jsx-in-depth.html). This allows us to utilize the full JavaScript capabilities. JSX uses the upper vs. lower case convention to distinguish between user-defined components and DOM tags.
+Templates in React are written inside the JavaScript file using the [JSX language](https://facebook.github.io/react/docs/jsx-in-depth.html). This allows us to utilize the full JavaScript capabilities. JSX uses the uppercase vs. lowercase convention to distinguish between the user-defined components and DOM tags.
 
 ```jsx
 <PrimaryButton
@@ -256,7 +256,7 @@ Templates in React are writtien inside the JavaScript file using the [JSX langua
 
 #### Mounting
 
-`constructor(props)` - the first method called in the lifecycle, before mounting. If used, it must include super(props) as first call:
+`constructor(props)` - the first method called in the lifecycle before mounting. If used, it must include super(props) as first call:
 
 ```js
 constructor(props) {
@@ -273,13 +273,13 @@ constructor(props) {
 
 #### Updating
 
-`componentWillReceiveProps(nextProps)` - is only called after rendering, but before receiving new props. Because React may call this method although props stay the same its recommended to manually implement a check to see if there's a difference.
+`componentWillReceiveProps(nextProps)` - is only called after rendering, but before receiving new props. Because React may call this method although props stay the same. It is recommended to manually implement a check to see if there's a difference.
 
-`shouldComponentUpdate(nextProps, nextState)` - the method is called before receiving new props or state. By default it returns true meaning render is triggered by any change. Modifying this method allows you to only re-render in intended scenarios.
+`shouldComponentUpdate(nextProps, nextState)` - the method is called before receiving new props or state. By default, it returns true which means render is triggered by any change. Modifying this method allows you to only re-render in intended scenarios.
 
-`componentWillUpdate(nextProps, nextState)` - is invoked if shouldComponentUpdate returns true, before render. Note you can't use this.setState() here.
+`componentWillUpdate(nextProps, nextState)` - is invoked if shouldComponentUpdate returns true before render. Note: You can't use this.setState() here.
 
-`componentDidUpdate(prevProps, prevState)` - is invoked after render, but not after the initial one. This method is useful for manipulating the DOM when updated
+`componentDidUpdate(prevProps, prevState)` - is invoked after render, but not after the initial one. This method is useful for manipulating the DOM when updated.
 
 #### Unmounting
 
@@ -404,7 +404,7 @@ angular.module('app.layout', [])
     <div>
       <span ng-transclude="contentSlot"></span>
       <div>
-        <span ng-transclude="iconSlot">This is a default value</span>
+        <span ng-transclude="iconSlot">This is the default value</span>
       </dev>
     </div>
   `,
@@ -464,7 +464,7 @@ const Content = () => (
 # Inject HTML template (aka. innerHTML)
 
 ### AngularJS
-By default, the HTML content will be sanitized using the [$sanitize](https://docs.angularjs.org/api/ngSanitize/service/$sanitize) service. To utilize this functionality you need to include `ngSanitize` in your module's dependencies. [Read more](https://docs.angularjs.org/api/ng/directive/ngBindHtml)
+By default, the HTML content will be sanitized using the [$sanitize](https://docs.angularjs.org/api/ngSanitize/service/$sanitize) service. To utilize this functionality, you need to include `ngSanitize` in your module's dependencies. [Read more](https://docs.angularjs.org/api/ng/directive/ngBindHtml)
 
 ```html
 <p ng-bind-html="$ctrl.article.content"></p>
