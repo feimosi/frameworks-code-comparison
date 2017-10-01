@@ -1,10 +1,10 @@
 <h1 align="center">Frameworks code comparison</h1>
 
+Comparison of different approaches in writing web applications. Based on React, Angular, AngularJS. Usefull when migrating between frameworks or switching projects often.
+
 ### :warning: **Work in progress** :warning:
 
 ### :exclamation: PRs and Feedback is welcome :exclamation:
-
-Comparison of different approaches in writing web applications. Based on React, Angular, AngularJS.
 
 > Note regarding framework naming:
 > - AngularJS means Angular v1.x
