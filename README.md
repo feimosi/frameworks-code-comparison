@@ -69,6 +69,59 @@ const module = angular.module('app.changePassword', [])
 
 ```
 
+### Angular
+```js
+import { Component, OnInit } from '@angular/core';
+import { NGXLogger } from 'ngx-logger';
+import { Auth } from 'actions/auth';
+import { Notification } from 'utils/notification';
+
+@Component({
+    selector: 'app-login',
+    templateUrl: './change-password.component.html',
+    styleUrls: ['./change-password.component.scss'],
+})
+export class ChangePasswordComponent implements OnInit {
+    password: string = '';
+
+    constructor(
+        private logger: NGXLogger,
+        private auth: Auth,
+        private notification: Notification,
+    ) {}
+
+    ngOnInit() { /* runs on component initialization */ }
+
+    changePassword() {
+        this.auth.changePassword(this.password).subscribe(() => {
+          this.notification.info('Password has been changes successfully');
+        }).catch(error => {
+          this.logger.error(error);
+          this.notification.error('There was an error. Please try again');
+        });
+    }
+}
+
+
+/*
+Module is a 'holder' for your components:
+every service, redux store, effects, actions, external modules (bootstrap, etc)
+have to be declared here, in order to be used within this module's components.
+Keep in the separate file
+*/
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { ChangePasswordComponent } from './change-password.component';
+
+@NgModule({
+  imports: [CommonModule],
+  declarations: [ChangePasswordComponent],
+})
+export class ChangePasswordModule {}
+
+```
+
 ### React
 ```js
 import Logger from 'utils/logger'
