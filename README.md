@@ -27,9 +27,10 @@ Angular code is written in TypeScript.
   * [Forms](#forms)
   * [Handling Events](#handling-events)
   * [Lifecycle methods](#lifecycle-methods)
-  
+  * [Lists](#lists)
 
-# Simple component 
+
+# Simple component
 
 ### AngularJS
 ```js
@@ -41,7 +42,7 @@ class ChangePasswordController {
         this.Auth = Auth;
         this.Notification = Notification;
     }
-    
+
     $onInit() {
         this.password = '';
     }
@@ -132,7 +133,7 @@ class ChangePassword {
   state = {
     password: ''
   };
-  
+
   changePassword() {
     Auth.changePassword(this.state,password).then(() => {
       Notification.info('Password has been changed successfully.');
@@ -145,7 +146,7 @@ class ChangePassword {
   render() {
     return <div>{ /* template */ }</div>;
   }
-}); 
+});
 ```
 
 # Default inputs
@@ -189,7 +190,7 @@ class CoursesListController {
         displayPurchased: true,
         displayAvailable: true,
     };
-    
+
     render() {
         return <div></div>
     }
@@ -324,9 +325,9 @@ export class Settings {
   template: `
     <p>
       <input type="text" value="{{user.name}}">
-    </p>    
+    </p>
       <input type="text" value="{{user.email}}">
-    
+
     <button (click)="emitEditedUser()">
   `
 })
@@ -397,14 +398,141 @@ constructor(props) {
 
 # Lists
 
-> TODO
-> ng-repeat, trackby vs key
+### AngularJS
+[ngRepeat](https://docs.angularjs.org/api/ng/directive/ngRepeat)
+
+```js
+export class BookListComponentCtrl {
+  constructor() {
+    this.books = [
+      {
+        id: 1,
+        title: "Eloquent JavaScript",
+        author: "Marijn Haverbeke"
+      },
+      {
+        id: 2,
+        title: "JavaScript: The Good Parts",
+        author: "Douglas Crockford"
+      },
+      {
+        id: 3,
+        title: "JavaScript: The Definitive Guide",
+        author: "David Flanagan"
+      }
+    ];
+  }
+}
+```
+
+```html
+<ul>
+  <li ng-repeat="book in $ctrl.books track by book.id">
+    {{ book.title }} by {{ book.author }}
+  </li>
+</ul>
+```
+
+### Angular
+[ngFor](https://angular.io/guide/template-syntax#ngfor)
+
+```js
+export interface Book {
+  id: number;
+  title: string;
+  author: string;
+}
+```
+
+```js
+import { Component } from '@angular/core';
+import { Book } from './book.interface';
+
+@Component({
+  selector: 'book-list',
+  template: `
+    <ul>
+      <li *ngFor="let book of books; trackBy: trackById">
+        {{ book.title }} by {{ book.author }}
+      </li>
+    </ul>
+  `
+})
+export class BookListComponent {
+  this.books: Book[] = [
+    {
+      id: 1,
+      title: "Eloquent JavaScript",
+      author: "Marijn Haverbeke"
+    },
+    {
+      id: 2,
+      title: "JavaScript: The Good Parts",
+      author: "Douglas Crockford"
+    },
+    {
+      id: 3,
+      title: "JavaScript: The Definitive Guide",
+      author: "David Flanagan"
+    }
+  ];
+
+  trackById(book) {
+    return book.id;
+  }
+}
+```
+
+### React
+[Lists and Keys](https://reactjs.org/docs/lists-and-keys.html)
+
+```js
+class BookList extends React.Component {
+  constructor() {
+    this.state = {
+      books: [
+        {
+          id: 1,
+          title: "Eloquent JavaScript",
+          author: "Marijn Haverbeke"
+        },
+        {
+          id: 2,
+          title: "JavaScript: The Good Parts",
+          author: "Douglas Crockford"
+        },
+        {
+          id: 3,
+          title: "JavaScript: The Definitive Guide",
+          author: "David Flanagan"
+        }
+      ]
+    };
+  }
+
+  render() {
+    const { books } = this.state;
+
+    return (
+      <ul>
+        { books.map(book => {
+          return (
+            <li key="{ book.id }">
+              { book.title } by { book.author }
+            </li>
+          );
+        }) }
+      </ul>
+    );
+  }
+}
+```
 
 # Child nodes
 
 > TODO
 > ViewChild vs refs
-> ContentChild vs this.props.children 
+> ContentChild vs this.props.children
 
 # Transclusion / Containment
 
