@@ -441,7 +441,39 @@ For communication between two components that don't have a parent-child relation
 
 # Forms
 
-> TODO
+### Angular
+
+Angular offers two ways to build form: [reactive form](https://angular.io/guide/reactive-forms) and template-driven form. The former, demoed below, allows us to listen to form or control changes.
+
+```js
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
+@Component({
+  selector: 'reactive-form',
+  template: `
+    <div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit(form.value, form.valid)" novalidate>
+      <div>
+        <label>Name:</label>
+        <input type="text" formControlName="name">
+      </div>
+      <div>
+        <label>Email:</label>
+        <input type="text" formControlName="email">
+      </div>
+    </form>
+    <div>Form details: <pre>form value: <br>{{form.value | json}}</pre></div>
+  `
+})
+
+export class ReactiveFormComponent implements OnInit {
+  public form: FormGroup; 
+  constructor(private formBuilder: FormBuilder) { }
+  ngOnInit() {
+    this.form = this.formBuilder.group({name: [''], email: ['']}); 
+  }
+}
+```
 
 ## Validation
 
