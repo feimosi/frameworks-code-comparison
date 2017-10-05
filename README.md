@@ -329,35 +329,28 @@ Templates in React are written inside the JavaScript file using the [JSX languag
 
 ### AngularJS
 
-AngularJS provides filters to transform data.
-There are several built-in filters to use or you can make your own custom filters as well.
-Filters can be applied to view template using the following syntax :  `{{ expression | filter }}`
-Chaining of filters is also possible :   `{{ expression | filter1 | filter2 }}`
+AngularJS provides filters to transform data. There are several built-in filters to use or you can make your own custom filters as well. Filters can be applied to view template using the following syntax: `{{ expression | filter }}`. Chaining of filters is also possible: `{{ expression | filter1 | filter2 }}`.
 
-Built-in Filters are as follows : 
-  -`currency` Format a number to a currency format.
-  -`date` Format a date to a specified format.
-  -`filter` Select a subset of items from an array.
-  -`json` Format an object to a JSON string.
-  -`limitTo` Limits an array/string, into a specified number of elements/characters.
-  -`lowercase` Format a string to lower case.
-  -`number` Format a number to a string.
-  -`orderBy` Orders an array by an expression.
-  -`uppercase` Format a string to upper case.
+Built-in Filters are as follows: 
+- `currency` Format a number to a currency format.
+- `date` Format a date to a specified format.
+- `filter` Select a subset of items from an array.
+- `json` Format an object to a JSON string.
+- `limitTo` Limits an array/string, into a specified number of elements/characters.
+- `lowercase` Format a string to lower case.
+- `number` Format a number to a string.
+- `orderBy` Orders an array by an expression.
+- `uppercase` Format a string to upper case.
 
 Basic Implementation in html :
 
-
+```html
+<h1>{{ txt | lowercase }}</h1> 
 ``` 
-<h1>{{txt | lowercase}}</h1> 
-
-``` 
-
 
 Code Snippet of Custom Filter :  
 
-
-```
+```js
 angular.module('myReverseFilterApp', [])
 .filter('reverse', function() {
   return function(input, uppercase) {
@@ -371,9 +364,7 @@ angular.module('myReverseFilterApp', [])
     return out;
   };
 });
-
 ```
-
 
 # Inputs and Outputs
 
