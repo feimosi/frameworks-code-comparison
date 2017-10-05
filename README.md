@@ -22,6 +22,7 @@ All examples follow the current best practises and conventions inside the given 
   * [Dependency injection](#dependency-injection)
   * [Templates](#templates)
   * [Interpolation](#interpolation)
+  * [Filters](#filters)
   * [Inputs and Outputs](#inputs-and-outputs)
   * [Forms](#forms)
   * [Handling Events](#handling-events)
@@ -323,6 +324,11 @@ Templates in React are written inside the JavaScript file using the [JSX languag
 # Interpolation
 
 > TODO
+
+# Filters
+
+> TODO
+> Angular's pipe character (|) 
 
 # Inputs and Outputs
 
