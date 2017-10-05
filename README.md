@@ -1,6 +1,8 @@
 <h1 align="center">Frameworks code comparison</h1>
 
-Comparison of different approaches in writing web applications. Based on React, Angular, AngularJS. Useful when migrating between frameworks or switching between projects often.
+Comparison of different approaches in writing web applications. Based on React, Angular, AngularJS. Useful when migrating between frameworks or switching projects often.
+
+All examples follow the current best practises and conventions inside the given framework community. Angular code is written in TypeScript.
 
 ### :warning: **Work in progress** :warning:
 
@@ -11,9 +13,6 @@ Comparison of different approaches in writing web applications. Based on React, 
 > - Angular refers to Angular v2+
 >
 > See: http://angularjs.blogspot.com/2017/01/branding-guidelines-for-angular-and.html
-
-All examples intend to follow the current best practises and conventions inside the given framework community.
-Angular code is written in TypeScript.
 
 <h1 align="center">Table of contents</h1>
 
@@ -28,12 +27,18 @@ Angular code is written in TypeScript.
   * [Handling Events](#handling-events)
   * [Lifecycle methods](#lifecycle-methods)
   * [Lists](#lists)
+  * [Child nodes](#child-nodes)
+  * [Transclusion and Containment](#transclusion-and-containment)
 
 
 # Simple component
 
 ### AngularJS
 ```js
+import angular from 'angular';
+import template from './changePassword.html';
+import './changePassword.scss';
+
 class ChangePasswordController {
     constructor($log, Auth, Notification) {
         'ngInject';
@@ -60,7 +65,7 @@ class ChangePasswordController {
 // Object describing the component
 const component = {
     bindings: {},
-    template: changePasswordTemplate,
+    template,
     controller: ChangePasswordController,
 };
 
@@ -71,27 +76,25 @@ const module = angular.module('app.changePassword', [])
 ```
 
 ### Angular
-```js
-import { Component, OnInit } from '@angular/core';
-import { NGXLogger } from 'ngx-logger';
-import { Auth } from 'actions/auth';
-import { Notification } from 'utils/notification';
+```ts
+import { Component } from '@angular/core';
+import { Logger } from 'services/logger';
+import { Auth } from 'services/auth';
+import { Notification } from 'services/notification';
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './change-password.component.html',
-    styleUrls: ['./change-password.component.scss'],
+    selector: 'change-password',
+    templateUrl: './ChangePassword.component.html',
+    styleUrls: ['./ChangePassword.component.scss'],
 })
-export class ChangePasswordComponent implements OnInit {
+export class ChangePasswordComponent {
     password: string = '';
 
     constructor(
-        private logger: NGXLogger,
+        private logger: Logger,
         private auth: Auth,
         private notification: Notification,
     ) {}
-
-    ngOnInit() { /* runs on component initialization */ }
 
     changePassword() {
         this.auth.changePassword(this.password).subscribe(() => {
@@ -102,13 +105,11 @@ export class ChangePasswordComponent implements OnInit {
         });
     }
 }
+```
 
-
+```ts
 /*
-Module is a 'holder' for your components:
-every service, redux store, effects, actions, external modules (bootstrap, etc)
-have to be declared here, in order to be used within this module's components.
-Keep in the separate file
+Every component has to be declared inside a module, in order to be used within this module's other components.
 */
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -175,8 +176,18 @@ const component = {
 ```
 
 ### Angular
+```ts
+import { Component } from '@angular/core';
 
-> TODO
+@Component({
+    selector: 'courses-list',
+    templateUrl: './coursesList.component.html',
+})
+export class CoursesListController {
+  displayPurchased: boolean = true;
+  displayAvailable: boolean = true;
+}
+```
 
 ### React
 ```jsx
@@ -192,7 +203,7 @@ class CoursesListController {
     };
 
     render() {
-        return <div></div>
+        return <div>{ /* template */ }</div>;
     }
 }
 ```
@@ -220,8 +231,35 @@ class ChangePasswordController {
 }
 ```
 
+### Angular
+You specify the definition of the dependencies in the constructor (leveraging TypeScript's constructor syntax for declaring parameters and properties simultaneously).
+
+```ts
+import { Component } from '@angular/core';
+import { Notification } from 'services/notification';
+
+@Component({
+    selector: 'change-password',
+    templateUrl: './ChangePassword.component.html',
+})
+export class ChangePasswordComponent {
+    constructor(
+        private logger: Logger,
+        private auth: Auth,
+        private notification: Notification,
+    ) {}
+
+    handleEvent() {
+        this.notification.info('Event handled successfully');
+    }
+}
+```
+
+:arrow_right: https://angular.io/guide/dependency-injection
+
 ### React
-There's no special injection mechanism. For dependency managment, ES2015 modules are used.
+There's no special injection mechanism. For dependency management, ES2015 modules are used.
+
 ```js
 import Logger from 'utils/logger'
 import Notification from 'utils/notification'
@@ -520,10 +558,6 @@ constructor(props) {
 
 `componentWillUnmount()` - is invoked immediately before a component is unmounted and destroyed. Useful for resource cleanup.
 
-# Data flow between components
-
-> TODO
-
 # Lists
 
 ### AngularJS
@@ -662,7 +696,7 @@ class BookList extends React.Component {
 > ViewChild vs refs
 > ContentChild vs this.props.children
 
-# Transclusion / Containment
+# Transclusion and Containment
 
 ## Basic
 
