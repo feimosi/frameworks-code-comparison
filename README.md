@@ -441,8 +441,8 @@ class UserPreviewComponent extends React.Component {
   render() {
     return (
       <form  onSubmit={this.props.onEdit}>
-        <input type="text" value={this.props.user.email} >
-        <input type="text" value={this.props.user.name} >
+        <input type="text" value={this.props.user.email} />
+        <input type="text" value={this.props.user.name} />
         <button type="submit">Submit</button>
       </form>
     );
