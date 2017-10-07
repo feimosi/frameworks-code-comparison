@@ -1,6 +1,6 @@
 <h1 align="center">Frameworks code comparison</h1>
 
-Comparison of different approaches in writing web applications. Based on React, Angular, AngularJS. Useful when migrating between frameworks or switching projects often.
+Comparison of different approaches in writing web applications. Based on React, Angular, AngularJS and Vue.js. Useful when migrating between frameworks or switching projects often.
 
 All examples follow the current best practises and conventions inside the given framework community. Angular code is written in TypeScript.
 
@@ -30,11 +30,13 @@ All examples follow the current best practises and conventions inside the given 
   * [Lists](#lists)
   * [Child nodes](#child-nodes)
   * [Transclusion and Containment](#transclusion-and-containment)
-
+  * [Styling](#styling)
+  * [Inject HTML template](#inject-html-template) 
 
 # Simple component
 
 ### AngularJS
+
 ```js
 import angular from 'angular';
 import template from './changePassword.html';
@@ -77,6 +79,7 @@ const module = angular.module('app.changePassword', [])
 ```
 
 ### Angular
+
 ```ts
 import { Component } from '@angular/core';
 import { Logger } from 'services/logger';
@@ -108,10 +111,8 @@ export class ChangePasswordComponent {
 }
 ```
 
-```ts
-/*
 Every component has to be declared inside a module, in order to be used within this module's other components.
-*/
+```ts
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -126,6 +127,7 @@ export class ChangePasswordModule {}
 ```
 
 ### React
+
 ```js
 import Logger from 'utils/logger'
 import Notification from 'utils/notification'
@@ -154,6 +156,9 @@ class ChangePassword {
 # Default inputs
 
 ### AngularJS
+
+There's no built-in mechanism for default inputs, so we assign them programatically in the `$onChanges` hook.
+
 ```js
 class CoursesListController {
     $onChanges(bindings) {
@@ -171,12 +176,13 @@ const component = {
         displayPurchased: '<',
         displayAvailable: '<',
     },
-    template,
+    templateUrl: './coursesList.component.html',
     controller: CoursesListController,
 };
 ```
 
 ### Angular
+
 ```ts
 import { Component } from '@angular/core';
 
@@ -191,6 +197,7 @@ export class CoursesListController {
 ```
 
 ### React
+
 ```jsx
 class CoursesListController {
     static propTypes = {
@@ -209,7 +216,10 @@ class CoursesListController {
 }
 ```
 
+:arrow_right: https://reactjs.org/docs/typechecking-with-proptypes.html#default-prop-values
+
 ### VueJs
+
 ```js
 import Vue from 'vue';
 
@@ -231,6 +241,7 @@ Vue.component('courses-list', {
 # Dependency injection
 
 ### AngularJS
+
 Constructor is used to inject dependencies, what is done implicitly by the [$inject](https://docs.angularjs.org/api/auto/service/$injector) service.
 
 `'ngInject'` annotation has been used which allows automatic method annotation by the ng-annotate plugin (e.g. [ng-annotate-loader](https://www.npmjs.com/package/ng-annotate-loader) for Webpack). That's essentially needed to counter minification problems.
@@ -252,6 +263,7 @@ class ChangePasswordController {
 ```
 
 ### Angular
+
 You specify the definition of the dependencies in the constructor (leveraging TypeScript's constructor syntax for declaring parameters and properties simultaneously).
 
 ```ts
@@ -278,6 +290,7 @@ export class ChangePasswordComponent {
 :arrow_right: https://angular.io/guide/dependency-injection
 
 ### React
+
 There's no special injection mechanism. For dependency management, ES2015 modules are used.
 
 ```js
@@ -303,10 +316,14 @@ class ChangePassword extends React.Component {
 # Templates
 
 ### AngularJS
-Values on custom components must be expressions which are interpolated.
+
+Values on component inputs must be one of the following.
+- string binding (defined as `@`)
+- expression binding (defined as `<`)
+- reference binding (defined as `&`)
 
 ```html
-<primary-button size="'big'"
+<primary-button size="big"
                 disabled="true"
                 click="$ctrl.saveContent()">
   Save
@@ -314,6 +331,7 @@ Values on custom components must be expressions which are interpolated.
 ```
 
 ### Angular
+
 There are three kinds of possible attributes being passed:
 - text binding, e.g. size="string"
 - property binding, e.g. [disabled]="value"
@@ -328,7 +346,7 @@ There are three kinds of possible attributes being passed:
 ```
 
 ### React
-Templates in React are written inside the JavaScript file using the [JSX language](https://facebook.github.io/react/docs/jsx-in-depth.html). This allows us to utilize the full JavaScript capabilities. JSX uses the uppercase vs. lowercase convention to distinguish between the user-defined components and DOM tags.
+Templates in React are written inside the JavaScript file using the [JSX language](https://reactjs.org/docs/jsx-in-depth.html). This allows us to utilize the full JavaScript capabilities. JSX uses the uppercase vs. lowercase convention to distinguish between the user-defined components and DOM tags.
 
 ```jsx
 <PrimaryButton
@@ -348,42 +366,38 @@ Templates in React are written inside the JavaScript file using the [JSX languag
 
 ### AngularJS
 
-AngularJS provides filters to transform data. There are several built-in filters to use or you can make your own custom filters as well. Filters can be applied to view template using the following syntax: `{{ expression | filter }}`. Chaining of filters is also possible: `{{ expression | filter1 | filter2 }}`.
+AngularJS provides filters to transform data. There are several [built-in filters](https://docs.angularjs.org/api/ng/filter) to use or you can make your own custom filters as well. 
 
-Built-in Filters are as follows: 
-- `currency` Format a number to a currency format.
-- `date` Format a date to a specified format.
-- `filter` Select a subset of items from an array.
-- `json` Format an object to a JSON string.
-- `limitTo` Limits an array/string, into a specified number of elements/characters.
-- `lowercase` Format a string to lower case.
-- `number` Format a number to a string.
-- `orderBy` Orders an array by an expression.
-- `uppercase` Format a string to upper case.
-
-Basic Implementation in html :
+Filters can be applied to view template using the following syntax:
 
 ```html
-<h1>{{ txt | lowercase }}</h1> 
+<h1>{{ price | currency }}</h1> 
 ``` 
 
-Code Snippet of Custom Filter :  
+Chaining of filters is also possible:
+
+```html
+<h1>{{ name | uppercase | appendTitle  }}</h1> 
+```
+
+Custom Filters:  
 
 ```js
-angular.module('myReverseFilterApp', [])
+angular.module('app', [])
 .filter('reverse', function() {
-  return function(input, uppercase) {
-    input = input || '';
-    var out = '';
-    const out = input.split('').reverse().join('')
-    // conditional based on optional argument
+  return (input = '', uppercase = false) => {
+    let out = input.split('').reverse().join('');
+
     if (uppercase) {
       out = out.toUpperCase();
     }
+
     return out;
   };
 });
 ```
+
+:arrow_right: https://docs.angularjs.org/guide/filter
 
 # Inputs and Outputs
 
@@ -918,7 +932,9 @@ const Content = () => (
 
 > TODO
 
-# Inject HTML template (aka. innerHTML)
+# Inject HTML template
+
+aka. innerHTML
 
 ### AngularJS
 By default, the HTML content will be sanitized using the [$sanitize](https://docs.angularjs.org/api/ngSanitize/service/$sanitize) service. To utilize this functionality, you need to include `ngSanitize` in your module's dependencies. [Read more](https://docs.angularjs.org/api/ng/directive/ngBindHtml)
