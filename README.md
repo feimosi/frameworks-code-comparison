@@ -401,9 +401,7 @@ angular.module('app', [])
 
 ### Angular
 
-In Angular filters are called pipes.
-Built-in pipes available in Angular: DatePipe, UpperCasePipe, LowerCasePipe, CurrencyPipe, and PercentPipe.
-More about pipes in Angular [here](https://angular.io/guide/pipes)
+In Angular filters are called [pipes](https://angular.io/guide/pipes). Built-in pipes available in Angular are: DatePipe, UpperCasePipe, LowerCasePipe, CurrencyPipe, and PercentPipe.
 
 Apart from built in, you can create your own, custom pipes.
 
@@ -431,6 +429,8 @@ Pipes given `someUrl` through `safe` pipe and transforms it over the `DomSanitiz
 ```
 
 Note `[src]` above is an input to the component where aboves `iframe` 'lives'.
+
+:arrow_right: https://angular.io/guide/pipes
 
 # Inputs and Outputs
 
