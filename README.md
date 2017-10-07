@@ -399,6 +399,39 @@ angular.module('app', [])
 
 :arrow_right: https://docs.angularjs.org/guide/filter
 
+### Angular
+
+In Angular filters are called pipes.
+Built-in pipes available in Angular: DatePipe, UpperCasePipe, LowerCasePipe, CurrencyPipe, and PercentPipe.
+More about pipes in Angular [here](https://angular.io/guide/pipes)
+
+Apart from built in, you can create your own, custom pipes.
+
+Create custom pipe:
+This pipe transforms given URL to safe style URL, so it can be used in hyperlinks, <img src> or <iframe src>, etc..
+
+```js
+import { Pipe, PipeTransform } from '@angular/core';
+import { DomSanitizer} from '@angular/platform-browser';
+
+@Pipe({ name: 'safe' })
+export class SafePipe implements PipeTransform {
+    constructor(public sanitizer: DomSanitizer) {}
+    transform(url) {
+        return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    }
+}
+```
+
+Use custom pipe in the template:
+Pipes given `someUrl` through `safe` pipe and transforms it over the `DomSanitizer` function `bypassSecurityTrustResourceUrl`. More on DomSanitizer [here](https://angular.io/api/platform-browser/DomSanitizer)
+
+```html
+  <iframe [src]="someUrl | safe"></iframe>
+```
+
+Note `[src]` above is an input to the component where aboves `iframe` 'lives'.
+
 # Inputs and Outputs
 
 ### AngularJS
