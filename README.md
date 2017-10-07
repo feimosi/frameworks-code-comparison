@@ -209,6 +209,25 @@ class CoursesListController {
 }
 ```
 
+### VueJs
+```js
+import Vue from 'vue';
+
+Vue.component('courses-list', {
+    template: '<div>{{ /* template */ }}</div>',
+    props: {
+        displayPurchased: {
+            type: Boolean,
+            default: true
+        },
+        displayAvailable: {
+            type: Boolean,
+            default: true
+        }
+    }
+});
+```
+
 # Dependency injection
 
 ### AngularJS
