@@ -10,7 +10,7 @@
 
 Comparison of different approaches in writing web applications. Based on React, Angular, AngularJS and Vue.js. Useful when migrating between frameworks or switching projects often.
 
-All examples follow the current best practises and conventions inside the given framework community. Angular code is written in TypeScript.
+All examples follow the current best practices and conventions inside the given framework community. Angular code is written in TypeScript.
 
 ### :warning: **Work in progress** :warning:
 
