@@ -1,5 +1,13 @@
 <h1 align="center">Frameworks code comparison</h1>
 
+<div align="center">
+
+![./assets/logos/angular.svg](./assets/logos/angular.svg)
+![./assets/logos/react.svg](./assets/logos/react.svg)
+![./assets/logos/vue.svg](./assets/logos/vue.svg)
+
+</div>
+
 Comparison of different approaches in writing web applications. Based on React, Angular, AngularJS and Vue.js. Useful when migrating between frameworks or switching projects often.
 
 All examples follow the current best practises and conventions inside the given framework community. Angular code is written in TypeScript.
