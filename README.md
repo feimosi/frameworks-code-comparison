@@ -31,7 +31,7 @@ All examples follow the current best practises and conventions inside the given 
   * [Child nodes](#child-nodes)
   * [Transclusion and Containment](#transclusion-and-containment)
   * [Styling](#styling)
-  * [Inject HTML template](#inject-html-template) 
+  * [Inject HTML template](#inject-html-template)
 
 # Simple component
 
@@ -387,24 +387,92 @@ Templates in React are written inside the JavaScript file using the [JSX languag
 
 # Interpolation
 
-> TODO
+### AngularJS
+Interpolation is the process of data-binding values on the AngularJS `scope` to values in the html. You can read more on the [official documentation](https://docs.angularjs.org/guide/interpolation):
+
+Let's say we have a value `heroImageUrl` on our scope that is defined as `superman.jpg`. (We use `ng-src` here instead of the regular `src` attribute so that Angular can set it up. If you just you source, the browser will try to load the image before Angular has a chance to interpolate.)
+
+The following HTML
+
+```html
+<p><img ng-src="images/{{heroImageUrl}}"> is the <i>interpolated</i> image.</p>
+```
+
+will render to
+
+```html
+<p><img ng-src="images/superman.jpg"> is the <i>interpolated</i> image.</p>
+```
+
+You can interpolate more complicated values within the curly braces. For example, `{{ getVal() }}` will interpolate to the return value of the function `getVal`.
+
+Another way to "bind" data in is use `ng-bind`.
+
+```html
+<label>Enter name: <input type="text" ng-model="name"></label><br>
+Hello <span ng-bind="name"></span>!
+```
+In this example, whatever is typed into the input will be placed on the `name` variable on the scope. The `ng-bind` will cause the content of the span to be updated to be the value of `name`. whenever the input changed. See the full example [here](https://docs.angularjs.org/api/ng/directive/ngBind).
+
+### Angular
+Angular is similar to AngularJS. You can read more on the [official documentation](https://angular.io/guide/template-syntax#interpolation----).
+
+`{{color}}` Will still interpolate to `red`.
+
+However, Angular has the topic of choosing Property Binding or Interpolation (read more here [official documentation](https://angular.io/guide/template-syntax#property-binding-or-interpolation)).  
+
+Say you have a `heroImageUrl` that you wish to set.
+
+```html
+<p><img src="images/{{heroImageUrl}}"> is the <i>interpolated</i> image.</p>
+<p><img [src]="'images/' + heroImageUrl"> is the <i>property bound</i> image.</p>
+```
+
+Both of these methods will work the same. Angular suggest to pick whichever your team picks as its coding style.
+
+The property bound style is analogous to the `ng-bind` strategy used above.
+
+However, when setting an element property to a non-string data value, you must use property binding.
+
+
+### React
+Unlike Angular, React uses single curly braces. It does not support variable interpolation inside an attribute value, but anything in the curly braces is just javascript.
+
+For example (taken from [here](https://stackoverflow.com/questions/21668025/react-jsx-access-props-in-quotes))
+
+The following will not work:
+```html
+<p><img src="images/{this.props.heroImageUrl}" /></p>
+```
+
+But this will
+```jsx
+<p><img src={"images/" + this.props.heroImageUrl"} /></p>
+```
+
+Or if you wish to use ES6 string interpolation
+```jsx
+<p><img src={`images/${this.props.heroImageUrl}`} /></p>
+```
+
+There is no specific official documentation for interpolation in React, but you can read about embedding expressions [here](https://reactjs.org/docs/introducing-jsx.html#embedding-expressions-in-jsx).
 
 # Filters
 
 ### AngularJS
 
-AngularJS provides filters to transform data. There are several [built-in filters](https://docs.angularjs.org/api/ng/filter) to use or you can make your own custom filters as well. 
+AngularJS provides filters to transform data. There are several [built-in filters](https://docs.angularjs.org/api/ng/filter) to use or you can make your own custom filters as well.
 
 Filters can be applied to view template using the following syntax:
 
 ```html
-<h1>{{ price | currency }}</h1> 
-``` 
+<h1>{{ price | currency }}</h1>
+```
 
 Chaining of filters is also possible:
 
 ```html
-<h1>{{ name | uppercase | appendTitle  }}</h1> 
+<h1>{{ name | uppercase | appendTitle  }}</h1>
 ```
 
 Custom Filters:  
@@ -640,10 +708,10 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 })
 
 export class ReactiveFormComponent implements OnInit {
-  public form: FormGroup; 
+  public form: FormGroup;
   constructor(private formBuilder: FormBuilder) { }
   ngOnInit() {
-    this.form = this.formBuilder.group({name: [''], email: ['']}); 
+    this.form = this.formBuilder.group({name: [''], email: ['']});
   }
 }
 ```
