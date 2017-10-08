@@ -969,6 +969,44 @@ class BookList extends React.Component {
 }
 ```
 
+### Vue.js 
+
+```html
+<template>
+  <ul>
+    <li v-for="book in books" :key="book.id">
+      {{ book.title }} by {{ book.author }}
+    </li>
+  </ul>
+</template>
+```
+
+```js
+export default {
+  data() {
+    return {
+      books: [
+        {
+          id: 1,
+          title: "Eloquent JavaScript",
+          author: "Marijn Haverbeke"
+        },
+        {
+          id: 2,
+          title: "JavaScript: The Good Parts",
+          author: "Douglas Crockford"
+        },
+        {
+          id: 3,
+          title: "JavaScript: The Definitive Guide",
+          author: "David Flanagan"
+        }
+      ]
+    }
+  }
+};
+```
+
 # Child nodes
 
 > TODO
