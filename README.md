@@ -161,7 +161,7 @@ class ChangePassword {
 });
 ```
 
-### VueJs
+### Vue.js
 ```js
 import Vue from 'vue';
 import Logger from 'utils/logger';
@@ -253,7 +253,7 @@ class CoursesListController {
 
 :arrow_right: https://reactjs.org/docs/typechecking-with-proptypes.html#default-prop-values
 
-### VueJs
+### Vue.js
 
 ```js
 import Vue from 'vue';
@@ -328,7 +328,7 @@ export class ChangePasswordComponent {
 
 There's no special injection mechanism. For dependency management, ES2015 modules are used.
 
-```js
+```jsx
 import Logger from 'utils/logger'
 import Notification from 'utils/notification'
 import Auth from 'actions/auth'
@@ -507,15 +507,11 @@ Custom Filters:
 ```js
 angular.module('app', [])
 .filter('reverse', function() {
-  return (input = '', uppercase = false) => {
-    let out = input.split('').reverse().join('');
+    return (input = '', uppercase = false) => {
+        const out = input.split('').reverse().join('');
 
-    if (uppercase) {
-      out = out.toUpperCase();
-    }
-
-    return out;
-  };
+        return uppercase ? out.toUpperCase() : out;
+    };
 });
 ```
 
@@ -553,6 +549,40 @@ Pipes given `someUrl` through `safe` pipe and transforms it over the `DomSanitiz
 Note `[src]` above is an input to the component where aboves `iframe` 'lives'.
 
 :arrow_right: https://angular.io/guide/pipes
+
+### React
+
+React doesn't provide any specific filters mechanism. This can simply be achieved by using ordinary JavaScript functions.
+
+```js
+export function reverse(input = '', uppercase = false) {
+    const out = input.split('').reverse().join('');
+
+    return uppercase ? out.toUpperCase() : out;
+}
+```
+
+```jsx
+import { reverse } from 'utils'
+
+export class App extends Component {
+  render() {
+    return (
+        <div>
+            { reverse(this.props.input) }
+        </div>
+    );
+  }
+}
+```
+
+Filters chaining can be achieved using function composition.
+
+```jsx
+<div>
+    { truncate(reverse(this.props.input)) }
+</div>
+```
 
 ### Vue.js
 
