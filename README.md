@@ -1204,90 +1204,136 @@ const Content = () => (
 
 ### AngularJS
 
-The `ngStyle` directive allows you to set CSS style on an HTML element conditionally.
+Generally you will use some preprocessor (e.g. [Sass](http://sass-lang.com/)) and assign appropriate classes to the elements.
+
+The [`ng-style`](https://docs.angularjs.org/api/ng/directive/ngStyle) directive allows you to set custom CSS styles dynamically.
 
 ```js
-<body ng-app="myApp" ng-controller="myCtrl">
+class HeaderController {
+    constructor(ThemeProvider) {
+        'ngInject';
 
-<h1 ng-style="myObj">Welcome</h1>
+        this.ThemeProvider = ThemeProvider;
+        this.headerStyles = {};
+    }
 
-<script>
-  var app = angular.module("myApp", []);
-  app.controller("myCtrl", function($scope) {
-      $scope.myObj = {
-          "color" : "white",
-          "background-color" : "coral",
-          "font-size" : "60px",
-          "padding" : "50px"
-      }
-  });
-</script>
-</body>
+    $onInit() {
+        this.headerStyles.color = ThemeProvider.getTextPrimaryColor();
+    }
+}
+```
 
-const component = {
-    bindings: {
-        displayPurchased: '<',
-        displayAvailable: '<',
-    },
-    templateUrl: './coursesList.component.html',
-    controller: CoursesListController,
-};
+```html
+<h1 ng-style="$ctrl.headerStyles"
+    class="Header">
+    Welcome
+</h1>
 ```
 
 ### Angular
 
-For every Angular component you write, you may define not only an HTML template, but also the CSS styles that go with that template, specifying any selectors, rules, and media queries that you need.
+When defining Angular component you may also include the CSS styles that will go with the template. By default the styles will be compiled as shadow DOM, which basically means you don't need any namespacing strategy for CSS classes.
+
+The [`ngStyle`](https://angular.io/api/common/NgStyle) directive allows you to set custom CSS styles dynamically.
 
 ```ts
 @Component({
-  selector: 'hero-app',
-  template: `
-    <h1>Tour of Heroes</h1>
-    <hero-app-main [hero]=hero></hero-app-main>`,
-  styles: ['h1 { font-weight: normal; }']
+  selector: 'ng-header',
+  template: require('./header.html'),
+  styles: [require('./header.scss')],
 })
-export class HeroAppComponent {
-/* . . . */
+export class HeaderComponent {
+    headerStyles = {};
+
+    constructor(private themeProvider: ThemeProvider) {}
+
+    ngOnInit() {
+        this.headerStyles.color = ThemeProvider.getTextPrimaryColor();
+    }
 }
 ```
 
-:arrow_right:
-https://angular.io/guide/component-styles
+```html
+<h1 [ngStyle]="headerStyles"
+    class="Header">
+    Welcome
+</h1>
+```
+
+```scss
+.Header {
+    font-weight: normal;
+}
+```
+
+:arrow_right: https://angular.io/guide/component-styles
 
 ### React
 
-In React, inline styles are not specified as a string. Instead they are specified with an object whose key is the camelCased version of the style name
+In React community there are many approaches to styling your app. From traditional preprocessors (like in the Angular world) to so-called [CSS in JS](https://github.com/MicheleBertoli/css-in-js). The most popular include:
+
+* [css-modules](https://github.com/gajus/react-css-modules)
+* [styled-components](https://github.com/styled-components/styled-components)
+* [aphrodite](https://github.com/Khan/aphrodite)
+
+To dynamically apply styles you can directly pass an object to the [style](https://reactjs.org/docs/dom-elements.html#style) attribute.
 
 ```jsx
-var divStyle = {
-  color: 'white',
-  backgroundImage: 'url(' + imgUrl + ')',
-  WebkitTransition: 'all', // note the capital 'W' here
-  msTransition: 'all' // 'ms' is the only lowercase vendor prefix
-};
+export class HeaderComponent {
+    state = {
+        color: null,
+    };
 
-ReactDOM.render(<div style={divStyle}>Hello World!</div>, mountNode);
+    componentDidMount() {
+        this.setState({
+            color: ThemeProvider.getTextPrimaryColor();
+        })
+    }
+
+    render() {
+        return (
+            <h1 styles={ { color: this.state.color } }>
+                Welcome
+            </h1>
+        )
+    }
+}
 ```
-
-:arrow_right: 
-https://react-cn.github.io/react/tips/inline-styles.html
 
 ### Vue.js
 
-When a `<style>` tag has the scoped attribute, its CSS will apply to elements of the current component only.
+When using [Single File Components](https://vuejs.org/v2/guide/single-file-components.html) you can simply style a component inside the `<style>` tag. When the tag has the `scoped` attribute, its CSS will apply to elements of the current component only.
 
-```js
+To bind styles dynamically you can use the [`v-bind:style`](https://vuejs.org/v2/guide/class-and-style.html#Binding-Inline-Styles) directive.
+
+```html
 <template>
-  <button class="button button-close">X</button>
+    <h1 class="Header"
+        v-bind:style="headerStyles">
+        Welcome
+    </h1>
 </template>
-<!-- Using the `scoped` attribute -->
+
+<script>
+const ThemeProvider = require('./utils/themeProvider');
+
+module.exports = {
+  data() {
+    return {
+        headerStyles: {
+            color: null,
+        }
+    };
+  },
+  created() {
+    this.headerStyles.color = ThemeProvider.getTextPrimaryColor();
+  },
+};
+</script>
+
 <style scoped>
-  .button {
-    border: none;
-    border-radius: 2px;
-  }
-  .button-close {
-    background-color: red;
+  .Header {
+    font-weight: normal
   }
 </style>
 ```
