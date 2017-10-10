@@ -415,7 +415,7 @@ Events can be listened to using `v-on` combined with the event name, and a metho
 # Interpolation
 
 ### AngularJS
-Interpolation is the process of data-binding values on the AngularJS `scope` to values in the html. You can read more on the [official documentation](https://docs.angularjs.org/guide/interpolation):
+Interpolation is the process of data-binding values on the AngularJS `scope` to values in the HTML. You can read more on the [official documentation](https://docs.angularjs.org/guide/interpolation):
 
 Let's say we have a value `heroImageUrl` on our scope that is defined as `superman.jpg`. (We use `ng-src` here instead of the regular `src` attribute so that Angular can set it up. If you just you source, the browser will try to load the image before Angular has a chance to interpolate.)
 
@@ -433,7 +433,7 @@ will render to
 
 You can interpolate more complicated values within the curly braces. For example, `{{ getVal() }}` will interpolate to the return value of the function `getVal`.
 
-Another way to "bind" data in is use `ng-bind`.
+Another way to "bind" data is to use `ng-bind`.
 
 ```html
 <label>Enter name: <input type="text" ng-model="name"></label><br>
@@ -521,7 +521,7 @@ angular.module('app', [])
 
 In Angular filters are called [pipes](https://angular.io/guide/pipes). Built-in pipes available in Angular are: DatePipe, UpperCasePipe, LowerCasePipe, CurrencyPipe, and PercentPipe.
 
-Apart from built in, you can create your own, custom pipes.
+Apart from built-in, you can create your own, custom pipes.
 
 Create custom pipe:
 This pipe transforms given URL to safe style URL, so it can be used in hyperlinks, <img src> or <iframe src>, etc..
@@ -790,7 +790,7 @@ For communication between two components that don't have a parent-child relation
 
 ### Angular
 
-Angular offers two ways to build form: [reactive form](https://angular.io/guide/reactive-forms) and template-driven form. The former, demoed below, allows us to listen to form or control changes.
+Angular offers two ways to build form: [reactive form](https://angular.io/guide/reactive-forms) and template-driven form. The former demoed below, allows us to listen to form or control changes.
 
 ```js
 import { Component, OnInit } from '@angular/core';
@@ -824,9 +824,9 @@ export class ReactiveFormComponent implements OnInit {
 
 ## Validation
 
-## model-options
+## Data-binding
 
-## submit
+## Submitting
 
 # Handling Events
 
@@ -838,7 +838,7 @@ export class ReactiveFormComponent implements OnInit {
 
 #### Mounting
 
-`constructor(props)` - the first method called in the lifecycle before mounting. If used, it must include super(props) as first call:
+`constructor(props)` - the first method called in the lifecycle before mounting. If used, it must include super(props) as the first call:
 
 ```js
 constructor(props) {
