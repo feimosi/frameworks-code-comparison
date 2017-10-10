@@ -1039,9 +1039,174 @@ export default {
 
 # Child nodes
 
-> TODO
-> ViewChild vs refs
-> ContentChild vs this.props.children
+### AngularJS
+In an [AngularJS component](https://docs.angularjs.org/guide/component), we have access to the child node by injecting [`$element`](https://docs.angularjs.org/api/ng/function/angular.element) to its controller. It has a jqLite wrapped instance of the DOM element, so we have access to some jQuery methods. Also, accessing `$element[0]` will return the bare DOM element.
+```js
+class TextInputController {
+  constructor($scope, $element) {
+    'ngInject';
+    this.$scope = $scope;
+    this.$element = $element;
+  }
+  
+  $postLink() {
+    // When the links are done, we can use the $element attribute.
+    const input = this.$element.find('input');
+    input.on('change', console.log);
+  }
+}
+
+const component = {
+  controller: TextInputController
+  template: `
+    <div>
+      <input type="text" />
+    </div>
+  `
+};
+
+angular.module('app', [])
+  .component('textInput', component);
+```
+
+### Angular
+Angular provides two ways to deal with child nodes: `ViewChild(ren)` and `ContentChild(ren)`. They both have the same purpose, but there are different use cases for them.
+
+[`ViewChild`](https://angular.io/api/core/ViewChild) works with the **internal DOM of your component**, defined by you in the `template` or `templateUrl` metadata. Use the `@ViewChild` decorator to get your own DOM elements.
+
+[`ContentChild`](https://angular.io/api/core/ContentChild) works with de **DOM supplied to your component by its end-user**. See [Transclusion and Containment](#transclusion-and-containment). User the `@ContentChild` decorator to get the DOM elements supplied to your component.
+
+```ts
+import {
+  Component,
+  Input,
+  ViewChild,
+  ContentChild,
+  AfterViewInit,
+  AfterContentInit
+} from '@angular/core';
+
+@Component({
+  selector: 'child',
+  template: `
+    <p>Hello, I'm your child #{{ number }}!</p>
+  `
+})
+export class Child {
+  @Input() number: number;
+}
+
+@Component({
+  selector: 'parent',
+  template: `
+    <child number="1"></child>
+    <ng-content></ng-content>
+  `
+})
+export class Parent implements AfterViewInit, AfterContentInit {
+  @ViewChild(Child) viewChild: Child;
+  @ContentChild(Child) contentChild: Child;
+
+  ngAfterViewInit() {
+    // ViewChild element is only avaliable when the
+    // ngAfterViewInit lifecycle hook is reached.
+    console.log(this.viewChild);
+  }
+
+  ngAfterContentInit() {
+    // ContentChild element is only avaliable when the
+    // ngAfterContentInit lifecycle hook is reached.
+    console.log(this.contentChild);
+  }
+}
+
+@Component({
+  selector: 'app',
+  template: `
+    <parent>
+      <child number="2"></child>
+      <child number="3"></child>
+    </parent>
+  `
+})
+export class AppComponent { }
+
+```
+
+`ViewChild` and `ContentChild` work with **only one** DOM element. You may use [`ViewChildren`](https://angular.io/api/core/ViewChildren) and [`ContentChildren`](https://angular.io/api/core/ContentChildren) in order to get **multiple elements**. Both return the elements wrapped in a [`QueryList`](https://angular.io/api/core/QueryList).
+
+### React
+In React, we have two options to deal with child nodes: [`refs`](https://reactjs.org/docs/refs-and-the-dom) and [`children`](https://reactjs.org/docs/jsx-in-depth.html#children-in-jsx). With `refs`, you have access to the _real_ DOM element. The `children` property let you manipulate the underlying [React elements](https://reactjs.org/blog/2015/12/18/react-components-elements-and-instances.html).
+
+#### refs
+`ref` is a special attribute we can pass to a React element that receives a callback and call it with the corresponding DOM node.
+```jsx
+// In order to access child nodes from parents, we can pass the `ref` callback
+// to the children as props.
+const TextInput = ({ inputRef }) => (
+  <div>
+    <input ref={inputRef} type="text" />
+  </div>
+);
+
+class Parent extends React.Component {
+
+  componentDidMount() {
+    // Refs are only executed after mounting and unmounting. Now `this.textInput`
+    // references a real DOM node. So, we can use the raw DOM API
+    // (to focus the input, for example)
+    this.textInput.focus();
+  }
+
+  render() {
+    // The child's `inputRef` prop receives the `ref` callback.
+    // We can use the callback to store the DOM element in an instance variable.
+    return (
+      <div>
+        <label>This is my child: </label>
+        <TextInput
+          inputRef={node => { this.textInput = node; }} />
+      </div>
+    )
+  }
+}
+
+```
+
+#### children
+`children` is a special prop avaliable in all React component instances. You can use it to control _how_ and _where_ the underlying React elements will be rendered.
+
+```jsx
+// children is just a prop. In this case, the value of `children` will be
+// what you pass to the <Heading /> component as a child node.
+const Heading = ({ children }) => (
+  <h1 className="Heading">
+    {children}
+  </h1>
+);
+
+// `this.props.children` refers to whatever is a valid node inside the <Layout /> element.
+class Layout extends React.Component {
+  render() {
+    return (
+      <div class="Layout">
+        {this.props.children}
+      </div>
+    );
+  }
+}
+
+const App = () => (
+  <div>
+    <Heading>I am the child!</Heading>
+    <Layout>
+      We are
+      {'the'}
+      <strong>Children!</strong>
+    </Layout>
+  </div>
+);
+```
 
 # Transclusion and Containment
 
