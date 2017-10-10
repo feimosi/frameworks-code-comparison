@@ -1202,7 +1202,95 @@ const Content = () => (
 
 # Styling
 
-> TODO
+### AngularJS
+
+The `ngStyle` directive allows you to set CSS style on an HTML element conditionally.
+
+```js
+<body ng-app="myApp" ng-controller="myCtrl">
+
+<h1 ng-style="myObj">Welcome</h1>
+
+<script>
+  var app = angular.module("myApp", []);
+  app.controller("myCtrl", function($scope) {
+      $scope.myObj = {
+          "color" : "white",
+          "background-color" : "coral",
+          "font-size" : "60px",
+          "padding" : "50px"
+      }
+  });
+</script>
+</body>
+
+const component = {
+    bindings: {
+        displayPurchased: '<',
+        displayAvailable: '<',
+    },
+    templateUrl: './coursesList.component.html',
+    controller: CoursesListController,
+};
+```
+
+### Angular
+
+For every Angular component you write, you may define not only an HTML template, but also the CSS styles that go with that template, specifying any selectors, rules, and media queries that you need.
+
+```ts
+@Component({
+  selector: 'hero-app',
+  template: `
+    <h1>Tour of Heroes</h1>
+    <hero-app-main [hero]=hero></hero-app-main>`,
+  styles: ['h1 { font-weight: normal; }']
+})
+export class HeroAppComponent {
+/* . . . */
+}
+```
+
+:arrow_right:
+https://angular.io/guide/component-styles
+
+### React
+
+In React, inline styles are not specified as a string. Instead they are specified with an object whose key is the camelCased version of the style name
+
+```jsx
+var divStyle = {
+  color: 'white',
+  backgroundImage: 'url(' + imgUrl + ')',
+  WebkitTransition: 'all', // note the capital 'W' here
+  msTransition: 'all' // 'ms' is the only lowercase vendor prefix
+};
+
+ReactDOM.render(<div style={divStyle}>Hello World!</div>, mountNode);
+```
+
+:arrow_right: 
+https://react-cn.github.io/react/tips/inline-styles.html
+
+### Vue.js
+
+When a `<style>` tag has the scoped attribute, its CSS will apply to elements of the current component only.
+
+```js
+<template>
+  <button class="button button-close">X</button>
+</template>
+<!-- Using the `scoped` attribute -->
+<style scoped>
+  .button {
+    border: none;
+    border-radius: 2px;
+  }
+  .button-close {
+    background-color: red;
+  }
+</style>
+```
 
 # Inject HTML template
 
