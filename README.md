@@ -1343,6 +1343,7 @@ module.exports = {
 aka. innerHTML
 
 ### AngularJS
+
 By default, the HTML content will be sanitized using the [$sanitize](https://docs.angularjs.org/api/ngSanitize/service/$sanitize) service. To utilize this functionality, you need to include `ngSanitize` in your module's dependencies. [Read more](https://docs.angularjs.org/api/ng/directive/ngBindHtml)
 
 ```html
@@ -1350,6 +1351,7 @@ By default, the HTML content will be sanitized using the [$sanitize](https://doc
 ```
 
 ### Angular
+
 It automatically sanitizes the values before displaying them using [DomSanitizer](https://angular.io/docs/ts/latest/api/platform-browser/index/DomSanitizer-class.html)
 
 ```html
@@ -1357,9 +1359,18 @@ It automatically sanitizes the values before displaying them using [DomSanitizer
 ```
 
 ### React
+
 All string values are sanitized before being inserted into the DOM. No more details are currently available.
 You need to pass an object containing `__html` property with desired template content.
 
 ```jsx
 <p dangerouslySetInnerHTML={{__html: article.content}} />
+```
+
+### Vue.js
+
+The content passed to [`v-html`](https://vuejs.org/v2/guide/syntax.html#Raw-HTML) is not being [sanitized](https://github.com/vuejs/vue/issues/6333). You have to use an external library, e.g. [sanitize-html](https://www.npmjs.com/package/sanitize-html)
+
+```html
+<div v-html="article.content"></div>
 ```
