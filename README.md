@@ -120,6 +120,7 @@ export class ChangePasswordComponent {
 ```
 
 Every component has to be declared inside a module, in order to be used within this module's other components.
+
 ```ts
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -136,7 +137,7 @@ export class ChangePasswordModule {}
 
 ### React
 
-```js
+```jsx
 import Logger from 'utils/logger'
 import Notification from 'utils/notification'
 import Auth from 'actions/auth'
@@ -162,6 +163,7 @@ class ChangePassword {
 ```
 
 ### Vue.js
+
 ```js
 import Vue from 'vue';
 import Logger from 'utils/logger';
@@ -381,6 +383,7 @@ There are three kinds of possible attributes being passed:
 ```
 
 ### React
+
 Templates in React are written inside the JavaScript file using the [JSX language](https://reactjs.org/docs/jsx-in-depth.html). This allows us to utilize the full JavaScript capabilities. JSX uses the uppercase vs. lowercase convention to distinguish between the user-defined components and DOM tags.
 
 ```jsx
@@ -415,6 +418,7 @@ Events can be listened to using `v-on` combined with the event name, and a metho
 # Interpolation
 
 ### AngularJS
+
 Interpolation is the process of data-binding values on the AngularJS `scope` to values in the HTML. You can read more on the [official documentation](https://docs.angularjs.org/guide/interpolation):
 
 Let's say we have a value `heroImageUrl` on our scope that is defined as `superman.jpg`. (We use `ng-src` here instead of the regular `src` attribute so that Angular can set it up. If you just you source, the browser will try to load the image before Angular has a chance to interpolate.)
@@ -442,6 +446,7 @@ Hello <span ng-bind="name"></span>!
 In this example, whatever is typed into the input will be placed on the `name` variable on the scope. The `ng-bind` will cause the content of the span to be updated to be the value of `name`. whenever the input changed. See the full example [here](https://docs.angularjs.org/api/ng/directive/ngBind).
 
 ### Angular
+
 Angular is similar to AngularJS. You can read more on the [official documentation](https://angular.io/guide/template-syntax#interpolation----).
 
 `{{color}}` Will still interpolate to `red`.
@@ -463,6 +468,7 @@ However, when setting an element property to a non-string data value, you must u
 
 
 ### React
+
 Unlike Angular, React uses single curly braces. It does not support variable interpolation inside an attribute value, but anything in the curly braces is just javascript.
 
 For example (taken from [here](https://stackoverflow.com/questions/21668025/react-jsx-access-props-in-quotes))
@@ -526,7 +532,7 @@ Apart from built-in, you can create your own, custom pipes.
 Create custom pipe:
 This pipe transforms given URL to safe style URL, so it can be used in hyperlinks, <img src> or <iframe src>, etc..
 
-```js
+```ts
 import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer} from '@angular/platform-browser';
 
@@ -554,7 +560,7 @@ Note `[src]` above is an input to the component where aboves `iframe` 'lives'.
 
 React doesn't provide any specific filters mechanism. This can simply be achieved by using ordinary JavaScript functions.
 
-```js
+```jsx
 export function reverse(input = '', uppercase = false) {
     const out = input.split('').reverse().join('');
 
@@ -689,7 +695,7 @@ export default module.component('app-settings', component);
 
 Angular introduced a new pattern for Component interactions, this pattern follows the [Flux](https://facebook.github.io/flux/) architecture. Read more on [the official documentation](https://angular.io/guide/component-interaction).
 
-```js
+```ts
 @Component({
   selector: 'user-preview',
   template: `
@@ -713,7 +719,7 @@ export class UserPreviewComponent {
 
 In a parent component, ie `SettingsComponent`:
 
-```js
+```ts
 @Component({
   selector: 'app-settings',
   template: `
@@ -759,7 +765,7 @@ UserPreviewComponent.propTypes = {
 
 In a parent component, ie `SettingsComponent`:
 
-```js
+```jsx
 import React from 'react';
 
 class SettingsComponent extends React.Component {
@@ -792,7 +798,7 @@ For communication between two components that don't have a parent-child relation
 
 Angular offers two ways to build form: [reactive form](https://angular.io/guide/reactive-forms) and template-driven form. The former demoed below, allows us to listen to form or control changes.
 
-```js
+```ts
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 @Component({
@@ -840,7 +846,7 @@ export class ReactiveFormComponent implements OnInit {
 
 `constructor(props)` - the first method called in the lifecycle before mounting. If used, it must include super(props) as the first call:
 
-```js
+```jsx
 constructor(props) {
   super(props);
   this.state = {
@@ -870,6 +876,7 @@ constructor(props) {
 # Lists
 
 ### AngularJS
+
 [ngRepeat](https://docs.angularjs.org/api/ng/directive/ngRepeat)
 
 ```js
@@ -905,9 +912,10 @@ export class BookListComponentCtrl {
 ```
 
 ### Angular
+
 [ngFor](https://angular.io/guide/template-syntax#ngfor)
 
-```js
+```ts
 export interface Book {
   id: number;
   title: string;
@@ -915,7 +923,7 @@ export interface Book {
 }
 ```
 
-```js
+```ts
 import { Component } from '@angular/core';
 import { Book } from './book.interface';
 
@@ -957,7 +965,7 @@ export class BookListComponent {
 ### React
 [Lists and Keys](https://reactjs.org/docs/lists-and-keys.html)
 
-```js
+```jsx
 class BookList extends React.Component {
   constructor() {
     this.state = {
@@ -1247,7 +1255,7 @@ angular.module('app.layout', [])
 
 ### Angular
 
-```js
+```ts
 @Component({
   selector: 'layout',
   template: `
