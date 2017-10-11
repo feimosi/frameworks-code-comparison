@@ -35,6 +35,7 @@ All examples follow the current best practices and conventions inside the given 
   * [Forms](#forms)
   * [Handling Events](#handling-events)
   * [Lifecycle methods](#lifecycle-methods)
+  * [Conditional rendering](#conditional-rendering)
   * [Lists](#lists)
   * [Child nodes](#child-nodes)
   * [Transclusion and Containment](#transclusion-and-containment)
