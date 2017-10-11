@@ -873,6 +873,51 @@ constructor(props) {
 
 `componentWillUnmount()` - is invoked immediately before a component is unmounted and destroyed. Useful for resource cleanup.
 
+# Conditional rendering
+
+### AngularJS
+
+> TODO
+
+### Angular
+
+> TODO
+
+### React
+
+The most common approach to conditional rendering is by using the ternary operator:  
+`{ condition ? <Component /> : null }`
+
+```jsx
+class Registration extends React.Component {
+  this.state = {
+    registrationCompleted: false,
+  };
+
+  propTypes = {
+    displaySpecialOffer: PropTypes.bool,
+  }
+
+  render() {
+    return (
+      <div>
+        { this.props.displaySpecialOffer ? <SpecialOffer /> : null }
+
+        { this.state.registrationCompleted ? (
+            <RegistrationCompleted />
+        ) : (
+            <RegistrationForm />
+        ) }
+      </div>
+    );
+  }
+}
+```
+
+### Vue.js 
+
+> TODO
+
 # Lists
 
 ### AngularJS
@@ -963,6 +1008,7 @@ export class BookListComponent {
 ```
 
 ### React
+
 [Lists and Keys](https://reactjs.org/docs/lists-and-keys.html)
 
 ```jsx
@@ -1007,7 +1053,7 @@ class BookList extends React.Component {
 }
 ```
 
-### Vue.js 
+### Vue.js
 
 ```html
 <template>
