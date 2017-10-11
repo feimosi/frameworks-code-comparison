@@ -915,9 +915,27 @@ class Registration extends React.Component {
 }
 ```
 
-### Vue.js 
+### Vue.js
 
-> TODO
+Vue.js has three directives to perform conditional rendering: `v-if`, `v-else-if` and `v-else`.
+
+```html
+<template>
+  <section v-if="registrationCompleted && !displaySpecialOffer">
+    <registration-completed />
+  </section>
+  <section v-else-if="registrationCompleted && displaySpecialOffer">
+    <special-offer />
+    <registration-completed />
+  </section>
+  <section v-else>
+    <registration-form />
+  </section>
+</template>
+```
+
+:arrow_right: https://vuejs.org/v2/guide/conditional.html
+
 
 # Lists
 
