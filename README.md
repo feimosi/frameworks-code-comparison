@@ -882,7 +882,53 @@ constructor(props) {
 
 ### Angular
 
-> TODO
+Since Angular 4.0.0, alongside standard `ngIf`, it is possible to use `ngIf;else` or `ngIf;then;else` using `<ng-template>` with an alias `#aliasName`.
+
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'registration',
+  template: `
+    <!-- ------------------- -->
+    <!-- use ngIf like this: -->
+    <!-- ------------------- -->
+    <div *ngIf="displaySpecialOffer">
+      <special-offer></special-offer>
+    </div>
+
+
+    <!-- ------------------------ -->
+    <!-- use ngIf;else like this: -->
+    <!-- ------------------------ -->
+    <div *ngIf="registrationCompleted;else registrationForm">
+      <registration-completed></registration-completed>
+    </div>
+
+    <ng-template #registrationForm>
+      <registration-form></registration-form>
+    </ng-template>
+
+
+    <!-- ------------------------------ -->
+    <!-- use ngIf;then;else like this:  -->
+    <!-- ------------------------------ -->
+    <div *ngIf="registrationCompleted;then registrationSucceeded;else registrationForm"></div>
+
+    <ng-template #registrationSucceeded>
+      <registration-completed></registration-completed>
+    </ng-template>
+
+    <ng-template #registrationForm>
+      <registration-form></registration-form>
+    </ng-template>
+  `,
+})
+export class registrationComponent {
+  registrationCompleted: boolean = false;
+}
+```
 
 ### React
 
