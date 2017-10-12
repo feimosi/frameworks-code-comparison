@@ -797,90 +797,106 @@ For communication between two components that don't have a parent-child relation
 
 ### Angular
 
-Angular offers two ways to build form: [reactive form](https://angular.io/guide/reactive-forms) and template-driven form. The former demoed below, allows us to listen to form or control changes.
+Angular offers two ways to build forms: 
+
+* [Reactive forms](https://angular.io/guide/reactive-forms)
+* [Template-driven forms](https://angular.io/guide/forms#template-driven-forms). 
+
+The former use a reactive (or model-driven) approach to build forms. The latter allow to build forms by writing templates in the Angular template syntax with the form-specific directives and techniques.
+
+#### Reactive forms example
 
 ```ts
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+
 @Component({
   selector: 'reactive-form',
   template: `
     <div>
-    <form [formGroup]="form" (ngSubmit)="onSubmit(form.value, form.valid)" novalidate>
-      <div>
-        <label>Name:</label>
-        <input type="text" formControlName="name">
-      </div>
-      <div>
-        <label>Email:</label>
-        <input type="text" formControlName="email">
-      </div>
-    </form>
-    <div>Form details: <pre>form value: <br>{{form.value | json}}</pre></div>
+        <form [formGroup]="form" 
+              (ngSubmit)="onSubmit(form.value, form.valid)" 
+              novalidate>
+        <div>
+            <label>
+                Name:
+                <input type="text" formControlName="name">
+            </label>
+        </div>
+        <div>
+            <label>
+                Email:
+                <input type="email" formControlName="email">
+            </label>
+        </div>
+        </form>
+    </div>
   `
 })
 
 export class ReactiveFormComponent implements OnInit {
   public form: FormGroup;
+
   constructor(private formBuilder: FormBuilder) { }
+
   ngOnInit() {
     this.form = this.formBuilder.group({name: [''], email: ['']});
   }
 }
 ```
 
+The `novalidate` attribute in the `<form>` element prevents the browser from attempting native HTML validations
+
 ### React
 
-Two techniques exists in React to handle form data i.e Controlled and Uncontrolled. A controlled component keeps internal mutable state and update it based on user input via `setState()`. While in uncontrolled component, form data is handled by DOM itself via `ref`. In most cases, it is recommended to use controlled components to implement forms. 
+Two techniques exists in React to handle form data i.e [Controlled Components](https://reactjs.org/docs/forms.html#controlled-components) and [Uncontrolled Components](https://reactjs.org/docs/uncontrolled-components.html). A controlled component keeps the input's value in the state and updates it via `setState()`. While in an uncontrolled component, form data is handled by DOM itself and referenced via `ref`. In most cases, it is recommended to use controlled components. 
 
 ```js
 import React from 'react';
 
 export default class ReactForm extends React.Component{
-  constructor(props) {
-    super(props)
-    this.state = {
-      email: '',
-      password:'',
-    }
+  this.state = {
+    email: '',
+    password:'',
   }
 
-  handleChange = event => {
-    switch(event.target.name){
-      case "EmailField" :
-        this.setState({ email: event.target.value })
-        break
-      case "PasswordField" :
-        this.setState({ password: event.target.value })
-        break
+  handleChange = ({ name, value}) => {
+    if (name === 'email') {
+      this.setState({ email: value })
+    } else if (name === 'password') {
+      this.setState({ password: value })
     }
   }
 
   render() {
     return (
       <form>
-        <p>Email</p>
-        <input
-          name="EmailField"
-          type="email"
-          value={this.state.email}
-          placeholder="Enter email address"
-          onChange={this.handleChange}
-        />
-        <p>Password</p>
-        <input
-          name="PasswordField"
-          type="password"
-          value={this.state.password}
-          placeholder="Enter password"
-          onChange={this.handleChange}
-        />
+        <label>
+          Email:
+          <input
+            name="email"
+            type="email"
+            value= {this.state.email }
+            onChange={ this.handleChange }
+          />
+        </label>
+        <label>
+          Password:
+          <input
+            name="password"
+            type="password"
+            value={ this.state.password }
+            onChange={ this.handleChange }
+          />
+        </label>
       </form>
     )
   }
 }
 ```
-:arrow_right: https://reactjs.org/docs/forms.html#controlled-components
+
+:arrow_right: https://reactjs.org/docs/forms.html
+
 
 ## Validation
 
