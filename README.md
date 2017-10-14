@@ -985,7 +985,33 @@ constructor(props) {
 
 ### AngularJS
 
-> TODO
+Angularjs 1.x has three ways to perform conditional rendering: `ng-if`, `ng-switch` and `ng-hide/ng-show`. 
+ 
+```js
+export class RegistrationComponentCtrl {
+    this.registrationCompleted = false;
+    this.displaySpecialOffer = false;
+    this.displayStatus = 'Registered';
+}
+```
+```html
+    <div ng-if="displaySpecialOffer">
+      <special-offer></special-offer>
+    </div>
+
+    <div ng-switch="displayStatus">
+      <div ng-switch-when="Registered">
+         <registration-completed></registration-completed>
+      </div>
+    </div>
+
+    <div ng-show="displaySpecialOffer">
+        <special-offer></special-offer>
+    </div>  
+    <div ng-hide="displaySpecialOffer">
+        <special-offer></special-offer>
+    </div>  
+```
 
 ### Angular
 
