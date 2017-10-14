@@ -795,6 +795,44 @@ For communication between two components that don't have a parent-child relation
 
 # Forms
 
+### AngularJS
+
+```js
+class SignInController {
+    constructor(Auth) {
+        'ngInject';
+
+        this.Auth = Auth;
+    }
+
+    $onInit() {
+        this.email = '';
+        this.password = '';
+    }
+
+    submit() {
+        Auth.signIn(this.email, this.password);
+    }
+}
+
+```
+
+```html
+<form name="$ctrl.form">
+    <label>
+        Email:
+        <input type="text" ng-model="$ctrl.email" />
+    </label>
+
+    <label>
+        E-mail:
+        <input type="email" ng-model="$ctrl.password" />
+    </label>
+
+    <input type="submit" ng-click="$ctrl.submit()" value="Save" />
+</form>
+```
+
 ### Angular
 
 Angular offers two ways to build forms: 
