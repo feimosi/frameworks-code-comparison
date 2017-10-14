@@ -980,6 +980,20 @@ export default class ReactForm extends React.Component{
 
 # Lifecycle methods
 
+### AngularJS
+
+`$onInit()` - called when the component has been constructed and had its bindings initialized.
+
+`$postLink()` - called after the component and its children have been linked (mounted).
+
+`$onChanges(changes)` - called whenever one-way bindings are updated.
+
+`$doCheck()` - called on each turn of the digest cycle.
+
+`$onDestroy()` - called when the component (a controller with its containing scope) is being destroyed.
+
+:arrow_right: https://docs.angularjs.org/api/ng/service/$compile
+
 ### React
 
 #### Mounting
