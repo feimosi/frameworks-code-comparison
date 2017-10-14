@@ -882,6 +882,38 @@ export class ReactiveFormComponent implements OnInit {
   }
 }
 ```
+#### Template-driven forms example
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'template-driven-form',
+  template: `
+    <div>
+        <form (ngSubmit)="onSubmit()" #templateDrivenForm="ngForm" novalidate>
+        <div>
+            <label>
+                Name:
+                <input type="text" [(ngModel)]="model.name" required>
+            </label>
+        </div>
+        <div>
+            <label>
+                Email:
+                <input type="email" [(ngModel)]="model.email" required>
+            </label>
+        </div>
+        <button type="submit" [disabled]="!templateDrivenForm.form.valid">Submit</button>
+        </form>
+    </div>
+  `
+})
+
+export class TemplateDrivenFormComponent {
+  public model = { name: '', email: '' };
+}
+```
 
 The `novalidate` attribute in the `<form>` element prevents the browser from attempting native HTML validations
 
