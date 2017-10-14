@@ -952,7 +952,7 @@ export default class ReactForm extends React.Component{
 
 #### Mounting
 
-`constructor(props)` - the first method called in the lifecycle before mounting. If used, it must include super(props) as the first call:
+[`constructor(props)`](https://reactjs.org/docs/react-component.html#constructor) - the first method called in the lifecycle before mounting. If used, it must include super(props) as first call:
 
 ```jsx
 constructor(props) {
@@ -963,23 +963,27 @@ constructor(props) {
 }
 ```
 
-`componentWillMount()` - is invoked just before render. Modifying the state here won't trigger a re-render.
+[`componentWillMount()`](https://reactjs.org/docs/react-component.html#componentwillmount) - is invoked just before render. Modifying the state here won't trigger a re-render.
 
-`componentDidMount()` - is invoked after render. Useful for initialisations that require DOM nodes.
+[`componentDidMount()`](https://reactjs.org/docs/react-component.html#componentdidmount) - is invoked after render. Useful for initialisations that require DOM nodes.
 
 #### Updating
 
-`componentWillReceiveProps(nextProps)` - is only called after rendering, but before receiving new props. Because React may call this method although props stay the same. It is recommended to manually implement a check to see if there's a difference.
+[`componentWillReceiveProps(nextProps)`](https://reactjs.org/docs/react-component.html#componentwillreceiveprops) - is only called after rendering, but before receiving new props. Because React may call this method although props stay the same. It is recommended to manually implement a check to see if there's a difference.
 
-`shouldComponentUpdate(nextProps, nextState)` - the method is called before receiving new props or state. By default, it returns true which means render is triggered by any change. Modifying this method allows you to only re-render in intended scenarios.
+[`shouldComponentUpdate(nextProps, nextState)`](https://reactjs.org/docs/react-component.html#shouldcomponentupdate) - the method is called before receiving new props or state. By default, it returns true which means render is triggered by any change. Modifying this method allows you to only re-render in intended scenarios.
 
-`componentWillUpdate(nextProps, nextState)` - is invoked if shouldComponentUpdate returns true before render. Note: You can't use this.setState() here.
+[`componentWillUpdate(nextProps, nextState)`](https://reactjs.org/docs/react-component.html#componentwillupdate) - is invoked if shouldComponentUpdate returns true before render. Note: You can't use this.setState() here.
 
-`componentDidUpdate(prevProps, prevState)` - is invoked after render, but not after the initial one. This method is useful for manipulating the DOM when updated.
+[`componentDidUpdate(prevProps, prevState)`](https://reactjs.org/docs/react-component.html#componentdidupdate) - is invoked after render, but not after the initial one. This method is useful for manipulating the DOM when updated.
 
 #### Unmounting
 
-`componentWillUnmount()` - is invoked immediately before a component is unmounted and destroyed. Useful for resource cleanup.
+[`componentWillUnmount()`](https://reactjs.org/docs/react-component.html#componentwillunmount) - is invoked immediately before a component is unmounted and destroyed. Useful for resource cleanup.
+
+#### Error Handling
+
+[`componentDidCatch(error,info)`](https://reactjs.org/blog/2017/07/26/error-handling-in-react-16.html) - is invoked when Javascript throws an error anywhere in the component's tree. Useful for catching errors, showing a fallback interface, and logging errors without breaking the entire application.
 
 ### Vue.js
 
