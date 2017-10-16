@@ -26,21 +26,23 @@ All examples follow the current best practices and conventions inside the given 
 
   * [Table of contents](#table-of-contents)
   * [Simple component](#simple-component)
-  * [Default inputs](#default-inputs)
   * [Dependency injection](#dependency-injection)
   * [Templates](#templates)
   * [Interpolation](#interpolation)
-  * [Filters](#filters)
   * [Inputs and Outputs](#inputs-and-outputs)
-  * [Forms](#forms)
+  * [Default inputs](#default-inputs)
   * [Handling Events](#handling-events)
   * [Lifecycle methods](#lifecycle-methods)
   * [Conditional rendering](#conditional-rendering)
   * [Lists](#lists)
+  * [Filters](#filters)
   * [Child nodes](#child-nodes)
   * [Transclusion and Containment](#transclusion-and-containment)
-  * [Styling](#styling)
   * [Inject HTML template](#inject-html-template)
+  * [Class toggling](#class-toggling)
+  * [Data binding](#data-binding)
+  * [Forms](#forms)
+  * [Styling](#styling)
 
 # Simple component
 
@@ -191,91 +193,6 @@ Vue.component('change-password', {
 });
 ```
 
-# Default inputs
-
-### AngularJS
-
-There's no built-in mechanism for default inputs, so we assign them programatically in the `$onChanges` hook.
-
-```js
-class CoursesListController {
-    $onChanges(bindings) {
-        if (typeof bindings.displayPurchased.currentValue === 'undefined') {
-            this.displayPurchased = true;
-        }
-        if (typeof bindings.displayAvailable.currentValue === 'undefined') {
-            this.displayAvailable = true;
-        }
-    }
-}
-
-const component = {
-    bindings: {
-        displayPurchased: '<',
-        displayAvailable: '<',
-    },
-    templateUrl: './coursesList.component.html',
-    controller: CoursesListController,
-};
-```
-
-### Angular
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-    selector: 'courses-list',
-    templateUrl: './coursesList.component.html',
-})
-export class CoursesListController {
-  displayPurchased: boolean = true;
-  displayAvailable: boolean = true;
-}
-```
-
-### React
-
-```jsx
-class CoursesListController {
-    static propTypes = {
-        displayPurchased: PropTypes.bool,
-        displayAvailable: PropTypes.bool,
-    };
-
-    static defaultProps = {
-        displayPurchased: true,
-        displayAvailable: true,
-    };
-
-    render() {
-        return <div>{ /* template */ }</div>;
-    }
-}
-```
-
-:arrow_right: https://reactjs.org/docs/typechecking-with-proptypes.html#default-prop-values
-
-### Vue.js
-
-```js
-import Vue from 'vue';
-
-Vue.component('courses-list', {
-    template: '<div>{{ /* template */ }}</div>',
-    props: {
-        displayPurchased: {
-            type: Boolean,
-            default: true
-        },
-        displayAvailable: {
-            type: Boolean,
-            default: true
-        }
-    }
-});
-```
-
 # Dependency injection
 
 ### AngularJS
@@ -350,6 +267,10 @@ class ChangePassword extends React.Component {
   }
 }
 ```
+
+### Vue.js
+
+> TODO
 
 # Templates
 
@@ -491,154 +412,9 @@ Or if you wish to use ES6 string interpolation
 
 There is no specific official documentation for interpolation in React, but you can read about embedding expressions [here](https://reactjs.org/docs/introducing-jsx.html#embedding-expressions-in-jsx).
 
-# Filters
-
-### AngularJS
-
-AngularJS provides filters to transform data. There are several [built-in filters](https://docs.angularjs.org/api/ng/filter) to use or you can make your own custom filters as well.
-
-Filters can be applied to view template using the following syntax:
-
-```html
-<h1>{{ price | currency }}</h1>
-```
-
-Chaining of filters is also possible:
-
-```html
-<h1>{{ name | uppercase | appendTitle  }}</h1>
-```
-
-Custom Filters:  
-
-```js
-angular.module('app', [])
-.filter('reverse', function() {
-    return (input = '', uppercase = false) => {
-        const out = input.split('').reverse().join('');
-
-        return uppercase ? out.toUpperCase() : out;
-    };
-});
-```
-
-:arrow_right: https://docs.angularjs.org/guide/filter
-
-### Angular
-
-In Angular filters are called [pipes](https://angular.io/guide/pipes). Built-in pipes available in Angular are: DatePipe, UpperCasePipe, LowerCasePipe, CurrencyPipe, and PercentPipe.
-
-Apart from built-in, you can create your own, custom pipes.
-
-Create custom pipe:
-This pipe transforms given URL to safe style URL, so it can be used in hyperlinks, <img src> or <iframe src>, etc..
-
-```ts
-import { Pipe, PipeTransform } from '@angular/core';
-import { DomSanitizer} from '@angular/platform-browser';
-
-@Pipe({ name: 'safe' })
-export class SafePipe implements PipeTransform {
-    constructor(public sanitizer: DomSanitizer) {}
-    transform(url) {
-        return this.sanitizer.bypassSecurityTrustResourceUrl(url);
-    }
-}
-```
-
-Use custom pipe in the template:
-Pipes given `someUrl` through `safe` pipe and transforms it over the `DomSanitizer` function `bypassSecurityTrustResourceUrl`. More on DomSanitizer [here](https://angular.io/api/platform-browser/DomSanitizer)
-
-```html
-  <iframe [src]="someUrl | safe"></iframe>
-```
-
-Note `[src]` above is an input to the component where aboves `iframe` 'lives'.
-
-:arrow_right: https://angular.io/guide/pipes
-
-### React
-
-React doesn't provide any specific filters mechanism. This can simply be achieved by using ordinary JavaScript functions.
-
-```jsx
-export function reverse(input = '', uppercase = false) {
-    const out = input.split('').reverse().join('');
-
-    return uppercase ? out.toUpperCase() : out;
-}
-```
-
-```jsx
-import { reverse } from 'utils'
-
-export class App extends Component {
-  render() {
-    return (
-        <div>
-            { reverse(this.props.input) }
-        </div>
-    );
-  }
-}
-```
-
-Filters chaining can be achieved using function composition.
-
-```jsx
-<div>
-    { truncate(reverse(this.props.input)) }
-</div>
-```
-
 ### Vue.js
 
-Vue.js provides filters to allow for simple text formatting. The filter utilizes the `|` character which is appended to the expression followed by the filter's name. Vue does not come with any pre-built filters.
-
-Filters are usable within mustache interpolations.
-
-```html
-<h1>{{ name | lowercase }}</h1>
-```
-
-Filters can also be used within the `v-bind` directive.
-
-```html
-<div v-bind:slug="slug | formatSlug"></div>
-```
-
-When creating filters, the function always receives the expression's value.
-
-```js
-new Vue({
-  el: '#app',
-  template: '<p> {{ message | lowercase }} </p>',
-  filters: {
-    lowercase(word) {
-      return word.toLowerCase();
-    }
-  },
-  data: {
-    message: 'Hello World'
-  },
-});
-```
-
-Filters can also be chained.
-
-```html
-<p>{{ description | lowercase | truncate }}</p>
-```
-
-Filters can be created locally like the above example and only be available within that component. Filters can also be declared globally.
-
-```js
-Vue.filter('lowercase', word => word.toLowerCase());
-```
-
-For global filters to work, they should be declared before the Vue instance.
-
-:arrow_right: https://vuejs.org/v2/guide/filters.html
+> TODO
 
 # Inputs and Outputs
 
@@ -793,186 +569,94 @@ Read more about React's [PropTypes](https://reactjs.org/docs/typechecking-with-p
 
 For communication between two components that don't have a parent-child relationship, you can set up your own global event system. Subscribe to events in componentDidMount(), unsubscribe in componentWillUnmount(), and call setState() when you receive an event. [Flux](https://facebook.github.io/flux/) pattern is one of the possible ways to arrange this.
 
-# Forms
+### Vue.js
+
+> TODO
+
+# Default inputs
 
 ### AngularJS
 
+There's no built-in mechanism for default inputs, so we assign them programatically in the `$onChanges` hook.
+
 ```js
-class SignInController {
-    constructor(Auth) {
-        'ngInject';
-
-        this.Auth = Auth;
-    }
-
-    $onInit() {
-        this.email = '';
-        this.password = '';
-    }
-
-    submit() {
-        Auth.signIn(this.email, this.password);
+class CoursesListController {
+    $onChanges(bindings) {
+        if (typeof bindings.displayPurchased.currentValue === 'undefined') {
+            this.displayPurchased = true;
+        }
+        if (typeof bindings.displayAvailable.currentValue === 'undefined') {
+            this.displayAvailable = true;
+        }
     }
 }
 
-```
-
-```html
-<form name="$ctrl.form">
-    <label>
-        Email:
-        <input type="text" ng-model="$ctrl.email" />
-    </label>
-
-    <label>
-        E-mail:
-        <input type="email" ng-model="$ctrl.password" />
-    </label>
-
-    <input type="submit" ng-click="$ctrl.submit()" value="Save" />
-</form>
+const component = {
+    bindings: {
+        displayPurchased: '<',
+        displayAvailable: '<',
+    },
+    templateUrl: './coursesList.component.html',
+    controller: CoursesListController,
+};
 ```
 
 ### Angular
-
-Angular offers two ways to build forms: 
-
-* [Reactive forms](https://angular.io/guide/reactive-forms)
-* [Template-driven forms](https://angular.io/guide/forms#template-driven-forms). 
-
-The former use a reactive (or model-driven) approach to build forms. The latter allow to build forms by writing templates in the Angular template syntax with the form-specific directives and techniques.
-
-#### Reactive forms example
-
-```ts
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
-
-@Component({
-  selector: 'reactive-form',
-  template: `
-    <div>
-        <form [formGroup]="form" 
-              (ngSubmit)="onSubmit(form.value, form.valid)" 
-              novalidate>
-        <div>
-            <label>
-                Name:
-                <input type="text" formControlName="name">
-            </label>
-        </div>
-        <div>
-            <label>
-                Email:
-                <input type="email" formControlName="email">
-            </label>
-        </div>
-        </form>
-    </div>
-  `
-})
-
-export class ReactiveFormComponent implements OnInit {
-  public form: FormGroup;
-
-  constructor(private formBuilder: FormBuilder) { }
-
-  ngOnInit() {
-    this.form = this.formBuilder.group({name: [''], email: ['']});
-  }
-}
-```
-#### Template-driven forms example
 
 ```ts
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'template-driven-form',
-  template: `
-    <div>
-        <form (ngSubmit)="onSubmit()" #templateDrivenForm="ngForm" novalidate>
-        <div>
-            <label>
-                Name:
-                <input type="text" [(ngModel)]="model.name" required>
-            </label>
-        </div>
-        <div>
-            <label>
-                Email:
-                <input type="email" [(ngModel)]="model.email" required>
-            </label>
-        </div>
-        <button type="submit" [disabled]="!templateDrivenForm.form.valid">Submit</button>
-        </form>
-    </div>
-  `
+    selector: 'courses-list',
+    templateUrl: './coursesList.component.html',
 })
-
-export class TemplateDrivenFormComponent {
-  public model = { name: '', email: '' };
+export class CoursesListController {
+  displayPurchased: boolean = true;
+  displayAvailable: boolean = true;
 }
 ```
-
-The `novalidate` attribute in the `<form>` element prevents the browser from attempting native HTML validations
 
 ### React
 
-Two techniques exists in React to handle form data i.e [Controlled Components](https://reactjs.org/docs/forms.html#controlled-components) and [Uncontrolled Components](https://reactjs.org/docs/uncontrolled-components.html). A controlled component keeps the input's value in the state and updates it via `setState()`. While in an uncontrolled component, form data is handled by DOM itself and referenced via `ref`. In most cases, it is recommended to use controlled components. 
+```jsx
+class CoursesListController {
+    static propTypes = {
+        displayPurchased: PropTypes.bool,
+        displayAvailable: PropTypes.bool,
+    };
 
-```js
-import React from 'react';
+    static defaultProps = {
+        displayPurchased: true,
+        displayAvailable: true,
+    };
 
-export default class ReactForm extends React.Component{
-  this.state = {
-    email: '',
-    password:'',
-  }
-
-  handleChange = ({ name, value}) => {
-    if (name === 'email') {
-      this.setState({ email: value })
-    } else if (name === 'password') {
-      this.setState({ password: value })
+    render() {
+        return <div>{ /* template */ }</div>;
     }
-  }
-
-  render() {
-    return (
-      <form>
-        <label>
-          Email:
-          <input
-            name="email"
-            type="email"
-            value= {this.state.email }
-            onChange={ this.handleChange }
-          />
-        </label>
-        <label>
-          Password:
-          <input
-            name="password"
-            type="password"
-            value={ this.state.password }
-            onChange={ this.handleChange }
-          />
-        </label>
-      </form>
-    )
-  }
 }
 ```
 
-:arrow_right: https://reactjs.org/docs/forms.html
+:arrow_right: https://reactjs.org/docs/typechecking-with-proptypes.html#default-prop-values
 
+### Vue.js
 
-## Validation
+```js
+import Vue from 'vue';
 
-## Data-binding
-
-## Submitting
+Vue.component('courses-list', {
+    template: '<div>{{ /* template */ }}</div>',
+    props: {
+        displayPurchased: {
+            type: Boolean,
+            default: true
+        },
+        displayAvailable: {
+            type: Boolean,
+            default: true
+        }
+    }
+});
+```
 
 # Handling Events
 
@@ -1445,6 +1129,155 @@ export default {
 };
 ```
 
+# Filters
+
+### AngularJS
+
+AngularJS provides filters to transform data. There are several [built-in filters](https://docs.angularjs.org/api/ng/filter) to use or you can make your own custom filters as well.
+
+Filters can be applied to view template using the following syntax:
+
+```html
+<h1>{{ price | currency }}</h1>
+```
+
+Chaining of filters is also possible:
+
+```html
+<h1>{{ name | uppercase | appendTitle  }}</h1>
+```
+
+Custom Filters:  
+
+```js
+angular.module('app', [])
+.filter('reverse', function() {
+    return (input = '', uppercase = false) => {
+        const out = input.split('').reverse().join('');
+
+        return uppercase ? out.toUpperCase() : out;
+    };
+});
+```
+
+:arrow_right: https://docs.angularjs.org/guide/filter
+
+### Angular
+
+In Angular filters are called [pipes](https://angular.io/guide/pipes). Built-in pipes available in Angular are: DatePipe, UpperCasePipe, LowerCasePipe, CurrencyPipe, and PercentPipe.
+
+Apart from built-in, you can create your own, custom pipes.
+
+Create custom pipe:
+This pipe transforms given URL to safe style URL, so it can be used in hyperlinks, <img src> or <iframe src>, etc..
+
+```ts
+import { Pipe, PipeTransform } from '@angular/core';
+import { DomSanitizer} from '@angular/platform-browser';
+
+@Pipe({ name: 'safe' })
+export class SafePipe implements PipeTransform {
+    constructor(public sanitizer: DomSanitizer) {}
+    transform(url) {
+        return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    }
+}
+```
+
+Use custom pipe in the template:
+Pipes given `someUrl` through `safe` pipe and transforms it over the `DomSanitizer` function `bypassSecurityTrustResourceUrl`. More on DomSanitizer [here](https://angular.io/api/platform-browser/DomSanitizer)
+
+```html
+  <iframe [src]="someUrl | safe"></iframe>
+```
+
+Note `[src]` above is an input to the component where aboves `iframe` 'lives'.
+
+:arrow_right: https://angular.io/guide/pipes
+
+### React
+
+React doesn't provide any specific filters mechanism. This can simply be achieved by using ordinary JavaScript functions.
+
+```jsx
+export function reverse(input = '', uppercase = false) {
+    const out = input.split('').reverse().join('');
+
+    return uppercase ? out.toUpperCase() : out;
+}
+```
+
+```jsx
+import { reverse } from 'utils'
+
+export class App extends Component {
+  render() {
+    return (
+        <div>
+            { reverse(this.props.input) }
+        </div>
+    );
+  }
+}
+```
+
+Filters chaining can be achieved using function composition.
+
+```jsx
+<div>
+    { truncate(reverse(this.props.input)) }
+</div>
+```
+
+### Vue.js
+
+Vue.js provides filters to allow for simple text formatting. The filter utilizes the `|` character which is appended to the expression followed by the filter's name. Vue does not come with any pre-built filters.
+
+Filters are usable within mustache interpolations.
+
+```html
+<h1>{{ name | lowercase }}</h1>
+```
+
+Filters can also be used within the `v-bind` directive.
+
+```html
+<div v-bind:slug="slug | formatSlug"></div>
+```
+
+When creating filters, the function always receives the expression's value.
+
+```js
+new Vue({
+  el: '#app',
+  template: '<p> {{ message | lowercase }} </p>',
+  filters: {
+    lowercase(word) {
+      return word.toLowerCase();
+    }
+  },
+  data: {
+    message: 'Hello World'
+  },
+});
+```
+
+Filters can also be chained.
+
+```html
+<p>{{ description | lowercase | truncate }}</p>
+```
+
+Filters can be created locally like the above example and only be available within that component. Filters can also be declared globally.
+
+```js
+Vue.filter('lowercase', word => word.toLowerCase());
+```
+
+For global filters to work, they should be declared before the Vue instance.
+
+:arrow_right: https://vuejs.org/v2/guide/filters.html
+
 # Child nodes
 
 ### AngularJS
@@ -1621,6 +1454,10 @@ const App = () => (
 );
 ```
 
+### Vue.js
+
+> TODO
+
 # Transclusion and Containment
 
 ## Basic
@@ -1708,6 +1545,10 @@ const PageFooter = () => (
 </Layout>
 ```
 
+### Vue.js
+
+> TODO
+
 ## Multiple slots
 
 ### AngularJS
@@ -1777,6 +1618,196 @@ const Content = () => (
 }}
 </Layout>
 ```
+
+### Vue.js
+
+> TODO
+
+# Class toggling
+
+> TODO
+
+# Data binding
+
+> TODO
+
+# Forms
+
+### AngularJS
+
+```js
+class SignInController {
+    constructor(Auth) {
+        'ngInject';
+
+        this.Auth = Auth;
+    }
+
+    $onInit() {
+        this.email = '';
+        this.password = '';
+    }
+
+    submit() {
+        Auth.signIn(this.email, this.password);
+    }
+}
+
+```
+
+```html
+<form name="$ctrl.form">
+    <label>
+        Email:
+        <input type="text" ng-model="$ctrl.email" />
+    </label>
+
+    <label>
+        E-mail:
+        <input type="email" ng-model="$ctrl.password" />
+    </label>
+
+    <input type="submit" ng-click="$ctrl.submit()" value="Save" />
+</form>
+```
+
+### Angular
+
+Angular offers two ways to build forms: 
+
+* [Reactive forms](https://angular.io/guide/reactive-forms)
+* [Template-driven forms](https://angular.io/guide/forms#template-driven-forms). 
+
+The former use a reactive (or model-driven) approach to build forms. The latter allow to build forms by writing templates in the Angular template syntax with the form-specific directives and techniques.
+
+#### Reactive forms example
+
+```ts
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
+
+@Component({
+  selector: 'reactive-form',
+  template: `
+    <div>
+        <form [formGroup]="form" 
+              (ngSubmit)="onSubmit(form.value, form.valid)" 
+              novalidate>
+        <div>
+            <label>
+                Name:
+                <input type="text" formControlName="name">
+            </label>
+        </div>
+        <div>
+            <label>
+                Email:
+                <input type="email" formControlName="email">
+            </label>
+        </div>
+        </form>
+    </div>
+  `
+})
+
+export class ReactiveFormComponent implements OnInit {
+  public form: FormGroup;
+
+  constructor(private formBuilder: FormBuilder) { }
+
+  ngOnInit() {
+    this.form = this.formBuilder.group({name: [''], email: ['']});
+  }
+}
+```
+#### Template-driven forms example
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'template-driven-form',
+  template: `
+    <div>
+        <form (ngSubmit)="onSubmit()" #templateDrivenForm="ngForm" novalidate>
+        <div>
+            <label>
+                Name:
+                <input type="text" [(ngModel)]="model.name" required>
+            </label>
+        </div>
+        <div>
+            <label>
+                Email:
+                <input type="email" [(ngModel)]="model.email" required>
+            </label>
+        </div>
+        <button type="submit" [disabled]="!templateDrivenForm.form.valid">Submit</button>
+        </form>
+    </div>
+  `
+})
+
+export class TemplateDrivenFormComponent {
+  public model = { name: '', email: '' };
+}
+```
+
+The `novalidate` attribute in the `<form>` element prevents the browser from attempting native HTML validations
+
+### React
+
+Two techniques exists in React to handle form data i.e [Controlled Components](https://reactjs.org/docs/forms.html#controlled-components) and [Uncontrolled Components](https://reactjs.org/docs/uncontrolled-components.html). A controlled component keeps the input's value in the state and updates it via `setState()`. While in an uncontrolled component, form data is handled by DOM itself and referenced via `ref`. In most cases, it is recommended to use controlled components. 
+
+```js
+import React from 'react';
+
+export default class ReactForm extends React.Component{
+  this.state = {
+    email: '',
+    password:'',
+  }
+
+  handleChange = ({ name, value}) => {
+    if (name === 'email') {
+      this.setState({ email: value })
+    } else if (name === 'password') {
+      this.setState({ password: value })
+    }
+  }
+
+  render() {
+    return (
+      <form>
+        <label>
+          Email:
+          <input
+            name="email"
+            type="email"
+            value= {this.state.email }
+            onChange={ this.handleChange }
+          />
+        </label>
+        <label>
+          Password:
+          <input
+            name="password"
+            type="password"
+            value={ this.state.password }
+            onChange={ this.handleChange }
+          />
+        </label>
+      </form>
+    )
+  }
+}
+```
+
+:arrow_right: https://reactjs.org/docs/forms.html
+
+### Vue.js
+
+> TODO
 
 # Styling
 
