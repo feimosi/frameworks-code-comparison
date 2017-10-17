@@ -270,7 +270,52 @@ class ChangePassword extends React.Component {
 
 ### Vue.js
 
-> TODO
+Vue.js uses ES2015 modules for dependency management:
+
+```js
+import Notification from 'utils/notification'
+import Vue from 'vue';
+
+Vue.component('change-password', {
+    template: `<button v-on:click="handleEvent">Hello world!</button>`,
+    methods: {
+        handleEvent() {
+            Notification.info('Event handled successfully');
+        }
+    }
+});
+```
+There's also provide and inject mechanism which is primarily provided for advanced plugin / component library use cases:
+
+:arrow_right: https://vuejs.org/v2/api/#provide-inject
+
+Root Vue instance
+```js
+import Notification from 'utils/notification'
+import Vue from 'vue';
+
+new Vue({
+    el: '#app',
+    provide: {
+        notification: Notification
+    }
+});
+```
+
+Child component
+```js
+import Vue from 'vue';
+
+Vue.component('change-password', {
+    inject: ['notification']
+    template: `<button v-on:click="handleEvent">Hello world!</button>`,
+    methods: {
+        handleEvent() {
+            this.notification.info('Event handled successfully');
+        }
+    }
+});
+```
 
 # Templates
 
