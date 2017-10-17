@@ -1,4 +1,4 @@
-<h1 align="center">Frameworks code comparison</h1>
+<h1 align="center">Frontend frameworks code comparison</h1>
 
 <div align="center">
 
@@ -8,9 +8,9 @@
 
 </div>
 
-Comparison of different approaches in writing web applications. Based on React, Angular, AngularJS and Vue.js. Useful when migrating between frameworks or switching projects often.
+Comparison of different approaches in writing web applications. Based on React, Angular, AngularJS and Vue.js. It is especially useful when migrating between frameworks or switching projects often.
 
-All examples follow the current best practices and conventions inside the given framework community. Angular code is written in TypeScript.
+All examples follow the current best practices and conventions that are used inside the community of a given framework. Angular code is written in TypeScript.
 
 ### :warning: **Work in progress** :warning:
 
@@ -122,7 +122,7 @@ export class ChangePasswordComponent {
 }
 ```
 
-Every component has to be declared inside a module, in order to be used within this module's other components.
+Every component has to be declared inside a module in order to be used within this module's other components.
 
 ```ts
 import { NgModule } from '@angular/core';
@@ -197,9 +197,9 @@ Vue.component('change-password', {
 
 ### AngularJS
 
-Constructor is used to inject dependencies, what is done implicitly by the [$inject](https://docs.angularjs.org/api/auto/service/$injector) service.
+The constructor is used to inject dependencies, which is done implicitly by the [$inject](https://docs.angularjs.org/api/auto/service/$injector) service.
 
-`'ngInject'` annotation has been used which allows automatic method annotation by the ng-annotate plugin (e.g. [ng-annotate-loader](https://www.npmjs.com/package/ng-annotate-loader) for Webpack). That's essentially needed to counter minification problems.
+The `'ngInject'` annotation has been used, which allows automatic method annotation by the ng-annotate plugin (e.g. [ng-annotate-loader](https://www.npmjs.com/package/ng-annotate-loader) for Webpack). This is essential to counter minification problems.
 
 ```js
 class ChangePasswordController {
@@ -246,7 +246,7 @@ export class ChangePasswordComponent {
 
 ### React
 
-There's no special injection mechanism. For dependency management, ES2015 modules are used.
+There's no special injection mechanism. ES2015 modules are used for dependency management.
 
 ```jsx
 import Logger from 'utils/logger'
@@ -321,7 +321,7 @@ Vue.component('change-password', {
 
 ### AngularJS
 
-Values on component inputs must be one of the following.
+Values of component inputs must be one of the following:
 - string binding (defined as `@`)
 - expression binding (defined as `<`)
 - reference binding (defined as `&`)
@@ -337,9 +337,9 @@ Values on component inputs must be one of the following.
 ### Angular
 
 There are three kinds of possible attributes being passed:
-- text binding, e.g. size="string"
-- property binding, e.g. [disabled]="value"
-- event binding, e.g. (click)="eventHandler()"
+- text binding, e.g. `size="string"`
+- property binding, e.g. `[disabled]="value"`
+- event binding, e.g. `(click)="eventHandler()"`
 
 ```html
 <primary-button size="big"
@@ -351,7 +351,7 @@ There are three kinds of possible attributes being passed:
 
 ### React
 
-Templates in React are written inside the JavaScript file using the [JSX language](https://reactjs.org/docs/jsx-in-depth.html). This allows us to utilize the full JavaScript capabilities. JSX uses the uppercase vs. lowercase convention to distinguish between the user-defined components and DOM tags.
+Templates in React are written inside the JavaScript file using the [JSX language](https://reactjs.org/docs/jsx-in-depth.html). This allows us to utilize all JavaScript capabilities. JSX uses the uppercase vs. lowercase convention to distinguish between the user-defined components and DOM tags.
 
 ```jsx
 <PrimaryButton
@@ -386,48 +386,48 @@ Events can be listened to using `v-on` combined with the event name, and a metho
 
 ### AngularJS
 
-Interpolation is the process of data-binding values on the AngularJS `scope` to values in the HTML. You can read more on the [official documentation](https://docs.angularjs.org/guide/interpolation):
+Interpolation is the process of data-binding values in the AngularJS `scope` to values in the HTML. You can read more on the [official documentation](https://docs.angularjs.org/guide/interpolation):
 
-Let's say we have a value `heroImageUrl` on our scope that is defined as `superman.jpg`. (We use `ng-src` here instead of the regular `src` attribute so that Angular can set it up. If you just you source, the browser will try to load the image before Angular has a chance to interpolate.)
+Let's say we have a value `heroImageUrl` in our scope that is defined as `superman.jpg`. (We use `ng-src` here instead of the regular `src` attribute so that AngularJS can set it up. If you just use `src`, the browser will try to load the image before AngularJS has a chance to interpolate.)
 
-The following HTML
+The following HTML:
 
 ```html
 <p><img ng-src="images/{{heroImageUrl}}"> is the <i>interpolated</i> image.</p>
 ```
 
-will render to
+will render to:
 
 ```html
 <p><img ng-src="images/superman.jpg"> is the <i>interpolated</i> image.</p>
 ```
 
-You can interpolate more complicated values within the curly braces. For example, `{{ getVal() }}` will interpolate to the return value of the function `getVal`.
+You can interpolate more complicated values within the curly braces. For example, `{{getVal()}}` will interpolate to the return value of the function `getVal`.
 
-Another way to "bind" data is to use `ng-bind`.
+Another way to "bind" data is to use `ng-bind`:
 
 ```html
 <label>Enter name: <input type="text" ng-model="name"></label><br>
 Hello <span ng-bind="name"></span>!
 ```
-In this example, whatever is typed into the input will be placed on the `name` variable on the scope. The `ng-bind` will cause the content of the span to be updated to be the value of `name`. whenever the input changed. See the full example [here](https://docs.angularjs.org/api/ng/directive/ngBind).
+In this example, whatever is typed into the input will be placed under the `name` variable in the scope. The `ng-bind` will cause the content of the span to be updated to be the value of `name` whenever the input changes. See the full example [here](https://docs.angularjs.org/api/ng/directive/ngBind).
 
 ### Angular
 
 Angular is similar to AngularJS. You can read more on the [official documentation](https://angular.io/guide/template-syntax#interpolation----).
 
-`{{color}}` Will still interpolate to `red`.
+`{{color}}` will still interpolate to `red`.
 
-However, Angular has the topic of choosing Property Binding or Interpolation (read more here [official documentation](https://angular.io/guide/template-syntax#property-binding-or-interpolation)).  
+However, in a lot of cases Angular offers the choice of Property Binding or Interpolation (read more here [official documentation](https://angular.io/guide/template-syntax#property-binding-or-interpolation)).  
 
-Say you have a `heroImageUrl` that you wish to set.
+Lets say you have a `heroImageUrl` that you wish to set:
 
 ```html
 <p><img src="images/{{heroImageUrl}}"> is the <i>interpolated</i> image.</p>
 <p><img [src]="'images/' + heroImageUrl"> is the <i>property bound</i> image.</p>
 ```
 
-Both of these methods will work the same. Angular suggest to pick whichever your team picks as its coding style.
+Both of these methods will work the same. The official Angular documentation suggests to pick whichever your team picks as its coding style.
 
 The property bound style is analogous to the `ng-bind` strategy used above.
 
@@ -445,17 +445,17 @@ The following will not work:
 <p><img src="images/{this.props.heroImageUrl}" /></p>
 ```
 
-But this will
+But this will:
 ```jsx
-<p><img src={"images/" + this.props.heroImageUrl"} /></p>
+<p><img src={"images/" + this.props.heroImageUrl} /></p>
 ```
 
-Or if you wish to use ES6 string interpolation
+Or if you wish to use ES6 string interpolation:
 ```jsx
 <p><img src={`images/${this.props.heroImageUrl}`} /></p>
 ```
 
-There is no specific official documentation for interpolation in React, but you can read about embedding expressions [here](https://reactjs.org/docs/introducing-jsx.html#embedding-expressions-in-jsx).
+React has no specific official documentation for interpolation, but you can read about embedding expressions [here](https://reactjs.org/docs/introducing-jsx.html#embedding-expressions-in-jsx).
 
 ### Vue.js
 
@@ -466,7 +466,7 @@ There is no specific official documentation for interpolation in React, but you 
 ### AngularJS
 
 AngularJs has introduced a new syntax for inputs/outputs which was back ported from Angular. The main purpose of this new syntax is to enforce the One-way dataflow pattern. Read more
-on the [official documentation](https://docs.angularjs.org/guide/component#component-based-application-architecture):
+in the [official documentation](https://docs.angularjs.org/guide/component#component-based-application-architecture):
 
 ```js
 class UserPreviewComponent { }
@@ -489,7 +489,7 @@ const component = {
 export default module.component('user-preview', component);
 ```
 
-In a parent component, ie `SettingsComponent`:
+In a parent component, i.e. `SettingsComponent`:
 
 ```js
 class SettingsComponent {
@@ -515,7 +515,7 @@ export default module.component('app-settings', component);
 
 ### Angular
 
-Angular introduced a new pattern for Component interactions, this pattern follows the [Flux](https://facebook.github.io/flux/) architecture. Read more on [the official documentation](https://angular.io/guide/component-interaction).
+Angular introduced a new pattern for Component interactions, this pattern follows the [Flux](https://facebook.github.io/flux/) architecture. Read more in the [official documentation](https://angular.io/guide/component-interaction).
 
 ```ts
 @Component({
@@ -539,7 +539,7 @@ export class UserPreviewComponent {
 
 ```
 
-In a parent component, ie `SettingsComponent`:
+In a parent component, i.e. `SettingsComponent`:
 
 ```ts
 @Component({
@@ -585,7 +585,7 @@ UserPreviewComponent.propTypes = {
 };
 ```
 
-In a parent component, ie `SettingsComponent`:
+In a parent component, i.e. `SettingsComponent`:
 
 ```jsx
 import React from 'react';
@@ -612,7 +612,7 @@ class SettingsComponent extends React.Component {
 
 Read more about React's [PropTypes](https://reactjs.org/docs/typechecking-with-proptypes.html).
 
-For communication between two components that don't have a parent-child relationship, you can set up your own global event system. Subscribe to events in componentDidMount(), unsubscribe in componentWillUnmount(), and call setState() when you receive an event. [Flux](https://facebook.github.io/flux/) pattern is one of the possible ways to arrange this.
+For communication between two components that don't have a parent-child relationship, you can set up your own global event system. Subscribe to events in `componentDidMount()`, unsubscribe in `componentWillUnmount()`, and call `setState()` when you receive an event. The [Flux](https://facebook.github.io/flux/) pattern is one of the possible ways to arrange this.
 
 ### Vue.js
 
@@ -622,7 +622,7 @@ For communication between two components that don't have a parent-child relation
 
 ### AngularJS
 
-There's no built-in mechanism for default inputs, so we assign them programatically in the `$onChanges` hook.
+There's no built-in mechanism for default inputs, because of this we assign them programatically in the `$onChanges` hook.
 
 ```js
 class CoursesListController {
@@ -711,7 +711,7 @@ Vue.component('courses-list', {
 
 ### AngularJS
 
-`$onInit()` - called when the component has been constructed and had its bindings initialized.
+`$onInit()` - called when the component has been constructed and has its bindings initialized.
 
 `$postLink()` - called after the component and its children have been linked (mounted).
 
@@ -727,7 +727,7 @@ Vue.component('courses-list', {
 
 #### Mounting
 
-[`constructor(props)`](https://reactjs.org/docs/react-component.html#constructor) - the first method called in the lifecycle before mounting. If used, it must include super(props) as first call:
+[`constructor(props)`](https://reactjs.org/docs/react-component.html#constructor) - the first method called in the lifecycle before mounting. If used, it must include `super(props)` as first call:
 
 ```jsx
 constructor(props) {
@@ -738,19 +738,19 @@ constructor(props) {
 }
 ```
 
-[`componentWillMount()`](https://reactjs.org/docs/react-component.html#componentwillmount) - is invoked just before render. Modifying the state here won't trigger a re-render.
+[`componentWillMount()`](https://reactjs.org/docs/react-component.html#componentwillmount) - is invoked just before rendering. Modifying the state here won't trigger a re-render.
 
 [`componentDidMount()`](https://reactjs.org/docs/react-component.html#componentdidmount) - is invoked after render. Useful for initialisations that require DOM nodes.
 
 #### Updating
 
-[`componentWillReceiveProps(nextProps)`](https://reactjs.org/docs/react-component.html#componentwillreceiveprops) - is only called after rendering, but before receiving new props. Because React may call this method although props stay the same. It is recommended to manually implement a check to see if there's a difference.
+[`componentWillReceiveProps(nextProps)`](https://reactjs.org/docs/react-component.html#componentwillreceiveprops) - is only called after rendering, but before receiving new props. Because React may call this method without props changing, it is recommended to manually implement a check to see if there's a difference.
 
-[`shouldComponentUpdate(nextProps, nextState)`](https://reactjs.org/docs/react-component.html#shouldcomponentupdate) - the method is called before receiving new props or state. By default, it returns true which means render is triggered by any change. Modifying this method allows you to only re-render in intended scenarios.
+[`shouldComponentUpdate(nextProps, nextState)`](https://reactjs.org/docs/react-component.html#shouldcomponentupdate) - this method is called before receiving new props or a change of state. By default, it returns true which means re-rendering is triggered by any change. Modifying this method allows you to only re-render in intended scenarios.
 
-[`componentWillUpdate(nextProps, nextState)`](https://reactjs.org/docs/react-component.html#componentwillupdate) - is invoked if shouldComponentUpdate returns true before render. Note: You can't use this.setState() here.
+[`componentWillUpdate(nextProps, nextState)`](https://reactjs.org/docs/react-component.html#componentwillupdate) - is invoked whenever `shouldComponentUpdate` returns true before rendering. Note: You can't use `this.setState()` here.
 
-[`componentDidUpdate(prevProps, prevState)`](https://reactjs.org/docs/react-component.html#componentdidupdate) - is invoked after render, but not after the initial one. This method is useful for manipulating the DOM when updated.
+[`componentDidUpdate(prevProps, prevState)`](https://reactjs.org/docs/react-component.html#componentdidupdate) - is invoked after rendering, but not after the initial render. This method is useful for manipulating the DOM when updated.
 
 #### Unmounting
 
@@ -764,7 +764,7 @@ constructor(props) {
 
 #### beforeCreate
 
-Called synchronously immediately after the instance has been initialized, before data observation and event/watcher setup. On every vue instance lifecycle, `this` points to the vm instance itself.
+Called synchronously immediately after the instance has been initialized, but before data observation and event/watcher setup. On every Vue instance lifecycle, `this` points to the vm instance itself.
 
 ```javascript
 new Vue({
@@ -776,7 +776,7 @@ new Vue({
 
 #### created
 
-Called synchronously after the instance is created. At this stage, the instance has finished processing the options which means the following have been set up: data observation, computed properties, methods, watch/event callbacks. However, the mounting phase has not been started, and the $el property will not be available yet.
+Called synchronously after the instance is created. At this stage, the instance has finished processing the options which means the following have been set up: data observation, computed properties, methods, watch/event callbacks. However, the mounting phase has not been started, and the `$el` property will not be available yet.
 
 ```javascript
 new Vue({
@@ -802,7 +802,7 @@ new Vue({
 
 #### mounted
 
-Called after the instance has been mounted, where [el](https://vuejs.org/v2/api/#el) is replaced by the newly created `vm.$el`. If the root instance is mounted to an in-document element, vm.$el will also be in-document when `mounted` is called.
+Called after the instance has been mounted, where [el](https://vuejs.org/v2/api/#el) is replaced by the newly created `vm.$el`. If the root instance is mounted to an in-document element, `vm.$el` will also be in-document when `mounted` is called.
 
 Note that `mounted` does not guarantee that all child components have also been mounted. If you want to wait until the entire view has been rendered, you can use [vm.$nextTick](https://vuejs.org/v2/api/#Vue-nextTick) inside of mounted:
 
@@ -819,7 +819,7 @@ new Vue({
 
 #### beforeUpdate
 
-Called when the data changes, before the virtual DOM is re-rendered and patched.
+Called whenever the data changes, before the virtual DOM is re-rendered and patched.
 
 You can perform further state changes in this hook and they will not trigger additional re-renders.
 
@@ -1178,9 +1178,9 @@ export default {
 
 ### AngularJS
 
-AngularJS provides filters to transform data. There are several [built-in filters](https://docs.angularjs.org/api/ng/filter) to use or you can make your own custom filters as well.
+AngularJS provides filters to transform data. There are several [built-in filters](https://docs.angularjs.org/api/ng/filter) to use and you can make your own custom filters as well.
 
-Filters can be applied to view template using the following syntax:
+Filters can be applied to view templates using the following syntax:
 
 ```html
 <h1>{{ price | currency }}</h1>
@@ -1211,10 +1211,10 @@ angular.module('app', [])
 
 In Angular filters are called [pipes](https://angular.io/guide/pipes). Built-in pipes available in Angular are: DatePipe, UpperCasePipe, LowerCasePipe, CurrencyPipe, and PercentPipe.
 
-Apart from built-in, you can create your own, custom pipes.
+Apart from the built-in pipes, you can create your own, custom pipes.
 
-Create custom pipe:
-This pipe transforms given URL to safe style URL, so it can be used in hyperlinks, <img src> or <iframe src>, etc..
+Create a custom pipe:
+this pipe transforms a given URL to a safe style URL, that way it can be used in hyperlinks, for example <img src> or <iframe src>, etc..
 
 ```ts
 import { Pipe, PipeTransform } from '@angular/core';
@@ -1229,20 +1229,20 @@ export class SafePipe implements PipeTransform {
 }
 ```
 
-Use custom pipe in the template:
-Pipes given `someUrl` through `safe` pipe and transforms it over the `DomSanitizer` function `bypassSecurityTrustResourceUrl`. More on DomSanitizer [here](https://angular.io/api/platform-browser/DomSanitizer)
+Use the custom pipe in a template:
+The given `someUrl` is filtered through the `safe` pipe which transforms it trough the `DomSanitizer` function `bypassSecurityTrustResourceUrl`. More on the DomSanitizer [here](https://angular.io/api/platform-browser/DomSanitizer).
 
 ```html
   <iframe [src]="someUrl | safe"></iframe>
 ```
 
-Note `[src]` above is an input to the component where aboves `iframe` 'lives'.
+Note: `[src]` above is an input to the component which 'lives' above the `iframe`.
 
 :arrow_right: https://angular.io/guide/pipes
 
 ### React
 
-React doesn't provide any specific filters mechanism. This can simply be achieved by using ordinary JavaScript functions.
+React doesn't provide any specific filtering mechanism. This can simply be achieved by using ordinary JavaScript functions:
 
 ```jsx
 export function reverse(input = '', uppercase = false) {
@@ -1266,7 +1266,7 @@ export class App extends Component {
 }
 ```
 
-Filters chaining can be achieved using function composition.
+Filter chaining can be achieved using function composition:
 
 ```jsx
 <div>
@@ -1278,19 +1278,19 @@ Filters chaining can be achieved using function composition.
 
 Vue.js provides filters to allow for simple text formatting. The filter utilizes the `|` character which is appended to the expression followed by the filter's name. Vue does not come with any pre-built filters.
 
-Filters are usable within mustache interpolations.
+Filters are usable within mustache interpolations:
 
 ```html
 <h1>{{ name | lowercase }}</h1>
 ```
 
-Filters can also be used within the `v-bind` directive.
+Filters can also be used within the `v-bind` directive:
 
 ```html
 <div v-bind:slug="slug | formatSlug"></div>
 ```
 
-When creating filters, the function always receives the expression's value.
+When creating filters, the function always receives the expression's value:
 
 ```js
 new Vue({
@@ -1307,13 +1307,13 @@ new Vue({
 });
 ```
 
-Filters can also be chained.
+Filters can also be chained:
 
 ```html
 <p>{{ description | lowercase | truncate }}</p>
 ```
 
-Filters can be created locally like the above example and only be available within that component. Filters can also be declared globally.
+Filters can be created locally like the above example and only be available within that component. Filters can also be declared globally:
 
 ```js
 Vue.filter('lowercase', word => word.toLowerCase());
@@ -1327,7 +1327,7 @@ For global filters to work, they should be declared before the Vue instance.
 
 ### AngularJS
 
-Inside a [component](https://docs.angularjs.org/guide/component), we have access to the child node by injecting `$element` to the controller. It has [jqLite](https://docs.angularjs.org/api/ng/function/angular.element) wrapped instance of the DOM element. Also, accessing `$element[0]` will return the bare DOM element.
+Inside a [component](https://docs.angularjs.org/guide/component), we have access to the child node by injecting `$element` to the controller. This object contains a [jqLite](https://docs.angularjs.org/api/ng/function/angular.element) wrapped instance of the DOM element. Accessing `$element[0]` will return the bare DOM element.
 
 Transclusion is also supported - using `ng-transclude` (See [Transclusion and Containment](#transclusion-and-containment) section).
 
@@ -1420,11 +1420,11 @@ export class Parent implements AfterViewInit, AfterContentInit {
 export class AppComponent { }
 ```
 
-`ViewChild` and `ContentChild` work with **only one** DOM element. You can use [`ViewChildren`](https://angular.io/api/core/ViewChildren) and [`ContentChildren`](https://angular.io/api/core/ContentChildren) in order to get **multiple elements**. Both return the elements wrapped in a [`QueryList`](https://angular.io/api/core/QueryList).
+`ViewChild` and `ContentChild` only work with a **single** DOM element. You can use [`ViewChildren`](https://angular.io/api/core/ViewChildren) and [`ContentChildren`](https://angular.io/api/core/ContentChildren) in order to get **multiple elements**. Both return the elements wrapped in a [`QueryList`](https://angular.io/api/core/QueryList).
 
 ### React
 
-In React, we have two options to deal with child nodes: [`refs`](https://reactjs.org/docs/refs-and-the-dom) and [`children`](https://reactjs.org/docs/jsx-in-depth.html#children-in-jsx). With `refs`, you have access to the real DOM element. The `children` property let you manipulate the underlying [React elements](https://reactjs.org/blog/2015/12/18/react-components-elements-and-instances.html).
+In React, we have two options to deal with child nodes: [`refs`](https://reactjs.org/docs/refs-and-the-dom) and [`children`](https://reactjs.org/docs/jsx-in-depth.html#children-in-jsx). With `refs`, you have access to the real DOM element. The `children` property lets you manipulate the underlying [React elements](https://reactjs.org/blog/2015/12/18/react-components-elements-and-instances.html).
 
 #### refs
 
@@ -1721,9 +1721,9 @@ class SignInController {
 Angular offers two ways to build forms: 
 
 * [Reactive forms](https://angular.io/guide/reactive-forms)
-* [Template-driven forms](https://angular.io/guide/forms#template-driven-forms). 
+* [Template-driven forms](https://angular.io/guide/forms#template-driven-forms)
 
-The former use a reactive (or model-driven) approach to build forms. The latter allow to build forms by writing templates in the Angular template syntax with the form-specific directives and techniques.
+The former uses a reactive (or model-driven) approach to build forms. The latter allows you to build forms by writing templates in the Angular template syntax with the form-specific directives and techniques.
 
 #### Reactive forms example
 
@@ -1798,11 +1798,11 @@ export class TemplateDrivenFormComponent {
 }
 ```
 
-The `novalidate` attribute in the `<form>` element prevents the browser from attempting native HTML validations
+The `novalidate` attribute in the `<form>` element prevents the browser from attempting native HTML validations.
 
 ### React
 
-Two techniques exists in React to handle form data i.e [Controlled Components](https://reactjs.org/docs/forms.html#controlled-components) and [Uncontrolled Components](https://reactjs.org/docs/uncontrolled-components.html). A controlled component keeps the input's value in the state and updates it via `setState()`. While in an uncontrolled component, form data is handled by DOM itself and referenced via `ref`. In most cases, it is recommended to use controlled components. 
+Two techniques exists in React to handle form data i.e. [Controlled Components](https://reactjs.org/docs/forms.html#controlled-components) and [Uncontrolled Components](https://reactjs.org/docs/uncontrolled-components.html). A controlled component keeps the input's value in the state and updates it via `setState()`. While in an uncontrolled component, form data is handled by DOM itself and referenced via `ref`. In most cases, it is recommended to use controlled components. 
 
 ```js
 import React from 'react';
@@ -1858,7 +1858,7 @@ export default class ReactForm extends React.Component{
 
 ### AngularJS
 
-Generally you will use some preprocessor (e.g. [Sass](http://sass-lang.com/)) and assign appropriate classes to the elements.
+Generally you will use a preprocessor (e.g. [Sass](http://sass-lang.com/)) and assign appropriate classes to the elements.
 
 The [`ng-style`](https://docs.angularjs.org/api/ng/directive/ngStyle) directive allows you to set custom CSS styles dynamically.
 
@@ -1886,7 +1886,7 @@ class HeaderController {
 
 ### Angular
 
-When defining Angular component you may also include the CSS styles that will go with the template. By default the styles will be compiled as shadow DOM, which basically means you don't need any namespacing strategy for CSS classes.
+When defining Angular components you may also include the CSS styles that will go with the template. By default the styles will be compiled as shadow DOM, which basically means you don't need any namespacing strategy for CSS classes.
 
 The [`ngStyle`](https://angular.io/api/common/NgStyle) directive allows you to set custom CSS styles dynamically.
 
@@ -1924,7 +1924,7 @@ export class HeaderComponent {
 
 ### React
 
-In React community there are many approaches to styling your app. From traditional preprocessors (like in the Angular world) to so-called [CSS in JS](https://github.com/MicheleBertoli/css-in-js). The most popular include:
+In the React community there are many approaches to styling your app. From traditional preprocessors (like in the Angular world) to so-called [CSS in JS](https://github.com/MicheleBertoli/css-in-js). The most popular include:
 
 * [css-modules](https://github.com/gajus/react-css-modules)
 * [styled-components](https://github.com/styled-components/styled-components)
@@ -1994,7 +1994,7 @@ module.exports = {
 
 # Inject HTML template
 
-aka. innerHTML
+Also known as innerHTML.
 
 ### AngularJS
 
@@ -2006,7 +2006,7 @@ By default, the HTML content will be sanitized using the [$sanitize](https://doc
 
 ### Angular
 
-It automatically sanitizes the values before displaying them using [DomSanitizer](https://angular.io/docs/ts/latest/api/platform-browser/index/DomSanitizer-class.html)
+The values are automatically sanitized before displaying them using [DomSanitizer](https://angular.io/docs/ts/latest/api/platform-browser/index/DomSanitizer-class.html)
 
 ```html
 <p [innerHTML]="article.content"></p>
@@ -2015,7 +2015,7 @@ It automatically sanitizes the values before displaying them using [DomSanitizer
 ### React
 
 All string values are sanitized before being inserted into the DOM. No more details are currently available.
-You need to pass an object containing `__html` property with desired template content.
+You need to pass an object containing the `__html` property with the desired template contents.
 
 ```jsx
 <p dangerouslySetInnerHTML={{__html: article.content}} />
@@ -2023,7 +2023,7 @@ You need to pass an object containing `__html` property with desired template co
 
 ### Vue.js
 
-The content passed to [`v-html`](https://vuejs.org/v2/guide/syntax.html#Raw-HTML) is not being [sanitized](https://github.com/vuejs/vue/issues/6333). You have to use an external library, e.g. [sanitize-html](https://www.npmjs.com/package/sanitize-html)
+The content passed to [`v-html`](https://vuejs.org/v2/guide/syntax.html#Raw-HTML) is not being [sanitized](https://github.com/vuejs/vue/issues/6333). You have to use an external library, e.g. [sanitize-html](https://www.npmjs.com/package/sanitize-html).
 
 ```html
 <div v-html="article.content"></div>
