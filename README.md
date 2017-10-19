@@ -77,7 +77,7 @@ class ChangePasswordController {
 }
 ```
 
-Every component has to be declared inside a module. After that it will be avaiable to every other component.
+Every component has to be declared inside a module. After that, it will be available to every other component.
 
 ```js
 const component = {
@@ -181,7 +181,7 @@ import Auth from 'actions/auth';
 import Notification from 'utils/notification';
 
 Vue.component('change-password', {
-  template: '<div>{{ /* template */ }}</div>'
+  template: '<div>{{ /* template */ }}</div>',
   data() {
     return {
         password: ''
@@ -206,9 +206,9 @@ Vue.component('change-password', {
 
 ### AngularJS
 
-The constructor is used to inject dependencies, which is done implicitly by the [$inject](https://docs.angularjs.org/api/auto/service/$injector) service.
+In AngularJS the constructor is being used to inject dependencies, which is done implicitly by the [$inject](https://docs.angularjs.org/api/auto/service/$injector) service.
 
-The `'ngInject'` annotation has been used, which allows automatic method annotation by the ng-annotate plugin (e.g. [ng-annotate-loader](https://www.npmjs.com/package/ng-annotate-loader) for Webpack). This is essential to counter minification problems.
+The `'ngInject'` annotation can be used, which allows automatic method annotation by the ng-annotate plugin (e.g. [ng-annotate-loader](https://www.npmjs.com/package/ng-annotate-loader) for Webpack). This is essential to counter [minification problems](https://docs.angularjs.org/guide/di#dependency-annotation).
 
 ```js
 class ChangePasswordController {
@@ -226,28 +226,32 @@ class ChangePasswordController {
 }
 ```
 
+:arrow_right: https://docs.angularjs.org/guide/di
+
 ### Angular
 
 You specify the definition of the dependencies in the constructor (leveraging TypeScript's constructor syntax for declaring parameters and properties simultaneously).
 
 ```ts
 import { Component } from '@angular/core';
+import { Logger } from 'services/logger';
+import { Auth } from 'services/auth';
 import { Notification } from 'services/notification';
 
 @Component({
-    selector: 'change-password',
-    templateUrl: './ChangePassword.component.html',
+  selector: 'change-password',
+  templateUrl: './ChangePassword.component.html',
 })
 export class ChangePasswordComponent {
-    constructor(
-        private logger: Logger,
-        private auth: Auth,
-        private notification: Notification,
-    ) {}
+  constructor(
+    private logger: Logger,
+    private auth: Auth,
+    private notification: Notification,
+  ) {}
 
-    handleEvent() {
-        this.notification.info('Event handled successfully');
-    }
+  handleEvent() {
+    this.notification.info('Event handled successfully');
+  }
 }
 ```
 
@@ -258,21 +262,18 @@ export class ChangePasswordComponent {
 There's no special injection mechanism. ES2015 modules are used for dependency management.
 
 ```jsx
-import Logger from 'utils/logger'
-import Notification from 'utils/notification'
-import Auth from 'actions/auth'
+import { Component } from 'react';
+import Logger from 'utils/logger';
+import Notification from 'utils/notification';
+import Auth from 'utils/auth';
 
-class ChangePassword extends React.Component {
+class ChangePassword extends Component {
   handleEvent = () => {
     Notification.info('Event handled successfully');
   }
 
   render() {
-    return (
-      <button onClick={this.handleEvent}>
-        Hello world!
-      </button>
-    );
+    return <div>{ /* template */ }</div>;
   }
 }
 ```
@@ -282,47 +283,48 @@ class ChangePassword extends React.Component {
 Vue.js uses ES2015 modules for dependency management:
 
 ```js
-import Notification from 'utils/notification'
 import Vue from 'vue';
+import Logger from 'utils/logger';
+import Notification from 'utils/notification';
+import Auth from 'utils/auth';
 
 Vue.component('change-password', {
-    template: `<button v-on:click="handleEvent">Hello world!</button>`,
-    methods: {
-        handleEvent() {
-            Notification.info('Event handled successfully');
-        }
-    }
+  template: '<div>{{ /* template */ }}</div>',
+  methods: {
+    handleEvent() {
+      Notification.info('Event handled successfully');
+    },
+  },
 });
 ```
-There's also provide and inject mechanism which is primarily provided for advanced plugin / component library use cases:
 
-:arrow_right: https://vuejs.org/v2/api/#provide-inject
+There's also [provide and inject](https://vuejs.org/v2/api/#provide-inject) mechanism which is primarily provided for advanced plugin / component library use cases:
 
-Root Vue instance
+Parent component:
 ```js
 import Notification from 'utils/notification'
 import Vue from 'vue';
 
 new Vue({
-    el: '#app',
-    provide: {
-        notification: Notification
-    }
+  el: '#app',
+  provide: {
+    notification: Notification
+  }
 });
 ```
 
-Child component
+Child component:
 ```js
 import Vue from 'vue';
 
 Vue.component('change-password', {
-    inject: ['notification']
-    template: `<button v-on:click="handleEvent">Hello world!</button>`,
-    methods: {
-        handleEvent() {
-            this.notification.info('Event handled successfully');
-        }
+  inject: ['notification']
+  template: '<div>{{ /* template */ }}</div>',
+  methods: {
+    handleEvent() {
+      this.notification.info('Event handled successfully');
     }
+  }
 });
 ```
 
