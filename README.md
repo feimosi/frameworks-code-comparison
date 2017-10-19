@@ -54,40 +54,44 @@ import template from './changePassword.html';
 import './changePassword.scss';
 
 class ChangePasswordController {
-    constructor($log, Auth, Notification) {
-        'ngInject';
+  constructor($log, Auth, Notification) {
+    'ngInject';
 
-        this.$log = $log;
-        this.Auth = Auth;
-        this.Notification = Notification;
-    }
+    this.$log = $log;
+    this.Auth = Auth;
+    this.Notification = Notification;
+  }
 
-    $onInit() {
-        this.password = '';
-    }
+  $onInit() {
+    this.password = '';
+  }
 
-    changePassword() {
-        this.Auth.changePassword(this.password).then(() => {
-            this.Notification.info('Password has been changed successfully.');
-        }).catch(error => {
-            this.$log.error(error);
-            this.Notification.error('There was an error. Please try again.');
-        });
-    }
+  changePassword() {
+    this.Auth.changePassword(this.password).then(() => {
+      this.Notification.info('Password has been changed successfully.');
+    }).catch(error => {
+      this.$log.error(error);
+      this.Notification.error('There was an error. Please try again.');
+    });
+  }
 }
+```
 
-// Object describing the component
+Every component has to be declared inside a module. After that it will be avaiable to every other component.
+
+```js
 const component = {
     bindings: {},
     template,
     controller: ChangePasswordController,
 };
 
-// Initialize the component in Angular's module
-const module = angular.module('app.changePassword', [])
-.component('changePassword', component);
-
+const module = angular
+    .module('app.changePassword', [])
+    .component('changePassword', component);
 ```
+
+:arrow_right: https://docs.angularjs.org/guide/component
 
 ### Angular
 
@@ -98,31 +102,31 @@ import { Auth } from 'services/auth';
 import { Notification } from 'services/notification';
 
 @Component({
-    selector: 'change-password',
-    templateUrl: './ChangePassword.component.html',
-    styleUrls: ['./ChangePassword.component.scss'],
+  selector: 'change-password',
+  templateUrl: './ChangePassword.component.html',
+  styleUrls: ['./ChangePassword.component.scss'],
 })
 export class ChangePasswordComponent {
-    password: string = '';
+  password: string = '';
 
-    constructor(
-        private logger: Logger,
-        private auth: Auth,
-        private notification: Notification,
-    ) {}
+  constructor(
+    private logger: Logger,
+    private auth: Auth,
+    private notification: Notification,
+  ) {}
 
-    changePassword() {
-        this.auth.changePassword(this.password).subscribe(() => {
-          this.notification.info('Password has been changes successfully');
-        }).catch(error => {
-          this.logger.error(error);
-          this.notification.error('There was an error. Please try again');
-        });
-    }
+  changePassword() {
+    this.auth.changePassword(this.password).subscribe(() => {
+      this.notification.info('Password has been changes successfully');
+    }).catch(error => {
+      this.logger.error(error);
+      this.notification.error('There was an error. Please try again');
+    });
+  }
 }
 ```
 
-Every component has to be declared inside a module in order to be used within this module's other components.
+Every component has to be declared inside a module in order to be used within this module's other components (it's not available outside of).
 
 ```ts
 import { NgModule } from '@angular/core';
@@ -135,19 +139,20 @@ import { ChangePasswordComponent } from './change-password.component';
   declarations: [ChangePasswordComponent],
 })
 export class ChangePasswordModule {}
-
 ```
+
+:arrow_right: https://angular.io/api/core/Component
 
 ### React
 
 ```jsx
-import Logger from 'utils/logger'
-import Notification from 'utils/notification'
-import Auth from 'actions/auth'
+import Logger from 'utils/logger';
+import Auth from 'actions/auth';
+import Notification from 'utils/notification';
 
 class ChangePassword {
   state = {
-    password: ''
+    password: '',
   };
 
   changePassword() {
@@ -165,33 +170,37 @@ class ChangePassword {
 });
 ```
 
+:arrow_right: https://reactjs.org/docs/react-component.html
+
 ### Vue.js
 
 ```js
 import Vue from 'vue';
 import Logger from 'utils/logger';
-import Notification from 'utils/notification';
 import Auth from 'actions/auth';
+import Notification from 'utils/notification';
 
 Vue.component('change-password', {
   template: '<div>{{ /* template */ }}</div>'
   data() {
-      return {
+    return {
         password: ''
-      };
+    };
   },
   methods: {
-      changePassword() {
-          Auth.changePassword(this.state,password).then(() => {
-                Notification.info('Password has been changed successfully.');
-              }).catch(error => {
-                Logger.error(error);
-                Notification.error('There was an error. Please try again.');
-              });
-      }
+    changePassword() {
+      Auth.changePassword(this.state,password).then(() => {
+        Notification.info('Password has been changed successfully.');
+      }).catch(error => {
+        Logger.error(error);
+        Notification.error('There was an error. Please try again.');
+      });
+  }
   }
 });
 ```
+
+:arrow_right: https://vuejs.org/v2/guide/components.html
 
 # Dependency injection
 
