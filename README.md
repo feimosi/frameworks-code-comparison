@@ -1663,6 +1663,32 @@ const Content = () => (
 
 # Class toggling
 
+### AngularJS
+
+The [ng-class](https://docs.angularjs.org/api/ng/directive/ngClass) directive allows you to dynamically set CSS classes on an HTML element.
+
+```html
+<main-header
+  ng-class="{ 'mainNavbar--fluid': $ctrl.isFluid }">
+...
+</main-header>
+```
+
+### Angular
+
+In Angular, the [ngClass](https://angular.io/guide/ajs-quick-reference#ngclass) directive works similarly. It includes/excludes CSS classes based on an expression.
+
+```html
+<main-header
+  [ngClass]="{ 'mainNavbar--fluid': isFluid }">
+...
+</main-header>
+```
+
+### React
+> TODO
+
+### Vue.js
 > TODO
 
 # Data binding
