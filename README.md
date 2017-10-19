@@ -12,9 +12,7 @@ Comparison of different approaches in writing web applications. Based on React, 
 
 All examples follow the current best practices and conventions that are used inside the community of a given framework. Angular code is written in TypeScript.
 
-### :warning: **Work in progress** :warning:
-
-### :exclamation: PRs and Feedback are welcome :exclamation:
+<h3 align="center"> :warning: Work in progress! PRs and Feedback are welcome :warning: </h3>
 
 > Note regarding framework naming:
 > - AngularJS refers to Angular v1.x
@@ -332,7 +330,8 @@ Vue.component('change-password', {
 
 ### AngularJS
 
-Values of component inputs must be one of the following:
+Templates in AngularJS are compiled by the [$compile](https://docs.angularjs.org/api/ng/service/$compile) service.
+Values of component properties must be one of the following:
 - string binding (defined as `@`)
 - expression binding (defined as `<`)
 - reference binding (defined as `&`)
@@ -347,7 +346,7 @@ Values of component inputs must be one of the following:
 
 ### Angular
 
-There are three kinds of possible attributes being passed:
+There are three kinds of possible attributes being passed to the component:
 - text binding, e.g. `size="string"`
 - property binding, e.g. `[disabled]="value"`
 - event binding, e.g. `(click)="eventHandler()"`
@@ -362,13 +361,13 @@ There are three kinds of possible attributes being passed:
 
 ### React
 
-Templates in React are written inside the JavaScript file using the [JSX language](https://reactjs.org/docs/jsx-in-depth.html). This allows us to utilize all JavaScript capabilities. JSX uses the uppercase vs. lowercase convention to distinguish between the user-defined components and DOM tags.
+Templates in React are written inside the JavaScript file using the [JSX language](https://reactjs.org/docs/jsx-in-depth.html). This allows us to utilize all JavaScript capabilities. JSX uses the uppercase and lowercase convention to distinguish between the user-defined components and DOM elements.
 
 ```jsx
 <PrimaryButton
   size="big"
   disabled
-  onClick={this.saveContent}
+  onClick={ this.saveContent }
 >
   Save
 </PrimaryButton>
@@ -376,22 +375,23 @@ Templates in React are written inside the JavaScript file using the [JSX languag
 
 ### Vue.js
 
-Component props can be passed in as:
-* literal (using strings) e.g. `size="big"`
-* dynamic (using v-bind with actual values) e.g. `v-bind:disabled="true"`
+Component properties can be passed in as:
+- literal (as strings) e.g. `size="big"`
+- dynamic (using [v-bind](https://vuejs.org/v2/api/#v-bind) or [`:shorthand`](https://vuejs.org/v2/guide/syntax.html#v-bind-Shorthand) with actual values) e.g. `v-bind:disabled="true"`
 
-:arrow_right: https://vuejs.org/v2/guide/components.html#Literal-vs-Dynamic
+Events can be listened to using [`v-on`](https://vuejs.org/v2/guide/events.html#Method-Event-Handlers) or [`@shorthand`](https://vuejs.org/v2/guide/syntax.html#v-on-Shorthand) combined with the event name, and a method name as the value, e.g `v-on:click="saveContent"`.
 
-Events can be listened to using `v-on` combined with the event name, and a method name as the value, e.g `v-on:click="saveContent"`.
-
-:arrow_right: https://vuejs.org/v2/guide/events.html#Method-Event-Handlers
 ```html
-<primary-button size="big"
-                v-bind:disabled="true"
-                v-on:click="saveContent">
+<primary-button 
+  size="big"
+  v-bind:disabled="true"
+  v-on:click="saveContent"
+>
     Save
 </primary-button>
 ```
+
+:arrow_right: https://vuejs.org/v2/guide/components.html#Props
 
 # Interpolation
 
