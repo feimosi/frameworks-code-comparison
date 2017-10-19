@@ -891,73 +891,56 @@ export class RegistrationComponentCtrl {
 }
 ```
 ```html
-    <div ng-if="displaySpecialOffer">
-      <special-offer></special-offer>
-    </div>
+<div ng-if="displaySpecialOffer">
+  <special-offer></special-offer>
+</div>
 
-    <div ng-switch="displayStatus">
-      <div ng-switch-when="Registered">
-         <registration-completed></registration-completed>
-      </div>
-    </div>
+<div ng-switch="displayStatus">
+  <div ng-switch-when="Registered">
+     <registration-completed></registration-completed>
+  </div>
+</div>
 
-    <div ng-show="displaySpecialOffer">
-        <special-offer></special-offer>
-    </div>  
-    <div ng-hide="displaySpecialOffer">
-        <special-offer></special-offer>
-    </div>  
+<div ng-show="displaySpecialOffer">
+    <special-offer></special-offer>
+</div>  
+<div ng-hide="displaySpecialOffer">
+    <special-offer></special-offer>
+</div>  
 ```
 
 ### Angular
 
 Since Angular 4.0.0, alongside standard `ngIf`, it is possible to use `ngIf;else` or `ngIf;then;else` using `<ng-template>` with an alias `#aliasName`.
 
-
 ```ts
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'registration',
-  template: `
-    <!-- ------------------- -->
-    <!-- use ngIf like this: -->
-    <!-- ------------------- -->
-    <div *ngIf="displaySpecialOffer">
-      <special-offer></special-offer>
-    </div>
-
-
-    <!-- ------------------------ -->
-    <!-- use ngIf;else like this: -->
-    <!-- ------------------------ -->
-    <div *ngIf="registrationCompleted;else registrationForm">
-      <registration-completed></registration-completed>
-    </div>
-
-    <ng-template #registrationForm>
-      <registration-form></registration-form>
-    </ng-template>
-
-
-    <!-- ------------------------------ -->
-    <!-- use ngIf;then;else like this:  -->
-    <!-- ------------------------------ -->
-    <div *ngIf="registrationCompleted;then registrationSucceeded;else registrationForm"></div>
-
-    <ng-template #registrationSucceeded>
-      <registration-completed></registration-completed>
-    </ng-template>
-
-    <ng-template #registrationForm>
-      <registration-form></registration-form>
-    </ng-template>
-  `,
+  template: ``,
 })
 export class registrationComponent {
   registrationCompleted: boolean = false;
+  displaySpecialOffer: boolean = false;
 }
 ```
+
+```html
+<div *ngIf="displaySpecialOffer">
+  <special-offer></special-offer>
+</div>
+
+<div *ngIf="registrationCompleted;else registrationForm">
+  <registration-completed></registration-completed>
+</div>
+
+<ng-template #registrationForm>
+  <registration-form></registration-form>
+</ng-template>
+```
+
+:arrow_right: https://angular.io/api/common/NgIf
 
 ### React
 
@@ -1010,7 +993,6 @@ Vue.js has three directives to perform conditional rendering: `v-if`, `v-else-if
 ```
 
 :arrow_right: https://vuejs.org/v2/guide/conditional.html
-
 
 # Lists
 
