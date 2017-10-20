@@ -397,80 +397,64 @@ Events can be listened to using [`v-on`](https://vuejs.org/v2/guide/events.html#
 
 ### AngularJS
 
-Interpolation is the process of data-binding values in the AngularJS `scope` to values in the HTML. You can read more on the [official documentation](https://docs.angularjs.org/guide/interpolation):
+In AngularJS interpolation is the process of data-binding values of the `scope` to the HTML. You can also interpolate more complicated values e.g. expressions or function invocations.
 
-Let's say we have a value `heroImageUrl` in our scope that is defined as `superman.jpg`. (We use `ng-src` here instead of the regular `src` attribute so that AngularJS can set it up. If you just use `src`, the browser will try to load the image before AngularJS has a chance to interpolate.)
-
-The following HTML:
 
 ```html
-<p><img ng-src="images/{{heroImageUrl}}"> is the <i>interpolated</i> image.</p>
+<img ng-src="{{ $ctrl.image.url }}" alt="{{ $ctrl.image.alt }}" />
 ```
 
-will render to:
+We use [`ng-src`](https://docs.angularjs.org/api/ng/directive/ngSrc) instead of the regular `src` attribute so that AngularJS can set it up before the browser will try to load the image.
+
+Another way to "bind" data is to use [`ng-bind`](https://docs.angularjs.org/api/ng/directive/ngBind). This allows us to counter the issue with a raw state being displayed before AngularJS compiles the template.
 
 ```html
-<p><img ng-src="images/superman.jpg"> is the <i>interpolated</i> image.</p>
+<label>
+    Enter name:
+    <input type="text" ng-model="$ctrl.name">
+</label>
+<span ng-bind="$ctrl.name"></span>
 ```
 
-You can interpolate more complicated values within the curly braces. For example, `{{getVal()}}` will interpolate to the return value of the function `getVal`.
-
-Another way to "bind" data is to use `ng-bind`:
-
-```html
-<label>Enter name: <input type="text" ng-model="name"></label><br>
-Hello <span ng-bind="name"></span>!
-```
-In this example, whatever is typed into the input will be placed under the `name` variable in the scope. The `ng-bind` will cause the content of the span to be updated to be the value of `name` whenever the input changes. See the full example [here](https://docs.angularjs.org/api/ng/directive/ngBind).
+:arrow_right: https://docs.angularjs.org/guide/interpolation
 
 ### Angular
 
-Angular is similar to AngularJS. You can read more on the [official documentation](https://angular.io/guide/template-syntax#interpolation----).
+Angular is similar to AngularJS, so we use double curly braces (`{{ }}`) for interpolation. Since Angular offers property binding you often have a choice to use it instead of interpolation. 
 
-`{{color}}` will still interpolate to `red`.
-
-However, in a lot of cases Angular offers the choice of Property Binding or Interpolation (read more here [official documentation](https://angular.io/guide/template-syntax#property-binding-or-interpolation)).  
-
-Lets say you have a `heroImageUrl` that you wish to set:
+:arrow_right: https://angular.io/guide/template-syntax#property-binding-or-interpolation 
 
 ```html
-<p><img src="images/{{heroImageUrl}}"> is the <i>interpolated</i> image.</p>
-<p><img [src]="'images/' + heroImageUrl"> is the <i>property bound</i> image.</p>
+<img [src]="image.url" alt="{{ image.alt }}" />
 ```
 
-Both of these methods will work the same. The official Angular documentation suggests to pick whichever your team picks as its coding style.
+`[src]` presents property binding while the `alt` attribute is being interpolated.
 
-The property bound style is analogous to the `ng-bind` strategy used above.
-
-However, when setting an element property to a non-string data value, you must use property binding.
-
+:arrow_right: https://angular.io/guide/template-syntax#interpolation
 
 ### React
 
-Unlike Angular, React uses single curly braces. It does not support variable interpolation inside an attribute value, but anything in the curly braces is just javascript.
+React uses single curly braces for interpolation. Any JavaScript can be interpolated.
 
-For example (taken from [here](https://stackoverflow.com/questions/21668025/react-jsx-access-props-in-quotes))
-
-The following will not work:
-```html
-<p><img src="images/{this.props.heroImageUrl}" /></p>
-```
-
-But this will:
 ```jsx
-<p><img src={"images/" + this.props.heroImageUrl} /></p>
+<img src={ this.props.image.url } alt={ this.props.image.alt } />
 ```
 
-Or if you wish to use ES6 string interpolation:
-```jsx
-<p><img src={`images/${this.props.heroImageUrl}`} /></p>
-```
-
-React has no specific official documentation for interpolation, but you can read about embedding expressions [here](https://reactjs.org/docs/introducing-jsx.html#embedding-expressions-in-jsx).
+:arrow_right: https://reactjs.org/docs/introducing-jsx.html#embedding-expressions-in-jsx
 
 ### Vue.js
 
-> TODO
+```html
+<img :src="image.url" alt="{{ image.alt }}" />
+```
+
+You can also perform one-time interpolations that do not update on data change by using the [v-once](https://vuejs.org/v2/api/#v-once) directive,
+
+```html
+<span v-once>Hello {{ username }}!</span>
+```
+
+:arrow_right: https://vuejs.org/v2/guide/syntax.html#Interpolations
 
 # Inputs and Outputs
 
