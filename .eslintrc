@@ -1,8 +1,5 @@
 {
-    "env": {
-        "es6": true
-    },
-    "extends": "eslint:recommended",
+    "parser": "babel-eslint",
     "parserOptions": {
         "sourceType": "module",
         "ecmaVersion": 6,
@@ -10,16 +7,29 @@
             "jsx": true
         }
     },
+    "extends": "eslint:recommended",
+    "env": {
+        "es6": true,
+        "browser": true
+    },
+    "globals": {
+        "angular": true,
+        "React": true,
+        "Vue": true
+    },
+    "plugins": [
+        "react"
+    ],
     "rules": {
-        "indent": ["error", 2, {"SwitchCase": 1}],
+        "camelcase": "error",
+        "comma-dangle": ["error", "always-multiline"],
+        "indent": ["error", 2],
+        "new-cap": "error",
+        "no-console": 0,
         "no-else-return": "error",
         "no-multi-spaces": "error",
-        "no-whitespace-before-property": "error",
-        "camelcase": "error",
-        "new-cap": "error",
-        "no-console": "error",
-        "comma-dangle": ["error", "always-multiline"],
         "no-var": "error",
+        "no-whitespace-before-property": "error",
         "quotes": ["error", "single"],
         "semi": ["error", "always"]
     }

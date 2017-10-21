@@ -20,7 +20,9 @@
   },
   "homepage": "https://github.com/feimosi/frameworks-code-comparison#readme",
   "devDependencies": {
+    "babel-eslint": "^8.0.1",
     "eslint": "^4.9.0",
+    "eslint-plugin-react": "^7.4.0",
     "textlint": "^8.2.1",
     "textlint-rule-eslint": "^2.0.1"
   }

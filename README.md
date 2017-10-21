@@ -47,11 +47,7 @@ All examples follow the current best practices and conventions that are used ins
 ### AngularJS
 
 ```js
-import angular from 'angular';
-import template from './changePassword.html';
-import './changePassword.scss';
-
-class ChangePasswordController {
+export class ChangePasswordController {
   constructor($log, Auth, Notification) {
     'ngInject';
 
@@ -78,13 +74,18 @@ class ChangePasswordController {
 Every component has to be declared inside a module. After that, it will be available to every other component.
 
 ```js
+import angular from 'angular';
+import template from './changePassword.html';
+import ChangePasswordController from './changePassword.controller.scss';
+import './changePassword.scss';
+
 const component = {
   bindings: {},
   template,
   controller: ChangePasswordController,
 };
 
-const module = angular
+export const module = angular
   .module('app.changePassword', [])
   .component('changePassword', component);
 ```
@@ -148,13 +149,13 @@ import Logger from 'utils/logger';
 import Auth from 'actions/auth';
 import Notification from 'utils/notification';
 
-class ChangePassword {
+export class ChangePassword {
   state = {
     password: '',
   };
 
   changePassword() {
-    Auth.changePassword(this.state,password).then(() => {
+    Auth.changePassword(this.state.password).then(() => {
       Notification.info('Password has been changed successfully.');
     }).catch(error => {
       Logger.error(error);
@@ -165,7 +166,7 @@ class ChangePassword {
   render() {
     return <div>{ /* template */ }</div>;
   }
-});
+}
 ```
 
 :arrow_right: https://reactjs.org/docs/react-component.html
@@ -187,7 +188,7 @@ Vue.component('change-password', {
   },
   methods: {
     changePassword() {
-      Auth.changePassword(this.state,password).then(() => {
+      Auth.changePassword(this.state.password).then(() => {
         Notification.info('Password has been changed successfully.');
       }).catch(error => {
         Logger.error(error);
@@ -209,7 +210,7 @@ In AngularJS the constructor is being used to inject dependencies, which is done
 The `'ngInject'` annotation can be used, which allows automatic method annotation by the ng-annotate plugin (e.g. [ng-annotate-loader](https://www.npmjs.com/package/ng-annotate-loader) for Webpack). This is essential to counter [minification problems](https://docs.angularjs.org/guide/di#dependency-annotation).
 
 ```js
-class ChangePasswordController {
+export class ChangePasswordController {
   constructor($log, Auth, Notification) {
     'ngInject';
 
@@ -219,7 +220,8 @@ class ChangePasswordController {
   }
 
   handleEvent() {
-    this.Notification.info('Event handled successfully');
+    this.Notification.info('Password changed successfully');
+    this.$log.info('Password changed successfully');
   }
 }
 ```
@@ -248,7 +250,8 @@ export class ChangePasswordComponent {
   ) {}
 
   handleEvent() {
-    this.notification.info('Event handled successfully');
+    this.notification.info('Password changed successfully');
+    this.logger.info('Password changed successfully');
   }
 }
 ```
@@ -265,9 +268,10 @@ import Logger from 'utils/logger';
 import Notification from 'utils/notification';
 import Auth from 'utils/auth';
 
-class ChangePassword extends Component {
+export class ChangePassword extends Component {
   handleEvent = () => {
-    Notification.info('Event handled successfully');
+    Notification.info('Password changed successfully');
+    Logger.info('Password changed successfully');
   }
 
   render() {
@@ -290,7 +294,8 @@ Vue.component('change-password', {
   template: '<div>{{ /* template */ }}</div>',
   methods: {
     handleEvent() {
-      Notification.info('Event handled successfully');
+      Notification.info('Password changed successfully');
+      Logger.info('Password changed successfully');
     },
   },
 });
@@ -316,13 +321,13 @@ Child component:
 import Vue from 'vue';
 
 Vue.component('change-password', {
-  inject: ['notification']
+  inject: ['notification'],
   template: '<div>{{ /* template */ }}</div>',
   methods: {
     handleEvent() {
       this.notification.info('Event handled successfully');
-    }
-  }
+    },
+  },
 });
 ```
 
@@ -481,31 +486,30 @@ const component = {
   controller: UserPreviewComponent,
 };
 
-export default module.component('user-preview', component);
+export default angular.module.component('user-preview', component);
 ```
 
 In a parent component, i.e. `SettingsComponent`:
 
 ```js
 class SettingsComponent {
-  user: User;
   constructor() {
     this.user = {
       name: 'Foo Bar',
-      email: 'foobar@example.com'
-    }
+      email: 'foobar@example.com',
+    };
   }
-  editedUser(user: User){
+  editedUser(user){
     console.log('Name of the edited user is', user.name);
   }
 }
 
 const component = {
-  template: `<user-preview user="user" on-edit="editedUser()"></user-preview>`,
+  template: '<user-preview user="user" on-edit="editedUser()"></user-preview>',
   controller: SettingsComponent,
 };
 
-export default module.component('app-settings', component);
+export default angular.module.component('app-settings', component);
 ```
 
 ### Angular
@@ -541,15 +545,15 @@ In a parent component, i.e. `SettingsComponent`:
   selector: 'app-settings',
   template: `
     <user-preview [user]="user" (onEdit)="editedUser($event)"></user-preview>
-  `
+  `,
 })
 export class SettingsComponent {
   user: User;
   constructor() {
     this.user = {
       name: 'Foo Bar',
-      email: 'foobar@example.com'
-    }
+      email: 'foobar@example.com',
+    };
   }
   editedUser(user: User){
     console.log('Name of the edited user is', user.name);
@@ -562,6 +566,7 @@ export class SettingsComponent {
 ```jsx
 import React from 'react';
 import PropTypes from 'prop-types';
+import { User } from 'utils';
 
 class UserPreviewComponent extends React.Component {
   render() {
@@ -583,20 +588,24 @@ UserPreviewComponent.propTypes = {
 In a parent component, i.e. `SettingsComponent`:
 
 ```jsx
-import React from 'react';
+import { Component } from 'react';
+import { User } from 'utils';
 
-class SettingsComponent extends React.Component {
-  constructor() {
+export class SettingsComponent extends Component {
+  constructor(props) {
+    super(props);
     this.state = {
       user: {
         name: 'Foo Bar',
-        email: 'foobar@example.com'
-      }
+        email: 'foobar@example.com',
+      },
     };
   }
+
   editedUser(user: User){
     console.log('Name of the edited user is', user.name);
   }
+
   render() {
     return (
       <UserPreviewComponent user={this.state.user} onEdit={(user) => this.editedUser(user)} />
@@ -725,10 +734,12 @@ Vue.component('courses-list', {
 [`constructor(props)`](https://reactjs.org/docs/react-component.html#constructor) - the first method called in the lifecycle before mounting. If used, it must include `super(props)` as first call:
 
 ```jsx
-constructor(props) {
-  super(props);
-  this.state = {
-    time: new Date();
+class CreationDate extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      time: new Date(),
+    };
   }
 }
 ```
@@ -868,10 +879,10 @@ _This hook is not called during server-side rendering._
 Angularjs 1.x has three ways to perform conditional rendering: `ng-if`, `ng-switch` and `ng-hide/ng-show`.
 
 ```js
-export class RegistrationComponentCtrl {
-  this.registrationCompleted = false;
-  this.displaySpecialOffer = false;
-  this.displayStatus = 'Registered';
+export class RegistrationController {
+  registrationCompleted = false;
+  displaySpecialOffer = false;
+  displayStatus = 'Registered';
 }
 ```
 ```html
@@ -902,9 +913,9 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'registration',
-  template: ``,
+  template: '',
 })
-export class registrationComponent {
+export class RegistrationComponent {
   registrationCompleted: boolean = false;
   displaySpecialOffer: boolean = false;
 }
@@ -933,7 +944,7 @@ The most common approach to conditional rendering is by using the ternary operat
 
 ```jsx
 class Registration extends React.Component {
-  this.state = {
+  state = {
     registrationCompleted: false,
   };
 
@@ -947,9 +958,9 @@ class Registration extends React.Component {
         { this.props.displaySpecialOffer ? <SpecialOffer /> : null }
 
         { this.state.registrationCompleted ? (
-            <RegistrationCompleted />
+          <RegistrationCompleted />
         ) : (
-            <RegistrationForm />
+          <RegistrationForm />
         ) }
       </div>
     );
@@ -1348,14 +1359,14 @@ import {
   ViewChild,
   ContentChild,
   AfterViewInit,
-  AfterContentInit
+  AfterContentInit,
 } from '@angular/core';
 
 @Component({
   selector: 'child',
   template: `
     <p>Hello, I'm your child #{{ number }}!</p>
-  `
+  `,
 })
 export class Child {
   @Input() number: number;
@@ -1366,7 +1377,7 @@ export class Child {
   template: `
     <child number="1"></child>
     <ng-content></ng-content>
-  `
+  `,
 })
 export class Parent implements AfterViewInit, AfterContentInit {
   @ViewChild(Child) viewChild: Child;
@@ -1392,7 +1403,7 @@ export class Parent implements AfterViewInit, AfterContentInit {
       <child number="2"></child>
       <child number="3"></child>
     </parent>
-  `
+  `,
 })
 export class AppComponent { }
 ```
@@ -1521,19 +1532,19 @@ angular.module('app.layout', [])
     <div>
       <ng-content></ng-content>
     </div>
-  `
+  `,
 })
 export class Layout {}
 
 @Component({
   selector: 'page-content',
-  template: `<div>Some content</div>`,
+  template: '<div>Some content</div>',
 })
 export class PageContent {}
 
 @Component({
   selector: 'page-footer',
-  template: `<footer>Some content</footer>`,
+  template: '<footer>Some content</footer>',
 })
 export class PageFooter {}
 ```
@@ -1813,18 +1824,18 @@ Two techniques exists in React to handle form data i.e. [Controlled Components](
 import React from 'react';
 
 export default class ReactForm extends React.Component{
-  this.state = {
+  state = {
     email: '',
     password:'',
-  }
+  };
 
   handleChange = ({ name, value}) => {
     if (name === 'email') {
-      this.setState({ email: value })
+      this.setState({ email: value });
     } else if (name === 'password') {
-      this.setState({ password: value })
+      this.setState({ password: value });
     }
-  }
+  };
 
   render() {
     return (
@@ -1848,7 +1859,7 @@ export default class ReactForm extends React.Component{
           />
         </label>
       </form>
-    )
+    );
   }
 }
 ```
@@ -1979,8 +1990,8 @@ export class HeaderComponent {
 
   componentDidMount() {
     this.setState({
-      color: ThemeProvider.getTextPrimaryColor();
-    })
+      color: ThemeProvider.getTextPrimaryColor(),
+    });
   }
 
   render() {
@@ -1988,7 +1999,7 @@ export class HeaderComponent {
       <h1 styles={ { color: this.state.color } }>
         Welcome
       </h1>
-    )
+    );
   }
 }
 ```
