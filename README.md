@@ -79,14 +79,14 @@ Every component has to be declared inside a module. After that, it will be avail
 
 ```js
 const component = {
-    bindings: {},
-    template,
-    controller: ChangePasswordController,
+  bindings: {},
+  template,
+  controller: ChangePasswordController,
 };
 
 const module = angular
-    .module('app.changePassword', [])
-    .component('changePassword', component);
+  .module('app.changePassword', [])
+  .component('changePassword', component);
 ```
 
 :arrow_right: https://docs.angularjs.org/guide/component
@@ -182,7 +182,7 @@ Vue.component('change-password', {
   template: '<div>{{ /* template */ }}</div>',
   data() {
     return {
-        password: ''
+      password: '',
     };
   },
   methods: {
@@ -193,8 +193,8 @@ Vue.component('change-password', {
         Logger.error(error);
         Notification.error('There was an error. Please try again.');
       });
-  }
-  }
+    },
+  },
 });
 ```
 
@@ -300,14 +300,14 @@ There's also [provide and inject](https://vuejs.org/v2/api/#provide-inject) mech
 
 Parent component:
 ```js
-import Notification from 'utils/notification'
+import Notification from 'utils/notification';
 import Vue from 'vue';
 
 new Vue({
   el: '#app',
   provide: {
-    notification: Notification
-  }
+    notification: Notification,
+  },
 });
 ```
 
@@ -370,7 +370,7 @@ Templates in React are written inside the JavaScript file using the [JSX languag
   onClick={ this.saveContent }
 >
   Save
-</PrimaryButton>
+</PrimaryButton>;
 ```
 
 ### Vue.js
@@ -437,7 +437,7 @@ Angular is similar to AngularJS, so we use double curly braces (`{{ }}`) for int
 React uses single curly braces for interpolation. Any JavaScript can be interpolated.
 
 ```jsx
-<img src={ this.props.image.url } alt={ this.props.image.alt } />
+<img src={ this.props.image.url } alt={ this.props.image.alt } />;
 ```
 
 :arrow_right: https://reactjs.org/docs/introducing-jsx.html#embedding-expressions-in-jsx
@@ -566,7 +566,7 @@ import PropTypes from 'prop-types';
 class UserPreviewComponent extends React.Component {
   render() {
     return (
-      <form  onSubmit={this.props.onEdit}>
+      <form onSubmit={this.props.onEdit}>
         <input type="text" value={this.props.user.email} />
         <input type="text" value={this.props.user.name} />
         <button type="submit">Submit</button>
@@ -576,7 +576,7 @@ class UserPreviewComponent extends React.Component {
 }
 
 UserPreviewComponent.propTypes = {
-  user: PropTypes.instanceOf(User)
+  user: PropTypes.instanceOf(User),
 };
 ```
 
@@ -621,23 +621,23 @@ There's no built-in mechanism for default inputs, because of this we assign them
 
 ```js
 class CoursesListController {
-    $onChanges(bindings) {
-        if (typeof bindings.displayPurchased.currentValue === 'undefined') {
-            this.displayPurchased = true;
-        }
-        if (typeof bindings.displayAvailable.currentValue === 'undefined') {
-            this.displayAvailable = true;
-        }
+  $onChanges(bindings) {
+    if (typeof bindings.displayPurchased.currentValue === 'undefined') {
+      this.displayPurchased = true;
     }
+    if (typeof bindings.displayAvailable.currentValue === 'undefined') {
+      this.displayAvailable = true;
+    }
+  }
 }
 
 const component = {
-    bindings: {
-        displayPurchased: '<',
-        displayAvailable: '<',
-    },
-    templateUrl: './coursesList.component.html',
-    controller: CoursesListController,
+  bindings: {
+    displayPurchased: '<',
+    displayAvailable: '<',
+  },
+  templateUrl: './coursesList.component.html',
+  controller: CoursesListController,
 };
 ```
 
@@ -684,17 +684,17 @@ class CoursesListController {
 import Vue from 'vue';
 
 Vue.component('courses-list', {
-    template: '<div>{{ /* template */ }}</div>',
-    props: {
-        displayPurchased: {
-            type: Boolean,
-            default: true
-        },
-        displayAvailable: {
-            type: Boolean,
-            default: true
-        }
-    }
+  template: '<div>{{ /* template */ }}</div>',
+  props: {
+    displayPurchased: {
+      type: Boolean,
+      default: true,
+    },
+    displayAvailable: {
+      type: Boolean,
+      default: true,
+    },
+  },
 });
 ```
 
@@ -990,19 +990,19 @@ export class BookListComponentCtrl {
     this.books = [
       {
         id: 1,
-        title: "Eloquent JavaScript",
-        author: "Marijn Haverbeke"
+        title: 'Eloquent JavaScript',
+        author: 'Marijn Haverbeke',
       },
       {
         id: 2,
-        title: "JavaScript: The Good Parts",
-        author: "Douglas Crockford"
+        title: 'JavaScript: The Good Parts',
+        author: 'Douglas Crockford',
       },
       {
         id: 3,
-        title: "JavaScript: The Definitive Guide",
-        author: "David Flanagan"
-      }
+        title: 'JavaScript: The Definitive Guide',
+        author: 'David Flanagan',
+      },
     ];
   }
 }
@@ -1078,25 +1078,25 @@ class BookList extends React.Component {
       books: [
         {
           id: 1,
-          title: "Eloquent JavaScript",
-          author: "Marijn Haverbeke"
+          title: 'Eloquent JavaScript',
+          author: 'Marijn Haverbeke',
         },
         {
           id: 2,
-          title: "JavaScript: The Good Parts",
-          author: "Douglas Crockford"
+          title: 'JavaScript: The Good Parts',
+          author: 'Douglas Crockford',
         },
         {
           id: 3,
-          title: "JavaScript: The Definitive Guide",
-          author: "David Flanagan"
-        }
-      ]
+          title: 'JavaScript: The Definitive Guide',
+          author: 'David Flanagan',
+        },
+      ],
     };
   }
 
   render() {
-    const { books } = this.state;
+    const { books, } = this.state;
 
     return (
       <ul>
@@ -1132,22 +1132,22 @@ export default {
       books: [
         {
           id: 1,
-          title: "Eloquent JavaScript",
-          author: "Marijn Haverbeke"
+          title: 'Eloquent JavaScript',
+          author: 'Marijn Haverbeke',
         },
         {
           id: 2,
-          title: "JavaScript: The Good Parts",
-          author: "Douglas Crockford"
+          title: 'JavaScript: The Good Parts',
+          author: 'Douglas Crockford',
         },
         {
           id: 3,
-          title: "JavaScript: The Definitive Guide",
-          author: "David Flanagan"
-        }
-      ]
-    }
-  }
+          title: 'JavaScript: The Definitive Guide',
+          author: 'David Flanagan',
+        },
+      ],
+    };
+  },
 };
 ```
 
@@ -1173,13 +1173,13 @@ Custom Filters:
 
 ```js
 angular.module('app', [])
-.filter('reverse', function() {
+  .filter('reverse', function() {
     return (input = '', uppercase = false) => {
-        const out = input.split('').reverse().join('');
+      const out = input.split('').reverse().join('');
 
-        return uppercase ? out.toUpperCase() : out;
+      return uppercase ? out.toUpperCase() : out;
     };
-});
+  });
 ```
 
 :arrow_right: https://docs.angularjs.org/guide/filter
@@ -1223,21 +1223,21 @@ React doesn't provide any specific filtering mechanism. This can simply be achie
 
 ```jsx
 export function reverse(input = '', uppercase = false) {
-    const out = input.split('').reverse().join('');
+  const out = input.split('').reverse().join('');
 
-    return uppercase ? out.toUpperCase() : out;
+  return uppercase ? out.toUpperCase() : out;
 }
 ```
 
 ```jsx
-import { reverse } from 'utils'
+import { reverse, } from 'utils';
 
 export class App extends Component {
   render() {
     return (
-        <div>
-            { reverse(this.props.input) }
-        </div>
+      <div>
+        { reverse(this.props.input) }
+      </div>
     );
   }
 }
@@ -1247,8 +1247,8 @@ Filter chaining can be achieved using function composition:
 
 ```jsx
 <div>
-    { truncate(reverse(this.props.input)) }
-</div>
+  { truncate(reverse(this.props.input)) }
+</div>;
 ```
 
 ### Vue.js
@@ -1276,10 +1276,10 @@ new Vue({
   filters: {
     lowercase(word) {
       return word.toLowerCase();
-    }
+    },
   },
   data: {
-    message: 'Hello World'
+    message: 'Hello World',
   },
 });
 ```
@@ -1410,7 +1410,7 @@ In React, we have two options to deal with child nodes: [`refs`](https://reactjs
 ```jsx
 // In order to access child nodes from parents, we can pass the `ref` callback
 // to the children as props.
-const TextInput = ({ inputRef }) => (
+const TextInput = ({ inputRef, }) => (
   <div>
     <input ref={inputRef} type="text" />
   </div>
@@ -1434,7 +1434,7 @@ class Parent extends React.Component {
         <TextInput
           inputRef={node => { this.textInput = node; }} />
       </div>
-    )
+    );
   }
 }
 
@@ -1447,7 +1447,7 @@ class Parent extends React.Component {
 ```jsx
 // children is just a prop. In this case, the value of `children` will be
 // what you pass to the <Heading /> component as a child node.
-const Heading = ({ children }) => (
+const Heading = ({ children, }) => (
   <h1 className="Heading">
     {children}
   </h1>
@@ -1488,22 +1488,22 @@ const App = () => (
 
 ```js
 angular.module('app.layout', [])
-.component('layout', {
-  bindings: {
-    theme: '@',
-  },
-  controller: LayoutController,
-  transclude: true,
-  template: `
+  .component('layout', {
+    bindings: {
+      theme: '@',
+    },
+    controller: LayoutController,
+    transclude: true,
+    template: `
     <div ng-class="'theme-' + $ctrl.theme">
       <ng-transclude></ng-transclude>
     </div>
   `,
-}).component('pageContent', {
-  template: `<div>Some content</div>`,
-}).component('pageFooter', {
-  template: `<footer>Some content</footer>`,
-});
+  }).component('pageContent', {
+    template: '<div>Some content</div>',
+  }).component('pageFooter', {
+    template: '<footer>Some content</footer>',
+  });
 ```
 ```html
 <layout theme="dark">
@@ -1547,7 +1547,7 @@ export class PageFooter {}
 ### React
 
 ```jsx
-const Layout = ({ children, theme }) => (
+const Layout = ({ children, theme, }) => (
   <div className={`theme-${theme}`}>
     {children}
   </div>
@@ -1564,7 +1564,7 @@ const PageFooter = () => (
 <Layout theme='dark'>
   <PageContent />
   <PageFooter />
-</Layout>
+</Layout>;
 ```
 
 ### Vue.js
@@ -1577,14 +1577,14 @@ const PageFooter = () => (
 
 ```js
 angular.module('app.layout', [])
-.component('landingSection', {
-  bindings: {},
-  controller: LandingSectionController,
-  transclude: {
-    contentSlot: '?content', // '?' indicates an optional slot
-    iconSlot: '?icon'
-  },
-  template: `
+  .component('landingSection', {
+    bindings: {},
+    controller: LandingSectionController,
+    transclude: {
+      contentSlot: '?content', // '?' indicates an optional slot
+      iconSlot: '?icon',
+    },
+    template: `
     <div>
       <span ng-transclude="contentSlot"></span>
       <div>
@@ -1592,9 +1592,9 @@ angular.module('app.layout', [])
       </dev>
     </div>
   `,
-}).component('pageContent', {
-  template: `<div>Some content</div>`,
-});
+  }).component('pageContent', {
+    template: '<div>Some content</div>',
+  });
 ```
 ```html
 <div>
@@ -1612,7 +1612,7 @@ angular.module('app.layout', [])
 ### React
 
 ```jsx
-const Layout = ({ children, theme }) => (
+const Layout = ({ children, theme, }) => (
   <div className={`theme-${theme}`}>
     <header>{children.header}</header>
     <main>{children.content}</main>
@@ -1633,12 +1633,12 @@ const Content = () => (
 );
 
 <Layout theme='dark'>
-{{
-  header: <Header />,
-  content: <Content />,
-  footer: <Footer />
-}}
-</Layout>
+  {{
+    header: <Header />,
+    content: <Content />,
+    footer: <Footer />,
+  }}
+</Layout>;
 ```
 
 ### Vue.js
@@ -1688,20 +1688,20 @@ You can use the `v-model` directive to create **two-way data bindings** on form 
 
 ```js
 class SignInController {
-    constructor(Auth) {
-        'ngInject';
+  constructor(Auth) {
+    'ngInject';
 
-        this.Auth = Auth;
-    }
+    this.Auth = Auth;
+  }
 
-    $onInit() {
-        this.email = '';
-        this.password = '';
-    }
+  $onInit() {
+    this.email = '';
+    this.password = '';
+  }
 
-    submit() {
-        Auth.signIn(this.email, this.password);
-    }
+  submit() {
+    Auth.signIn(this.email, this.password);
+  }
 }
 
 ```
@@ -1904,16 +1904,16 @@ The [`ng-style`](https://docs.angularjs.org/api/ng/directive/ngStyle) directive 
 
 ```js
 class HeaderController {
-    constructor(ThemeProvider) {
-        'ngInject';
+  constructor(ThemeProvider) {
+    'ngInject';
 
-        this.ThemeProvider = ThemeProvider;
-        this.headerStyles = {};
-    }
+    this.ThemeProvider = ThemeProvider;
+    this.headerStyles = {};
+  }
 
-    $onInit() {
-        this.headerStyles.color = ThemeProvider.getTextPrimaryColor();
-    }
+  $onInit() {
+    this.headerStyles.color = ThemeProvider.getTextPrimaryColor();
+  }
 }
 ```
 
@@ -2058,7 +2058,7 @@ All string values are sanitized before being inserted into the DOM. No more deta
 You need to pass an object containing the `__html` property with the desired template contents.
 
 ```jsx
-<p dangerouslySetInnerHTML={{__html: article.content}} />
+<p dangerouslySetInnerHTML={{__html: article.content,}} />;
 ```
 
 ### Vue.js
