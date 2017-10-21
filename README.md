@@ -1096,7 +1096,7 @@ class BookList extends React.Component {
   }
 
   render() {
-    const { books, } = this.state;
+    const { books } = this.state;
 
     return (
       <ul>
@@ -1230,7 +1230,7 @@ export function reverse(input = '', uppercase = false) {
 ```
 
 ```jsx
-import { reverse, } from 'utils';
+import { reverse } from 'utils';
 
 export class App extends Component {
   render() {
@@ -1410,7 +1410,7 @@ In React, we have two options to deal with child nodes: [`refs`](https://reactjs
 ```jsx
 // In order to access child nodes from parents, we can pass the `ref` callback
 // to the children as props.
-const TextInput = ({ inputRef, }) => (
+const TextInput = ({ inputRef }) => (
   <div>
     <input ref={inputRef} type="text" />
   </div>
@@ -1447,7 +1447,7 @@ class Parent extends React.Component {
 ```jsx
 // children is just a prop. In this case, the value of `children` will be
 // what you pass to the <Heading /> component as a child node.
-const Heading = ({ children, }) => (
+const Heading = ({ children }) => (
   <h1 className="Heading">
     {children}
   </h1>
@@ -1547,7 +1547,7 @@ export class PageFooter {}
 ### React
 
 ```jsx
-const Layout = ({ children, theme, }) => (
+const Layout = ({ children, theme }) => (
   <div className={`theme-${theme}`}>
     {children}
   </div>
@@ -1612,7 +1612,7 @@ angular.module('app.layout', [])
 ### React
 
 ```jsx
-const Layout = ({ children, theme, }) => (
+const Layout = ({ children, theme }) => (
   <div className={`theme-${theme}`}>
     <header>{children.header}</header>
     <main>{children.content}</main>
@@ -2058,7 +2058,7 @@ All string values are sanitized before being inserted into the DOM. No more deta
 You need to pass an object containing the `__html` property with the desired template contents.
 
 ```jsx
-<p dangerouslySetInnerHTML={{__html: article.content,}} />;
+<p dangerouslySetInnerHTML={{__html: article.content}} />;
 ```
 
 ### Vue.js

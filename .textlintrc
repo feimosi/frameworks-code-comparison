@@ -1,8 +1,8 @@
 {
     "rules": {
-	"eslint": {
-	    "configFile": "./.eslintrc",
-	    "langs": ["js", "ts", "jsx"]
-	}
+        "eslint": {
+            "configFile": "./.eslintrc",
+            "langs": ["js", "ts", "jsx"]
+        }
     }
 }

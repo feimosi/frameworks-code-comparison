@@ -1,32 +1,26 @@
 {
     "env": {
-	"es6": true
+        "es6": true
     },
     "extends": "eslint:recommended",
     "parserOptions": {
-	"sourceType": "module",
-	"ecmaVersion": 6,
-	"ecmaFeatures": {
-	    "jsx": true
-	}
+        "sourceType": "module",
+        "ecmaVersion": 6,
+        "ecmaFeatures": {
+            "jsx": true
+        }
     },
     "rules": {
-	"indent": ["error", 2, {"SwitchCase": 1}],
-	"no-else-return": "error",
-	"no-multi-spaces": "error",
-	"no-whitespace-before-property": "error",
-	"camelcase": "error",
-	"new-cap": "error",
-	"no-console": "error",
-	"comma-dangle": ["error", "always"],
-	"no-var": "error",
-	"quotes": [
-	    "error",
-	    "single"
-	],
-	"semi": [
-	    "error",
-	    "always"
-	]
+        "indent": ["error", 2, {"SwitchCase": 1}],
+        "no-else-return": "error",
+        "no-multi-spaces": "error",
+        "no-whitespace-before-property": "error",
+        "camelcase": "error",
+        "new-cap": "error",
+        "no-console": "error",
+        "comma-dangle": ["error", "always-multiline"],
+        "no-var": "error",
+        "quotes": ["error", "single"],
+        "semi": ["error", "always"]
     }
 }
