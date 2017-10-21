@@ -1,0 +1,27 @@
+{
+  "name": "frameworks-code-comparison",
+  "version": "1.0.0",
+  "description": "Frontend frameworks code comparison",
+  "main": "index.js",
+  "scripts": {
+    "lint": "textlint README.md",
+    "lint-fix": "textlint --fix README.md",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/feimosi/frameworks-code-comparison.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/feimosi/frameworks-code-comparison/issues"
+  },
+  "homepage": "https://github.com/feimosi/frameworks-code-comparison#readme",
+  "devDependencies": {
+    "eslint": "^4.9.0",
+    "textlint": "^8.2.1",
+    "textlint-rule-eslint": "^2.0.1"
+  }
+}
