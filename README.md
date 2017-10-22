@@ -396,7 +396,7 @@ Events can be listened to using [`v-on`](https://vuejs.org/v2/guide/events.html#
 </primary-button>
 ```
 
-:arrow_right: https://vuejs.org/v2/guide/components.html#Props
+:arrow_right: https://vuejs.org/v2/guide/syntax.html
 
 # Interpolation
 
@@ -425,9 +425,7 @@ Another way to "bind" data is to use [`ng-bind`](https://docs.angularjs.org/api/
 
 ### Angular
 
-Angular is similar to AngularJS, so we use double curly braces (`{{ }}`) for interpolation. Since Angular offers property binding you often have a choice to use it instead of interpolation. 
-
-:arrow_right: https://angular.io/guide/template-syntax#property-binding-or-interpolation 
+Angular is similar to AngularJS, so we use double curly braces (`{{ }}`) for interpolation. Since Angular offers property binding you often have a choice to use it [instead of interpolation](https://angular.io/guide/template-syntax#property-binding-or-interpolation). 
 
 ```html
 <img [src]="image.url" alt="{{ image.alt }}" />
@@ -621,6 +619,8 @@ For communication between two components that don't have a parent-child relation
 ### Vue.js
 
 > TODO
+
+:arrow_right: https://vuejs.org/v2/guide/components.html#Props
 
 # Default inputs
 
