@@ -1691,6 +1691,25 @@ In Angular, the [ngClass](https://angular.io/guide/ajs-quick-reference#ngclass) 
 ### Vue.js
 You can use the `v-model` directive to create **two-way data bindings** on form `input` and `textarea` elements. It automatically picks the correct way to update the element based on the input type. Although a bit magical, `v-model` is essentially syntax sugar for updating data on user input events, plus special care for some edge cases.
 
+### Angular
+We use [`ngModel`](https://angular.io/api/forms/NgModel), If you have a one-way binding to ngModel with [] syntax, changing the value of the domain model in the component class will set the value in the view. If you have a two-way binding with [()] syntax (also known as 'banana-box syntax'), the value in the UI will always be synced back to the domain model in your class as well.
+ 
+```js
+import {Component} from '@angular/core';
+ 
+@Component({
+  selector: 'example-app',
+  template: `
+    <input [(ngModel)]="name">
+    <br>
+    <input [(ngModel)]="name"> 
+    <p>Value: {{ name }}</p>
+  `,
+})
+export class SimpleNgModelComp {
+  name: string = '';
+}
+```
 > TODO
 
 # Forms
