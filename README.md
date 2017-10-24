@@ -387,7 +387,7 @@ Component properties can be passed in as:
 Events can be listened to using [`v-on`](https://vuejs.org/v2/guide/events.html#Method-Event-Handlers) or [`@shorthand`](https://vuejs.org/v2/guide/syntax.html#v-on-Shorthand) combined with the event name, and a method name as the value, e.g `v-on:click="saveContent"`.
 
 ```html
-<primary-button 
+<primary-button
   size="big"
   v-bind:disabled="true"
   v-on:click="saveContent"
@@ -425,7 +425,7 @@ Another way to "bind" data is to use [`ng-bind`](https://docs.angularjs.org/api/
 
 ### Angular
 
-Angular is similar to AngularJS, so we use double curly braces (`{{ }}`) for interpolation. Since Angular offers property binding you often have a choice to use it [instead of interpolation](https://angular.io/guide/template-syntax#property-binding-or-interpolation). 
+Angular is similar to AngularJS, so we use double curly braces (`{{ }}`) for interpolation. Since Angular offers property binding you often have a choice to use it [instead of interpolation](https://angular.io/guide/template-syntax#property-binding-or-interpolation).
 
 ```html
 <img [src]="image.url" alt="{{ image.alt }}" />
@@ -709,6 +709,122 @@ Vue.component('courses-list', {
 
 # Handling Events
 
+### AngularJS
+
+```js
+class MenuListCtrl {
+  constructor() {
+    this._selected = null;
+  }
+
+  handleClick(item) {
+    // Prevent same item selection.
+    if (this._selected !== item.value) {
+      this._selected = item.value;
+      this.onClick(item.value);
+    }
+  }
+}
+
+const menuList = {
+  bindings: {
+    items: '<',
+    onClick: '&'
+  },
+  template: `
+    <ul>
+      <li ng-repeat="item in $ctrl.items"
+          ng-click="$ctrl.handleClick(item)">{{ item.label }}</li>
+    </ul>
+  `,
+  controller: MenuListCtrl
+};
+
+angular.module('app')
+  .component('menuList', menuList);
+```
+
+:arrow_right: https://docs.angularjs.org/guide/component
+
+### Angular
+
+```ts
+export interface MenuItem {
+  label: string;
+  value: number | string;
+}
+```
+
+```ts
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { MenuItem } from './menu-item.interface';
+
+@Component({
+  selector: 'menu-list',
+  template: `
+    <ul>
+      <li *ngFor="let item of items"
+          (click)="handleClick(item)">{{ item.label }}</li>
+    </ul>
+  `,
+})
+export class MenuListComponent {
+  @Input() items: MenuItem[];
+
+  private selected: string | number = null;
+
+  @Output() selection = new EventEmitter<string | number>();
+
+  handleClick(item: MenuItem) {
+    // Prevent same item selection.
+    if (this.selected !== item.value) {
+      this.selected = item.value;
+      this.selection.emit(item.value);
+    }
+  }
+}
+```
+
+:arrow_right: https://angular.io/guide/template-syntax#custom-events-with-eventemitter
+
+### React
+
+```jsx
+class MenuList extends React.Component {
+  constructor() {
+    this._selected = null;
+  }
+
+  handleClick(item) {
+    if (this._selected !== item.value) {
+      this._selected = item.value;
+      this.props.onClick(item.value);
+    }
+  }
+
+  render() {
+    const { items } = this.props;
+
+    return (
+      <ul>
+        { items.map(item => {
+          return (
+            <li key="{ item.value }"
+                onClick={() => this.handleClick(item)}>
+              { item.label }
+            </li>
+          );
+        }) }
+      </ul>
+    );
+  }
+}
+```
+
+:arrow_right: https://reactjs.org/tutorial/tutorial.html#lifting-state-up
+
+### Vue.js
+
 > TODO
 
 # Lifecycle methods
@@ -898,10 +1014,10 @@ export class RegistrationController {
 
 <div ng-show="displaySpecialOffer">
   <special-offer></special-offer>
-</div>  
+</div>
 <div ng-hide="displaySpecialOffer">
   <special-offer></special-offer>
-</div>  
+</div>
 ```
 
 ### Angular
@@ -939,7 +1055,7 @@ export class RegistrationComponent {
 
 ### React
 
-The most common approach to conditional rendering is by using the ternary operator:  
+The most common approach to conditional rendering is by using the ternary operator:
 `{ condition ? <Component /> : null }`
 
 ```jsx
@@ -1180,7 +1296,7 @@ Chaining of filters is also possible:
 <h1>{{ name | uppercase | appendTitle  }}</h1>
 ```
 
-Custom Filters:  
+Custom Filters:
 
 ```js
 angular.module('app', [])
@@ -1698,7 +1814,7 @@ We use [`[(ngModel)]`](https://angular.io/api/forms/NgModel) to have a two-way d
 
 ```ts
 import { Component } from '@angular/core';
- 
+
 @Component({
   selector: 'example-app',
   templateUrl: require('registration.component.html'),
@@ -1709,7 +1825,7 @@ export class RegistrationComponent {
 ```
 
 ```html
-<input [(ngModel)]="name"> 
+<input [(ngModel)]="name">
 <p>Name: {{ name }}</p>
 ```
 
