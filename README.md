@@ -463,101 +463,133 @@ You can also perform one-time interpolations that do not update on data change b
 
 ### AngularJS
 
-AngularJs has introduced a new syntax for inputs/outputs which was back ported from Angular. The main purpose of this new syntax is to enforce the One-way dataflow pattern. Read more
-in the [official documentation](https://docs.angularjs.org/guide/component#component-based-application-architecture):
+Inputs are defined by either `@` (string binding) or `<` (one-way binding) while outputs are defined by the `&` symbol. Passing arguments requires you to use an object in a child component which is then mapped to function parameters defined in the template.
 
 ```js
-class UserPreviewComponent { }
+class UserPreviewComponent {
+  $onInit() {
+    this.editedUser = {
+      name: this.user.name,
+      email: this.user.email,
+    };
+  }
+
+  submitEdit() {
+    this.onEdit({ user: this.editedUser });
+  }
+}
 
 const component = {
   bindings: {
     user: '<',
     onEdit: '&',
   },
-  template: `
-  <form ng-submit="$ctrl.onEdit();">
-    <input type="text" ng-model="$ctrl.user.name">
-    <input type="text" ng-model="$ctrl.user.email">
-    <button type="submit">Submit</button>
-  </form>
-  `,
+  template: require('./userPreview.html'),
   controller: UserPreviewComponent,
 };
 
-export default angular.module.component('user-preview', component);
+export default angular.module.component('userPreview', component);
 ```
 
-In a parent component, i.e. `SettingsComponent`:
+```html
+<form ng-submit="$ctrl.submitEdit()">
+  <input type="text" ng-model="$ctrl.editedUser.name">
+  <input type="email" ng-model="$ctrl.editedUser.email">
+  <input type="submit" value="Submit" />
+</form>
+```
+
+In a parent component:
 
 ```js
 class SettingsComponent {
-  constructor() {
-    this.user = {
-      name: 'Foo Bar',
-      email: 'foobar@example.com',
-    };
-  }
-  editedUser(user){
+  user = {
+    name: 'John Smith',
+    email: 'john.smith@example.com',
+  };
+
+  editUser(user) {
+    this.user = Object.assign({}, this.user, user);
     console.log('Name of the edited user is', user.name);
   }
 }
 
 const component = {
-  template: '<user-preview user="user" on-edit="editedUser()"></user-preview>',
+  template: require('./settings.html'),
   controller: SettingsComponent,
 };
 
-export default angular.module.component('app-settings', component);
+export default angular.module.component('settings', component);
+```
+
+```html
+<user-preview user="user"
+              on-edit="editUser(user)">
+</user-preview>
 ```
 
 ### Angular
 
-Angular introduced a new pattern for Component interactions, this pattern follows the [Flux](https://facebook.github.io/flux/) architecture. Read more in the [official documentation](https://angular.io/guide/component-interaction).
+Inputs are defined using the [@Input](https://angular.io/api/core/Input) decorator while outputs uding the [@Output](https://angular.io/api/core/Output) decorator.
 
 ```ts
 @Component({
   selector: 'user-preview',
-  template: `
-  <form (ngSubmit)="emitEditedUser();">
-    <input type="text" value="{{user.name}}">
-    <input type="text" value="{{user.email}}">
-    <button type="submit">Submit</button>
-  </form>
-  `
+  template: require('./userPreview.html'),
 })
 export class UserPreviewComponent {
+  private editedUser: User;
   @Input() user: User;
   @Output() onEdit: EventEmitter = new EventEmitter<User>();
 
-  emitEditedUser() {
-    this.onEdit.emit(this.user);
+  ngOnInit() {
+    this.editedUser = {
+      name: this.user.name,
+      email: this.user.email,
+    };
+  }
+
+  submitEdit() {
+    this.onEdit.emit(this.editedUser);
   }
 }
-
 ```
 
-In a parent component, i.e. `SettingsComponent`:
+```html
+<form (ngSubmit)="submitEdit()">
+  <input type="text" [(ngModel)]="editedUser.name">
+  <input type="text" [(ngModel)]="editedUser.email">
+  <input type="submit" value="Submit" />
+</form>
+```
+
+In a parent component:
 
 ```ts
 @Component({
-  selector: 'app-settings',
-  template: `
-    <user-preview [user]="user" (onEdit)="editedUser($event)"></user-preview>
-  `,
+  selector: 'settings',
+  template: require('./settings.html'),
 })
 export class SettingsComponent {
-  user: User;
-  constructor() {
-    this.user = {
-      name: 'Foo Bar',
-      email: 'foobar@example.com',
-    };
-  }
-  editedUser(user: User){
-    console.log('Name of the edited user is', user.name);
+  user: User = {
+    name: 'John Smith',
+    email: 'john.smith@example.com',
+  };
+
+  editUser(user: User) {
+    this.user = Object.assign({}, this.user, user);
+    console.log('User has been edited: ', user);
   }
 }
 ```
+
+```html
+<user-preview [user]="user"
+              (onEdit)="editUser($event)"
+></user-preview>
+```
+
+:arrow_right: https://angular.io/guide/component-interaction
 
 ### React
 
@@ -567,12 +599,25 @@ import PropTypes from 'prop-types';
 import { User } from 'utils';
 
 class UserPreviewComponent extends React.Component {
+  submitEdit = () => {
+    this.props.onEdit({
+      name: this.state.name,
+      email: this.state.email,
+    });
+  };
+
+  handleInputChange(event) {
+    this.setState({
+      [target.name]: target.value
+    });
+  }
+
   render() {
     return (
-      <form onSubmit={this.props.onEdit}>
-        <input type="text" value={this.props.user.email} />
-        <input type="text" value={this.props.user.name} />
-        <button type="submit">Submit</button>
+      <form onSubmit={ this.submitEdit }>
+        <input type="text" name="name" value={ this.state.name } />
+        <input type="email" name="email" value={ this.state.email } />
+        <input type="submit" value="Submit" />
       </form>
     );
   }
@@ -580,41 +625,41 @@ class UserPreviewComponent extends React.Component {
 
 UserPreviewComponent.propTypes = {
   user: PropTypes.instanceOf(User),
+  onEdit: PropTypes.func,
 };
 ```
 
-In a parent component, i.e. `SettingsComponent`:
+In a parent component:
 
 ```jsx
 import { Component } from 'react';
 import { User } from 'utils';
 
 export class SettingsComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: {
-        name: 'Foo Bar',
-        email: 'foobar@example.com',
-      },
-    };
-  }
+  state = {
+    user: {
+      name: 'John Smith',
+      email: 'john.smith@example.com',
+    },
+  };
 
-  editedUser(user: User){
-    console.log('Name of the edited user is', user.name);
+  editUser(user: User){
+    this.setState({
+        user: Object.assign({}, this.state.user, user),
+    });
+    console.log('User has been edited: ', user);
   }
 
   render() {
     return (
-      <UserPreviewComponent user={this.state.user} onEdit={(user) => this.editedUser(user)} />
+      <UserPreviewComponent
+        user={ this.state.user }
+        onEdit={ (user) => this.editUser(user) }
+      />
     );
   }
 }
 ```
-
-Read more about React's [PropTypes](https://reactjs.org/docs/typechecking-with-proptypes.html).
-
-For communication between two components that don't have a parent-child relationship, you can set up your own global event system. Subscribe to events in `componentDidMount()`, unsubscribe in `componentWillUnmount()`, and call `setState()` when you receive an event. The [Flux](https://facebook.github.io/flux/) pattern is one of the possible ways to arrange this.
 
 ### Vue.js
 
