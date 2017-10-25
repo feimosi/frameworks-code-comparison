@@ -46,6 +46,8 @@ All examples follow the current best practices and conventions that are used ins
 
 ### AngularJS
 
+Since AngularJS 1.5 we have a new syntax (back ported from Angular 2) to built [component-based applications](https://docs.angularjs.org/guide/component#component-based-application-architecture) using `component` type.
+
 ```js
 export class ChangePasswordController {
   constructor($log, Auth, Notification) {
@@ -608,7 +610,7 @@ class UserPreviewComponent extends React.Component {
 
   handleInputChange(event) {
     this.setState({
-      [target.name]: target.value
+      [target.name]: target.value,
     });
   }
 
@@ -645,7 +647,7 @@ export class SettingsComponent extends Component {
 
   editUser(user: User){
     this.setState({
-        user: Object.assign({}, this.state.user, user),
+      user: Object.assign({}, this.state.user, user),
     });
     console.log('User has been edited: ', user);
   }
@@ -774,7 +776,7 @@ class MenuListCtrl {
 const menuList = {
   bindings: {
     items: '<',
-    onClick: '&'
+    onClick: '&',
   },
   template: `
     <ul>
@@ -782,7 +784,7 @@ const menuList = {
           ng-click="$ctrl.handleClick(item)">{{ item.label }}</li>
     </ul>
   `,
-  controller: MenuListCtrl
+  controller: MenuListCtrl,
 };
 
 angular.module('app')
@@ -835,14 +837,14 @@ export class MenuListComponent {
 ### React
 
 ```jsx
-class MenuList extends React.Component {
-  constructor() {
-    this._selected = null;
-  }
+import { Component } from 'react';
+
+class MenuList extends Component {
+  selected = null;
 
   handleClick(item) {
-    if (this._selected !== item.value) {
-      this._selected = item.value;
+    if (this.selected !== item.value) {
+      this.selected = item.value;
       this.props.onClick(item.value);
     }
   }
@@ -855,7 +857,7 @@ class MenuList extends React.Component {
         { items.map(item => {
           return (
             <li key="{ item.value }"
-                onClick={() => this.handleClick(item)}>
+              onClick={() => this.handleClick(item)}>
               { item.label }
             </li>
           );
@@ -1402,6 +1404,7 @@ export function reverse(input = '', uppercase = false) {
 ```
 
 ```jsx
+import { Component } from 'react';
 import { reverse } from 'utils';
 
 export class App extends Component {
@@ -2261,7 +2264,7 @@ All string values are sanitized before being inserted into the DOM. No more deta
 You need to pass an object containing the `__html` property with the desired template contents.
 
 ```jsx
-<p dangerouslySetInnerHTML={{__html: article.content}} />;
+<p dangerouslySetInnerHTML={ { __html: article.content } } />;
 ```
 
 ### Vue.js
