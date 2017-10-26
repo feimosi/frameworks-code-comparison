@@ -1854,7 +1854,33 @@ In Angular, the [ngClass](https://angular.io/guide/ajs-quick-reference#ngclass) 
 
 ### AngularJS
 
-> TODO
+The [ng-model](https://docs.angularjs.org/api/ng/directive/ngModel) directive binds a form control to a property in the controller. This provides two-way binding.
+
+```js
+import angular from 'angular';
+import template from './registration.html';
+
+class RegistrationController {
+  $onInit() {
+    this.name = '';
+  }
+}
+
+const component = {
+  bindings: {},
+  template,
+  controller: RegistrationController,
+};
+
+export const module = angular
+  .module('app.registration', [])
+  .component('registration', component);
+```
+
+```html
+<input ng-model="$ctrl.name" />
+<p>Name: {{ $ctrl.name }}</p>
+```
 
 ### Angular
 
@@ -1864,7 +1890,7 @@ We use [`[(ngModel)]`](https://angular.io/api/forms/NgModel) to have a two-way d
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'example-app',
+  selector: 'registration',
   templateUrl: require('registration.component.html'),
 })
 export class RegistrationComponent {
@@ -1873,7 +1899,7 @@ export class RegistrationComponent {
 ```
 
 ```html
-<input [(ngModel)]="name">
+<input [(ngModel)]="name" />
 <p>Name: {{ name }}</p>
 ```
 
