@@ -46,7 +46,7 @@ All examples follow the current best practices and conventions that are used ins
 
 ### AngularJS
 
-Since AngularJS 1.5 we have a new syntax (back ported from Angular 2) to built [component-based applications](https://docs.angularjs.org/guide/component#component-based-application-architecture) using `component` type.
+Since AngularJS 1.5 we have a new syntax (backported from Angular 2) to built [component-based applications](https://docs.angularjs.org/guide/component#component-based-application-architecture) using `component` type.
 
 ```js
 export class ChangePasswordController {
@@ -353,7 +353,7 @@ Values of component properties must be one of the following:
 
 ### Angular
 
-There are three kinds of possible attributes being passed to the component:
+There are three kinds of attributes that can be passed:
 - text binding, e.g. `size="string"`
 - property binding, e.g. `[disabled]="value"`
 - event binding, e.g. `(click)="eventHandler()"`
@@ -673,7 +673,7 @@ export class SettingsComponent extends Component {
 
 ### AngularJS
 
-There's no built-in mechanism for default inputs, because of this we assign them programatically in the `$onChanges` hook.
+There's no built-in mechanism for default inputs, so we assign them programatically in the `$onChanges` hook.
 
 ```js
 class CoursesListController {
@@ -878,7 +878,7 @@ class MenuList extends Component {
 
 ### AngularJS
 
-`$onInit()` - called when the component has been constructed and has its bindings initialized.
+`$onInit()` - called when the component has been constructed and has its bindings have been initialized.
 
 `$postLink()` - called after the component and its children have been linked (mounted).
 
@@ -945,7 +945,7 @@ new Vue({
 
 #### created
 
-Called synchronously after the instance is created. At this stage, the instance has finished processing the options which means the following have been set up: data observation, computed properties, methods, watch/event callbacks. However, the mounting phase has not been started, and the `$el` property will not be available yet.
+Called synchronously after the instance is created. At this stage, the instance has finished processing the options, which means the following have been set up: data observation, computed properties, methods, watch/event callbacks. However, the mounting phase has not been started, and the `$el` property will not be available yet.
 
 ```javascript
 new Vue({
@@ -1329,7 +1329,7 @@ export default {
 
 ### AngularJS
 
-AngularJS provides filters to transform data. There are several [built-in filters](https://docs.angularjs.org/api/ng/filter) to use and you can make your own custom filters as well.
+AngularJS provides filters to transform data. There are several [built-in filters](https://docs.angularjs.org/api/ng/filter) available and you can make your own custom filters as well.
 
 Filters can be applied to view templates using the following syntax:
 
@@ -1360,7 +1360,7 @@ angular.module('app', [])
 
 ### Angular
 
-In Angular filters are called [pipes](https://angular.io/guide/pipes). Built-in pipes available in Angular are: DatePipe, UpperCasePipe, LowerCasePipe, CurrencyPipe, and PercentPipe.
+In Angular filters are called [pipes](https://angular.io/guide/pipes). The built-in pipes available in Angular are: DatePipe, UpperCasePipe, LowerCasePipe, CurrencyPipe, and PercentPipe.
 
 Apart from the built-in pipes, you can create your own, custom pipes.
 
@@ -1381,7 +1381,7 @@ export class SafePipe implements PipeTransform {
 ```
 
 Use the custom pipe in a template:
-The given `someUrl` is filtered through the `safe` pipe which transforms it trough the `DomSanitizer` function `bypassSecurityTrustResourceUrl`. More on the DomSanitizer [here](https://angular.io/api/platform-browser/DomSanitizer).
+The given `someUrl` is filtered through the `safe` pipe which transforms it trough the [`DomSanitizer`](https://angular.io/api/platform-browser/DomSanitizer) function `bypassSecurityTrustResourceUrl`.
 
 ```html
   <iframe [src]="someUrl | safe"></iframe>
@@ -1430,7 +1430,7 @@ Filter chaining can be achieved using function composition:
 
 Vue.js provides filters to allow for simple text formatting. The filter utilizes the `|` character which is appended to the expression followed by the filter's name. Vue does not come with any pre-built filters.
 
-Filters are usable within mustache interpolations:
+Filters can be used within mustache interpolations:
 
 ```html
 <h1>{{ name | lowercase }}</h1>
@@ -2040,7 +2040,7 @@ The `novalidate` attribute in the `<form>` element prevents the browser from att
 
 ### React
 
-Two techniques exists in React to handle form data i.e. [Controlled Components](https://reactjs.org/docs/forms.html#controlled-components) and [Uncontrolled Components](https://reactjs.org/docs/uncontrolled-components.html). A controlled component keeps the input's value in the state and updates it via `setState()`. While in an uncontrolled component, form data is handled by DOM itself and referenced via `ref`. In most cases, it is recommended to use controlled components.
+Two techniques exists in React to handle form data: [Controlled Components](https://reactjs.org/docs/forms.html#controlled-components) and [Uncontrolled Components](https://reactjs.org/docs/uncontrolled-components.html). A controlled component keeps the input's value in the state and updates it via `setState()`. While in an uncontrolled component, form data is handled by DOM itself and referenced via `ref`. In most cases, it is recommended to use controlled components.
 
 ```js
 import React from 'react';
@@ -2196,7 +2196,7 @@ export class HeaderComponent {
 
 ### React
 
-In the React community there are many approaches to styling your app. From traditional preprocessors (like in the Angular world) to so-called [CSS in JS](https://github.com/MicheleBertoli/css-in-js). The most popular include:
+In the React community there are many approaches to styling your app, ranging from traditional preprocessors (like in the Angular world) to so-called [CSS in JS](https://github.com/MicheleBertoli/css-in-js). The most popular include:
 
 * [css-modules](https://github.com/gajus/react-css-modules)
 * [styled-components](https://github.com/styled-components/styled-components)
@@ -2278,7 +2278,7 @@ By default, the HTML content will be sanitized using the [$sanitize](https://doc
 
 ### Angular
 
-The values are automatically sanitized before displaying them using [DomSanitizer](https://angular.io/docs/ts/latest/api/platform-browser/index/DomSanitizer-class.html)
+The values are automatically sanitized before displaying them using [DomSanitizer](https://angular.io/docs/ts/latest/api/platform-browser/index/DomSanitizer-class.html).
 
 ```html
 <p [innerHTML]="article.content"></p>
