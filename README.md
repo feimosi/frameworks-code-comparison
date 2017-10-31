@@ -1909,7 +1909,24 @@ In Angular, the [ngClass](https://angular.io/guide/ajs-quick-reference#ngclass) 
 > TODO
 
 ### Vue.js
-> TODO
+```html
+<div v-bind:class="{ active: activeClass }"></div>
+<div class="static"
+     v-bind:class="{ active: activeClass, 'text-danger': errorClass }">
+</div>
+<div v-bind:class="[activeClass, errorClass]"></div>
+<div v-bind:class="[isActive ? activeClass : '', errorClass]"></div>
+<div v-bind:class="[{ active: activeClass }, errorClass]"></div>
+```
+```js
+data: {
+  isActive: true,
+  activeClass: 'active',
+  errorClass: 'text-danger'
+}
+```
+
+:arrow_right: https://vuejs.org/v2/guide/class-and-style.html
 
 # Data binding
 
