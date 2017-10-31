@@ -872,7 +872,30 @@ class MenuList extends Component {
 
 ### Vue.js
 
-> TODO
+```html
+<div id="events-example">
+    <p>This rugby team has scored {{ score }} points.</p>
+    <button v-on:click="score += 3">A penalty has been scored, add 3</button>
+    <a href="#" v-on:click.prevent="score += 5">A try has been scored, add 5</a>
+    <input v-on:keyup.enter="addPoints" v-model="other">
+</div>
+```
+```js
+var vue = new Vue({
+    el: '#events-example',
+    data: {
+        score: 0,
+        other: 0
+    },
+    methods: {
+        addPoints: function () {
+            this.score += parseInt(this.other);
+        }
+    }
+})
+```
+
+:arrow_right: https://vuejs.org/v2/guide/events.html
 
 # Lifecycle methods
 
