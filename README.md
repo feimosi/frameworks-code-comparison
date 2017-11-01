@@ -265,10 +265,9 @@ export class ChangePasswordComponent {
 There's no special injection mechanism. ES2015 modules are used for dependency management.
 
 ```jsx
-import { Component } from 'react';
+import React, { Component } from 'react';
 import Logger from 'utils/logger';
 import Notification from 'utils/notification';
-import Auth from 'utils/auth';
 
 export class ChangePassword extends Component {
   handleEvent = () => {
@@ -290,7 +289,6 @@ Vue.js uses ES2015 modules for dependency management:
 import Vue from 'vue';
 import Logger from 'utils/logger';
 import Notification from 'utils/notification';
-import Auth from 'utils/auth';
 
 Vue.component('change-password', {
   template: '<div>{{ /* template */ }}</div>',
@@ -581,9 +579,9 @@ Handling events with React elements is very similar to handling events on DOM el
 Your event handlers will be passed instances of [`SyntheticEvent`](https://reactjs.org/docs/events.html), a cross-browser wrapper around the browser’s native event. It has the same interface as the browser’s native event, including [`stopPropagation()`](https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation) and [`preventDefault()`](https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault), except the events work identically across all browsers.
 
 ```jsx
-import { Component } from 'react';
+import React, { Component } from 'react';
 
-class MenuTopbar extends Component {
+export class MenuTopbar extends Component {
   state = {
     selected: null,
   };
@@ -601,13 +599,13 @@ class MenuTopbar extends Component {
     return (
       <ul>
         { this.props.items.map(item => (
-            <li 
-              key={ item.label }
-              onClick={ () => this.handleClick(item) }
-            >
-              { item.label }
-            </li>
-          ))
+          <li
+            key={ item.label }
+            onClick={ () => this.handleClick(item) }
+          >
+            { item.label }
+          </li>
+        ))
         }
       </ul>
     );
@@ -632,7 +630,7 @@ Vue also provides event modifiers (directive postfixes denoted by a dot).
 ```js
 Vue.component('menu-topbar', {
   data: {
-    selected: null;
+    selected: null,
   },
   methods: {
     handleClick: (item) => {
@@ -642,9 +640,9 @@ Vue.component('menu-topbar', {
           item.callback();
         }
       }
-    }
-  }
-})
+    },
+  },
+});
 ```
 
 ```html
@@ -796,11 +794,11 @@ export class SettingsComponent {
 ### React
 
 ```jsx
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { User } from 'utils';
 
-class UserPreviewComponent extends React.Component {
+class UserPreviewComponent extends Component {
   submitEdit = () => {
     this.props.onEdit({
       name: this.state.name,
@@ -808,7 +806,7 @@ class UserPreviewComponent extends React.Component {
     });
   };
 
-  handleInputChange(event) {
+  handleInputChange({ target }) {
     this.setState({
       [target.name]: target.value,
     });
@@ -817,8 +815,18 @@ class UserPreviewComponent extends React.Component {
   render() {
     return (
       <form onSubmit={ this.submitEdit }>
-        <input type="text" name="name" value={ this.state.name } />
-        <input type="email" name="email" value={ this.state.email } />
+        <input
+          type="text"
+          name="name"
+          value={ this.state.name }
+          onChange={ this.handleInputChange }
+        />
+        <input
+          type="email"
+          name="email"
+          value={ this.state.email }
+          onChange={ this.handleInputChange }
+        />
         <input type="submit" value="Submit" />
       </form>
     );
@@ -834,7 +842,7 @@ UserPreviewComponent.propTypes = {
 In a parent component:
 
 ```jsx
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { User } from 'utils';
 
 export class SettingsComponent extends Component {
@@ -895,6 +903,8 @@ const component = {
   templateUrl: './coursesList.component.html',
   controller: CoursesListController,
 };
+
+export default component;
 ```
 
 ### Angular
@@ -915,7 +925,10 @@ export class CoursesListController {
 ### React
 
 ```jsx
-class CoursesListController {
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
+export class CoursesListController extends { Component } {
   static propTypes = {
     displayPurchased: PropTypes.bool,
     displayAvailable: PropTypes.bool,
@@ -977,7 +990,9 @@ Vue.component('courses-list', {
 [`constructor(props)`](https://reactjs.org/docs/react-component.html#constructor) - the first method called in the lifecycle before mounting. If used, it must include `super(props)` as first call:
 
 ```jsx
-class CreationDate extends Component {
+import React, { Component } from 'react';
+
+export class CreationDate extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -1186,7 +1201,10 @@ The most common approach to conditional rendering is by using the ternary operat
 `{ condition ? <Component /> : null }`
 
 ```jsx
-class Registration extends React.Component {
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
+export class Registration extends Component {
   state = {
     registrationCompleted: false,
   };
@@ -1326,28 +1344,28 @@ export class BookListComponent {
 [Lists and Keys](https://reactjs.org/docs/lists-and-keys.html)
 
 ```jsx
-class BookList extends React.Component {
-  constructor() {
-    this.state = {
-      books: [
-        {
-          id: 1,
-          title: 'Eloquent JavaScript',
-          author: 'Marijn Haverbeke',
-        },
-        {
-          id: 2,
-          title: 'JavaScript: The Good Parts',
-          author: 'Douglas Crockford',
-        },
-        {
-          id: 3,
-          title: 'JavaScript: The Definitive Guide',
-          author: 'David Flanagan',
-        },
-      ],
-    };
-  }
+import React, { Component } from 'react';
+
+export class BookList extends Component {
+  state = {
+    books: [
+      {
+        id: 1,
+        title: 'Eloquent JavaScript',
+        author: 'Marijn Haverbeke',
+      },
+      {
+        id: 2,
+        title: 'JavaScript: The Good Parts',
+        author: 'Douglas Crockford',
+      },
+      {
+        id: 3,
+        title: 'JavaScript: The Definitive Guide',
+        author: 'David Flanagan',
+      },
+    ],
+  };
 
   render() {
     const { books } = this.state;
@@ -1484,7 +1502,7 @@ export function reverse(input = '', uppercase = false) {
 ```
 
 ```jsx
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { reverse } from 'utils';
 
 export class App extends Component {
@@ -1663,6 +1681,8 @@ In React, we have two options to deal with child nodes: [`refs`](https://reactjs
 `ref` is a special attribute we can pass to a React element that receives a callback and call it with the corresponding DOM node.
 
 ```jsx
+import React, { Component } from 'react';
+
 // In order to access child nodes from parents, we can pass the `ref` callback
 // to the children as props.
 const TextInput = ({ inputRef }) => (
@@ -1671,8 +1691,7 @@ const TextInput = ({ inputRef }) => (
   </div>
 );
 
-class Parent extends React.Component {
-
+class Parent extends Component {
   componentDidMount() {
     // Refs are only executed after mounting and unmounting. Now `this.textInput`
     // references a real DOM node. So, we can use the raw DOM API
@@ -1700,6 +1719,8 @@ class Parent extends React.Component {
 `children` is a special prop avaliable in all React component instances. You can use it to control _how_ and _where_ the underlying React elements will be rendered.
 
 ```jsx
+import React, { Component } from 'react';
+
 // children is just a prop. In this case, the value of `children` will be
 // what you pass to the <Heading /> component as a child node.
 const Heading = ({ children }) => (
@@ -1709,7 +1730,7 @@ const Heading = ({ children }) => (
 );
 
 // `this.props.children` refers to whatever is a valid node inside the <Layout /> element.
-class Layout extends React.Component {
+class Layout extends Component {
   render() {
     return (
       <div class="Layout">
@@ -1963,24 +1984,40 @@ In Angular, the [ngClass](https://angular.io/guide/ajs-quick-reference#ngclass) 
 ```
 
 ### React
-> TODO
+
+The React approach allows us to construct className string with JavaScript.
+
+```jsx
+<MainHeader
+  className={ this.props.isFluid ? 'mainNavbar--fluid' : '' }
+/>;
+```
+
+Many utility libraries have emerged - [classnames](https://github.com/JedWatson/classnames) being among the most popular.
+
+```jsx
+class App {
+  /* ... */
+  render() {
+    const classNames = classNames({
+      'mainNavbar--fluid': this.props.isFluid,
+    });
+
+    return (
+      <MainHeader
+        className={ classNames }
+      />
+    );
+  }
+}
+```
 
 ### Vue.js
+
 ```html
-<div v-bind:class="{ active: activeClass }"></div>
-<div class="static"
-     v-bind:class="{ active: activeClass, 'text-danger': errorClass }">
-</div>
-<div v-bind:class="[activeClass, errorClass]"></div>
-<div v-bind:class="[isActive ? activeClass : '', errorClass]"></div>
-<div v-bind:class="[{ active: activeClass }, errorClass]"></div>
-```
-```js
-data: {
-  isActive: true,
-  activeClass: 'active',
-  errorClass: 'text-danger'
-}
+<main-header
+  v-bind:class="{ 'mainNavbar--fluid': isFluid }"
+>
 ```
 
 :arrow_right: https://vuejs.org/v2/guide/class-and-style.html
@@ -2178,9 +2215,9 @@ The `novalidate` attribute in the `<form>` element prevents the browser from att
 Two techniques exists in React to handle form data: [Controlled Components](https://reactjs.org/docs/forms.html#controlled-components) and [Uncontrolled Components](https://reactjs.org/docs/uncontrolled-components.html). A controlled component keeps the input's value in the state and updates it via `setState()`. While in an uncontrolled component, form data is handled by DOM itself and referenced via `ref`. In most cases, it is recommended to use controlled components.
 
 ```js
-import React from 'react';
+import React, { Component } from 'react';
 
-export default class ReactForm extends React.Component{
+export default class ReactForm extends Component {
   state = {
     email: '',
     password:'',

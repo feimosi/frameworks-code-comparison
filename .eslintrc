@@ -15,7 +15,8 @@
     "globals": {
         "angular": true,
         "React": true,
-        "Vue": true
+        "Vue": true,
+        "require": true
     },
     "plugins": [
         "react"
@@ -30,6 +31,7 @@
         "no-multi-spaces": "error",
         "no-var": "error",
         "no-whitespace-before-property": "error",
+        "no-unused-vars": ["error", { "varsIgnorePattern": "React"}],
         "quotes": ["error", "single"],
         "semi": ["error", "always"]
     }
