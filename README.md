@@ -27,9 +27,9 @@ All examples follow the current best practices and conventions that are used ins
   * [Dependency injection](#dependency-injection)
   * [Templates](#templates)
   * [Interpolation](#interpolation)
+  * [Handling DOM Events](#handling-dom-events)
   * [Inputs and Outputs](#inputs-and-outputs)
   * [Default inputs](#default-inputs)
-  * [Handling Events](#handling-events)
   * [Lifecycle methods](#lifecycle-methods)
   * [Conditional rendering](#conditional-rendering)
   * [Lists](#lists)
@@ -461,6 +461,206 @@ You can also perform one-time interpolations that do not update on data change b
 
 :arrow_right: https://vuejs.org/v2/guide/syntax.html#Interpolations
 
+# Handling DOM Events
+
+### AngularJS
+
+Handlers of native events are bound using provided [built-in directives](https://docs.angularjs.org/api/ng/directive) e.g.
+[`ng-click`](https://docs.angularjs.org/api/ng/directive/ngClick), [`ng-focus`](https://docs.angularjs.org/api/ng/directive/ngFocus), [`ng-keypress`](https://docs.angularjs.org/api/ng/directive/ngKeypress).
+
+```js
+class MenuTopbarController {
+  $onInit() {
+    this.selected = null;
+  }
+
+  handleClick(item) {
+    if (this.selected !== item) {
+      this.selected = item;
+      if (typeof item.callback === 'function') {
+        item.callback();
+      }
+    }
+  }
+}
+
+const menuTopbar = {
+  bindings: {
+    items: '<',
+  },
+  template: require('./menuTopbar.html'),
+  controller: MenuTopbarController,
+};
+
+angular.module('app')
+  .component('menuTopbar', menuTopbar);
+```
+
+```html
+<ul>
+  <li ng-repeat="item in $ctrl.items"
+      ng-click="$ctrl.handleClick(item)">
+    {{ item.label }}
+  </li>
+</ul>
+```
+
+:arrow_right: https://docs.angularjs.org/tutorial/step_12
+
+### Angular
+
+There's a special syntax for binding to element's events with `()`. The target inside the `()` is an event we want to listen for.
+
+```ts
+export interface MenuItem {
+  label: string;
+  callback?: Function;
+}
+```
+
+```ts
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { MenuItem } from './menu-item.interface';
+
+@Component({
+  selector: 'menu-topbar',
+  template: require('./menuTopbar.html'),
+})
+export class MenuTopbarComponent {
+  private selected = null;
+  @Input() items: MenuItem[];
+
+  handleClick(item: MenuItem) {
+    if (this.selected !== item) {
+      this.selected = item;
+      if (item.callback) {
+        item.callback();
+      }
+    }
+  }
+}
+```
+
+```html
+<ul>
+  <li *ngFor="let item of items"
+      (click)="handleClick(item)">
+    {{ item.label }}
+  </li>
+</ul>
+```
+
+To bind to component's host element events, you can use [`HostListener`](https://angular.io/api/core/HostListener) decorator.
+
+```ts
+@Component({
+  selector: 'menu-topbar',
+  template: require('./menuTopbar.html'),
+})
+export class MenuTopbarComponent {
+  @HostListener('mouseenter') onMouseEnter() {
+    this.highlight('#DDD');
+  }
+  
+  @HostListener('mouseleave') onMouseLeave() {
+    this.highlight(null);
+  }
+
+  private highlight(color) {
+    /* ... */
+  }
+```
+
+### React
+
+Handling events with React elements is very similar to handling events on DOM elements. There are two syntactic differences though.
+
+- React events are named using camelCase, rather than lowercase e.g. (onClick, onFocus, onKeyPress).
+- With JSX you pass a function as the event handler, rather than a string.
+
+Your event handlers will be passed instances of [`SyntheticEvent`](https://reactjs.org/docs/events.html), a cross-browser wrapper around the browser’s native event. It has the same interface as the browser’s native event, including [`stopPropagation()`](https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation) and [`preventDefault()`](https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault), except the events work identically across all browsers.
+
+```jsx
+import { Component } from 'react';
+
+class MenuTopbar extends Component {
+  state = {
+    selected: null,
+  };
+
+  handleClick(item) {
+    if (this.selected !== item) {
+      this.setState({ selected: item });
+      if (item.callback) {
+        item.callback();
+      }
+    }
+  }
+
+  render() {
+    return (
+      <ul>
+        { this.props.items.map(item => (
+            <li 
+              key={ item.label }
+              onClick={ () => this.handleClick(item) }
+            >
+              { item.label }
+            </li>
+          ))
+        }
+      </ul>
+    );
+  }
+}
+```
+
+:arrow_right: https://reactjs.org/docs/handling-events.html
+
+### Vue.js
+
+We can use the v-on directive (or `@` shorthand) to listen to DOM events and run some JavaScript when they’re triggered.
+
+Vue also provides event modifiers (directive postfixes denoted by a dot).
+
+- `.stop` - stopPropagation
+- `.prevent` - preventDefault
+- `.capture` - use capture mode
+- `.self` - only trigger handler if event.target is the element itself
+- `.once` - the event will be triggered at most once
+
+```js
+Vue.component('menu-topbar', {
+  data: {
+    selected: null;
+  },
+  methods: {
+    handleClick: (item) => {
+      if (this.selected !== item) {
+        this.selected = item;
+        if (item.callback) {
+          item.callback();
+        }
+      }
+    }
+  }
+})
+```
+
+```html
+<ul>
+  <li 
+    v-for="item in items" 
+    :key="item.label"
+    @click="handleClick(item)"
+  >
+    {{ item.label }}
+  </li>
+</ul>
+```
+
+:arrow_right: https://vuejs.org/v2/guide/events.html
+
 # Inputs and Outputs
 
 ### AngularJS
@@ -753,149 +953,6 @@ Vue.component('courses-list', {
   },
 });
 ```
-
-# Handling Events
-
-### AngularJS
-
-```js
-class MenuListCtrl {
-  constructor() {
-    this._selected = null;
-  }
-
-  handleClick(item) {
-    // Prevent same item selection.
-    if (this._selected !== item.value) {
-      this._selected = item.value;
-      this.onClick(item.value);
-    }
-  }
-}
-
-const menuList = {
-  bindings: {
-    items: '<',
-    onClick: '&',
-  },
-  template: `
-    <ul>
-      <li ng-repeat="item in $ctrl.items"
-          ng-click="$ctrl.handleClick(item)">{{ item.label }}</li>
-    </ul>
-  `,
-  controller: MenuListCtrl,
-};
-
-angular.module('app')
-  .component('menuList', menuList);
-```
-
-:arrow_right: https://docs.angularjs.org/guide/component
-
-### Angular
-
-```ts
-export interface MenuItem {
-  label: string;
-  value: number | string;
-}
-```
-
-```ts
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { MenuItem } from './menu-item.interface';
-
-@Component({
-  selector: 'menu-list',
-  template: `
-    <ul>
-      <li *ngFor="let item of items"
-          (click)="handleClick(item)">{{ item.label }}</li>
-    </ul>
-  `,
-})
-export class MenuListComponent {
-  @Input() items: MenuItem[];
-
-  private selected: string | number = null;
-
-  @Output() selection = new EventEmitter<string | number>();
-
-  handleClick(item: MenuItem) {
-    // Prevent same item selection.
-    if (this.selected !== item.value) {
-      this.selected = item.value;
-      this.selection.emit(item.value);
-    }
-  }
-}
-```
-
-:arrow_right: https://angular.io/guide/template-syntax#custom-events-with-eventemitter
-
-### React
-
-```jsx
-import { Component } from 'react';
-
-class MenuList extends Component {
-  selected = null;
-
-  handleClick(item) {
-    if (this.selected !== item.value) {
-      this.selected = item.value;
-      this.props.onClick(item.value);
-    }
-  }
-
-  render() {
-    const { items } = this.props;
-
-    return (
-      <ul>
-        { items.map(item => {
-          return (
-            <li key="{ item.value }"
-              onClick={() => this.handleClick(item)}>
-              { item.label }
-            </li>
-          );
-        }) }
-      </ul>
-    );
-  }
-}
-```
-
-:arrow_right: https://reactjs.org/tutorial/tutorial.html#lifting-state-up
-
-### Vue.js
-
-```html
-<div id="events-example">
-    <p>This rugby team has scored {{ score }} points.</p>
-    <button v-on:click="score += 3">A penalty has been scored, add 3</button>
-    <a href="#" v-on:click.prevent="score += 5">A try has been scored, add 5</a>
-    <input v-on:keyup.enter="addPoints" v-model="other">
-</div>
-```
-```js
-var vue = new Vue({
-    el: '#events-example',
-    data: {
-        score: 0,
-        other: 0
-    },
-    methods: {
-        addPoints: function () {
-            this.score += parseInt(this.other);
-        }
-    }
-})
-```
-
-:arrow_right: https://vuejs.org/v2/guide/events.html
 
 # Lifecycle methods
 
