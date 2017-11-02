@@ -1,3 +1,8 @@
+[angular.js]: ./assets/logos/angularjs-small.svg
+[angular]: ./assets/logos/angular-small.svg
+[react]: ./assets/logos/react-small.svg
+[vue]: ./assets/logos/vue-small.svg
+
 <h1 align="center">Frontend frameworks code comparison</h1>
 
 <div align="center">
@@ -44,7 +49,7 @@ All examples follow the current best practices and conventions that are used ins
 
 # Simple component
 
-### AngularJS
+## ![angular.js] AngularJS
 
 Since AngularJS 1.5 we have a new syntax (backported from Angular 2) to built [component-based applications](https://docs.angularjs.org/guide/component#component-based-application-architecture) using `component` type.
 
@@ -94,7 +99,7 @@ export const module = angular
 
 :arrow_right: https://docs.angularjs.org/guide/component
 
-### Angular
+## ![angular] Angular
 
 ```ts
 import { Component } from '@angular/core';
@@ -144,7 +149,7 @@ export class ChangePasswordModule {}
 
 :arrow_right: https://angular.io/api/core/Component
 
-### React
+## ![react] React
 
 ```jsx
 import Logger from 'utils/logger';
@@ -173,7 +178,7 @@ export class ChangePassword {
 
 :arrow_right: https://reactjs.org/docs/react-component.html
 
-### Vue.js
+## ![vue] Vue.js
 
 ```js
 import Vue from 'vue';
@@ -205,7 +210,7 @@ Vue.component('change-password', {
 
 # Dependency injection
 
-### AngularJS
+## ![angular.js] AngularJS
 
 In AngularJS the constructor is being used to inject dependencies, which is done implicitly by the [$inject](https://docs.angularjs.org/api/auto/service/$injector) service.
 
@@ -230,7 +235,7 @@ export class ChangePasswordController {
 
 :arrow_right: https://docs.angularjs.org/guide/di
 
-### Angular
+## ![angular] Angular
 
 You specify the definition of the dependencies in the constructor (leveraging TypeScript's constructor syntax for declaring parameters and properties simultaneously).
 
@@ -260,7 +265,7 @@ export class ChangePasswordComponent {
 
 :arrow_right: https://angular.io/guide/dependency-injection
 
-### React
+## ![react] React
 
 There's no special injection mechanism. ES2015 modules are used for dependency management.
 
@@ -281,7 +286,7 @@ export class ChangePassword extends Component {
 }
 ```
 
-### Vue.js
+## ![vue] Vue.js
 
 Vue.js uses ES2015 modules for dependency management:
 
@@ -333,7 +338,7 @@ Vue.component('change-password', {
 
 # Templates
 
-### AngularJS
+## ![angular.js] AngularJS
 
 Templates in AngularJS are compiled by the [$compile](https://docs.angularjs.org/api/ng/service/$compile) service.
 Values of component properties must be one of the following:
@@ -349,7 +354,7 @@ Values of component properties must be one of the following:
 </primary-button>
 ```
 
-### Angular
+## ![angular] Angular
 
 There are three kinds of attributes that can be passed:
 - text binding, e.g. `size="string"`
@@ -364,7 +369,7 @@ There are three kinds of attributes that can be passed:
 </primary-button>
 ```
 
-### React
+## ![react] React
 
 Templates in React are written inside the JavaScript file using the [JSX language](https://reactjs.org/docs/jsx-in-depth.html). This allows us to utilize all JavaScript capabilities. JSX uses the uppercase and lowercase convention to distinguish between the user-defined components and DOM elements.
 
@@ -378,7 +383,7 @@ Templates in React are written inside the JavaScript file using the [JSX languag
 </PrimaryButton>;
 ```
 
-### Vue.js
+## ![vue] Vue.js
 
 Component properties can be passed in as:
 - literal (as strings) e.g. `size="big"`
@@ -400,7 +405,7 @@ Events can be listened to using [`v-on`](https://vuejs.org/v2/guide/events.html#
 
 # Interpolation
 
-### AngularJS
+## ![angular.js] AngularJS
 
 In AngularJS interpolation is the process of data-binding values of the `scope` to the HTML. You can also interpolate more complicated values e.g. expressions or function invocations.
 
@@ -423,7 +428,7 @@ Another way to "bind" data is to use [`ng-bind`](https://docs.angularjs.org/api/
 
 :arrow_right: https://docs.angularjs.org/guide/interpolation
 
-### Angular
+## ![angular] Angular
 
 Angular is similar to AngularJS, so we use double curly braces (`{{ }}`) for interpolation. Since Angular offers property binding you often have a choice to use it [instead of interpolation](https://angular.io/guide/template-syntax#property-binding-or-interpolation).
 
@@ -435,7 +440,7 @@ Angular is similar to AngularJS, so we use double curly braces (`{{ }}`) for int
 
 :arrow_right: https://angular.io/guide/template-syntax#interpolation
 
-### React
+## ![react] React
 
 React uses single curly braces for interpolation. Any JavaScript can be interpolated.
 
@@ -445,7 +450,7 @@ React uses single curly braces for interpolation. Any JavaScript can be interpol
 
 :arrow_right: https://reactjs.org/docs/introducing-jsx.html#embedding-expressions-in-jsx
 
-### Vue.js
+## ![vue] Vue.js
 
 ```html
 <img :src="image.url" alt="{{ image.alt }}" />
@@ -461,7 +466,7 @@ You can also perform one-time interpolations that do not update on data change b
 
 # Handling DOM Events
 
-### AngularJS
+## ![angular.js] AngularJS
 
 Handlers of native events are bound using provided [built-in directives](https://docs.angularjs.org/api/ng/directive) e.g.
 [`ng-click`](https://docs.angularjs.org/api/ng/directive/ngClick), [`ng-focus`](https://docs.angularjs.org/api/ng/directive/ngFocus), [`ng-keypress`](https://docs.angularjs.org/api/ng/directive/ngKeypress).
@@ -505,7 +510,7 @@ angular.module('app')
 
 :arrow_right: https://docs.angularjs.org/tutorial/step_12
 
-### Angular
+## ![angular] Angular
 
 There's a special syntax for binding to element's events with `()`. The target inside the `()` is an event we want to listen for.
 
@@ -569,7 +574,7 @@ export class MenuTopbarComponent {
   }
 ```
 
-### React
+## ![react] React
 
 Handling events with React elements is very similar to handling events on DOM elements. There are two syntactic differences though.
 
@@ -615,7 +620,7 @@ export class MenuTopbar extends Component {
 
 :arrow_right: https://reactjs.org/docs/handling-events.html
 
-### Vue.js
+## ![vue] Vue.js
 
 We can use the v-on directive (or `@` shorthand) to listen to DOM events and run some JavaScript when they’re triggered.
 
@@ -661,7 +666,7 @@ Vue.component('menu-topbar', {
 
 # Inputs and Outputs
 
-### AngularJS
+## ![angular.js] AngularJS
 
 Inputs are defined by either `@` (string binding) or `<` (one-way binding) while outputs are defined by the `&` symbol. Passing arguments requires you to use an object in a child component which is then mapped to function parameters defined in the template.
 
@@ -728,9 +733,9 @@ export default angular.module.component('settings', component);
 </user-preview>
 ```
 
-### Angular
+## ![angular] Angular
 
-Inputs are defined using the [@Input](https://angular.io/api/core/Input) decorator while outputs uding the [@Output](https://angular.io/api/core/Output) decorator.
+Inputs are defined using the [@Input](https://angular.io/api/core/Input) decorator while outputs using the [@Output](https://angular.io/api/core/Output) decorator.
 
 ```ts
 @Component({
@@ -791,7 +796,7 @@ export class SettingsComponent {
 
 :arrow_right: https://angular.io/guide/component-interaction
 
-### React
+## ![react] React
 
 ```jsx
 import React, { Component } from 'react';
@@ -871,7 +876,7 @@ export class SettingsComponent extends Component {
 }
 ```
 
-### Vue.js
+## ![vue] Vue.js
 
 > TODO
 
@@ -879,9 +884,9 @@ export class SettingsComponent extends Component {
 
 # Default inputs
 
-### AngularJS
+## ![angular.js] AngularJS
 
-There's no built-in mechanism for default inputs, so we assign them programatically in the `$onChanges` hook.
+There's no built-in mechanism for default inputs, so we assign them programmatically in the `$onChanges` hook.
 
 ```js
 class CoursesListController {
@@ -907,7 +912,7 @@ const component = {
 export default component;
 ```
 
-### Angular
+## ![angular] Angular
 
 ```ts
 import { Component } from '@angular/core';
@@ -922,7 +927,7 @@ export class CoursesListController {
 }
 ```
 
-### React
+## ![react] React
 
 ```jsx
 import React, { Component } from 'react';
@@ -947,7 +952,7 @@ export class CoursesListController extends { Component } {
 
 :arrow_right: https://reactjs.org/docs/typechecking-with-proptypes.html#default-prop-values
 
-### Vue.js
+## ![vue] Vue.js
 
 ```js
 import Vue from 'vue';
@@ -969,7 +974,7 @@ Vue.component('courses-list', {
 
 # Lifecycle methods
 
-### AngularJS
+## ![angular.js] AngularJS
 
 `$onInit()` - called when the component has been constructed and has its bindings have been initialized.
 
@@ -983,7 +988,7 @@ Vue.component('courses-list', {
 
 :arrow_right: https://docs.angularjs.org/api/ng/service/$compile
 
-### React
+## ![react] React
 
 #### Mounting
 
@@ -1004,7 +1009,7 @@ export class CreationDate extends Component {
 
 [`componentWillMount()`](https://reactjs.org/docs/react-component.html#componentwillmount) - is invoked just before rendering. Modifying the state here won't trigger a re-render.
 
-[`componentDidMount()`](https://reactjs.org/docs/react-component.html#componentdidmount) - is invoked after render. Useful for initialisations that require DOM nodes.
+[`componentDidMount()`](https://reactjs.org/docs/react-component.html#componentdidmount) - is invoked after render. Useful for the initialization that require DOM nodes.
 
 #### Updating
 
@@ -1024,7 +1029,7 @@ export class CreationDate extends Component {
 
 [`componentDidCatch(error,info)`](https://reactjs.org/blog/2017/07/26/error-handling-in-react-16.html) - is invoked when Javascript throws an error anywhere in the component's tree. Useful for catching errors, showing a fallback interface, and logging errors without breaking the entire application.
 
-### Vue.js
+## ![vue] Vue.js
 
 #### beforeCreate
 
@@ -1132,7 +1137,7 @@ _This hook is not called during server-side rendering._
 
 # Conditional rendering
 
-### AngularJS
+## ![angular.js] AngularJS
 
 Angularjs 1.x has three ways to perform conditional rendering: `ng-if`, `ng-switch` and `ng-hide/ng-show`.
 
@@ -1162,7 +1167,7 @@ export class RegistrationController {
 </div>
 ```
 
-### Angular
+## ![angular] Angular
 
 Since Angular 4.0.0, alongside standard `ngIf`, it is possible to use `ngIf;else` or `ngIf;then;else` using `<ng-template>` with an alias `#aliasName`.
 
@@ -1195,7 +1200,7 @@ export class RegistrationComponent {
 
 :arrow_right: https://angular.io/api/common/NgIf
 
-### React
+## ![react] React
 
 The most common approach to conditional rendering is by using the ternary operator:
 `{ condition ? <Component /> : null }`
@@ -1229,7 +1234,7 @@ export class Registration extends Component {
 }
 ```
 
-### Vue.js
+## ![vue] Vue.js
 
 Vue.js has three directives to perform conditional rendering: `v-if`, `v-else-if` and `v-else`.
 
@@ -1252,7 +1257,7 @@ Vue.js has three directives to perform conditional rendering: `v-if`, `v-else-if
 
 # Lists
 
-### AngularJS
+## ![angular.js] AngularJS
 
 [ngRepeat](https://docs.angularjs.org/api/ng/directive/ngRepeat)
 
@@ -1288,7 +1293,7 @@ export class BookListComponentCtrl {
 </ul>
 ```
 
-### Angular
+## ![angular] Angular
 
 [ngFor](https://angular.io/guide/template-syntax#ngfor)
 
@@ -1339,7 +1344,7 @@ export class BookListComponent {
 }
 ```
 
-### React
+## ![react] React
 
 [Lists and Keys](https://reactjs.org/docs/lists-and-keys.html)
 
@@ -1385,7 +1390,7 @@ export class BookList extends Component {
 }
 ```
 
-### Vue.js
+## ![vue] Vue.js
 
 ```html
 <template>
@@ -1425,7 +1430,7 @@ export default {
 
 # Filters
 
-### AngularJS
+## ![angular.js] AngularJS
 
 AngularJS provides filters to transform data. There are several [built-in filters](https://docs.angularjs.org/api/ng/filter) available and you can make your own custom filters as well.
 
@@ -1456,7 +1461,7 @@ angular.module('app', [])
 
 :arrow_right: https://docs.angularjs.org/guide/filter
 
-### Angular
+## ![angular] Angular
 
 In Angular filters are called [pipes](https://angular.io/guide/pipes). The built-in pipes available in Angular are: DatePipe, UpperCasePipe, LowerCasePipe, CurrencyPipe, and PercentPipe.
 
@@ -1489,7 +1494,7 @@ Note: `[src]` above is an input to the component which 'lives' above the `iframe
 
 :arrow_right: https://angular.io/guide/pipes
 
-### React
+## ![react] React
 
 React doesn't provide any specific filtering mechanism. This can simply be achieved by using ordinary JavaScript functions:
 
@@ -1524,7 +1529,7 @@ Filter chaining can be achieved using function composition:
 </div>;
 ```
 
-### Vue.js
+## ![vue] Vue.js
 
 Vue.js provides filters to allow for simple text formatting. The filter utilizes the `|` character which is appended to the expression followed by the filter's name. Vue does not come with any pre-built filters.
 
@@ -1575,7 +1580,7 @@ For global filters to work, they should be declared before the Vue instance.
 
 # Child nodes
 
-### AngularJS
+## ![angular.js] AngularJS
 
 Inside a [component](https://docs.angularjs.org/guide/component), we have access to the child node by injecting `$element` to the controller. This object contains a [jqLite](https://docs.angularjs.org/api/ng/function/angular.element) wrapped instance of the DOM element. Accessing `$element[0]` will return the bare DOM element.
 
@@ -1606,7 +1611,7 @@ const component = {
 };
 ```
 
-### Angular
+## ![angular] Angular
 
 Angular provides two ways to deal with child nodes: `ViewChild` and `ContentChild`. They both have the same purpose, but there are different use cases for them.
 
@@ -1646,13 +1651,13 @@ export class Parent implements AfterViewInit, AfterContentInit {
   @ContentChild(Child) contentChild: Child;
 
   ngAfterViewInit() {
-    // ViewChild element is only avaliable when the
+    // ViewChild element is only available when the
     // ngAfterViewInit lifecycle hook is reached.
     console.log(this.viewChild);
   }
 
   ngAfterContentInit() {
-    // ContentChild element is only avaliable when the
+    // ContentChild element is only available when the
     // ngAfterContentInit lifecycle hook is reached.
     console.log(this.contentChild);
   }
@@ -1672,7 +1677,7 @@ export class AppComponent { }
 
 `ViewChild` and `ContentChild` only work with a **single** DOM element. You can use [`ViewChildren`](https://angular.io/api/core/ViewChildren) and [`ContentChildren`](https://angular.io/api/core/ContentChildren) in order to get **multiple elements**. Both return the elements wrapped in a [`QueryList`](https://angular.io/api/core/QueryList).
 
-### React
+## ![react] React
 
 In React, we have two options to deal with child nodes: [`refs`](https://reactjs.org/docs/refs-and-the-dom) and [`children`](https://reactjs.org/docs/jsx-in-depth.html#children-in-jsx). With `refs`, you have access to the real DOM element. The `children` property lets you manipulate the underlying [React elements](https://reactjs.org/blog/2015/12/18/react-components-elements-and-instances.html).
 
@@ -1716,7 +1721,7 @@ class Parent extends Component {
 
 #### children
 
-`children` is a special prop avaliable in all React component instances. You can use it to control _how_ and _where_ the underlying React elements will be rendered.
+`children` is a special prop available in all React component instances. You can use it to control _how_ and _where_ the underlying React elements will be rendered.
 
 ```jsx
 import React, { Component } from 'react';
@@ -1752,7 +1757,7 @@ const App = () => (
 );
 ```
 
-### Vue.js
+## ![vue] Vue.js
 
 > TODO
 
@@ -1760,7 +1765,7 @@ const App = () => (
 
 ## Basic
 
-### AngularJS
+## ![angular.js] AngularJS
 
 ```js
 angular.module('app.layout', [])
@@ -1788,7 +1793,7 @@ angular.module('app.layout', [])
 </layout>
 ```
 
-### Angular
+## ![angular] Angular
 
 ```ts
 @Component({
@@ -1820,7 +1825,7 @@ export class PageFooter {}
 </layout>
 ```
 
-### React
+## ![react] React
 
 ```jsx
 const Layout = ({ children, theme }) => (
@@ -1843,13 +1848,13 @@ const PageFooter = () => (
 </Layout>;
 ```
 
-### Vue.js
+## ![vue] Vue.js
 
 > TODO
 
 ## Multiple slots
 
-### AngularJS
+## ![angular.js] AngularJS
 
 ```js
 angular.module('app.layout', [])
@@ -1881,11 +1886,11 @@ angular.module('app.layout', [])
 </div>
 ```
 
-### Angular
+## ![angular] Angular
 
 > TODO
 
-### React
+## ![react] React
 
 ```jsx
 const Layout = ({ children, theme }) => (
@@ -1917,7 +1922,7 @@ const Content = () => (
 </Layout>;
 ```
 
-### Vue.js
+## ![vue] Vue.js
 
 App layout:
 ```html
@@ -1961,7 +1966,7 @@ Result:
 
 # Class toggling
 
-### AngularJS
+## ![angular.js] AngularJS
 
 The [ng-class](https://docs.angularjs.org/api/ng/directive/ngClass) directive allows you to dynamically set CSS classes on an HTML element.
 
@@ -1972,7 +1977,7 @@ The [ng-class](https://docs.angularjs.org/api/ng/directive/ngClass) directive al
 </main-header>
 ```
 
-### Angular
+## ![angular] Angular
 
 In Angular, the [ngClass](https://angular.io/guide/ajs-quick-reference#ngclass) directive works similarly. It includes/excludes CSS classes based on an expression.
 
@@ -1983,7 +1988,7 @@ In Angular, the [ngClass](https://angular.io/guide/ajs-quick-reference#ngclass) 
 </main-header>
 ```
 
-### React
+## ![react] React
 
 The React approach allows us to construct className string with JavaScript.
 
@@ -2012,7 +2017,7 @@ class App {
 }
 ```
 
-### Vue.js
+## ![vue] Vue.js
 
 ```html
 <main-header
@@ -2024,7 +2029,7 @@ class App {
 
 # Data binding
 
-### AngularJS
+## ![angular.js] AngularJS
 
 The [ng-model](https://docs.angularjs.org/api/ng/directive/ngModel) directive binds a form control to a property in the controller. This provides two-way binding.
 
@@ -2054,7 +2059,7 @@ export const module = angular
 <p>Name: {{ $ctrl.name }}</p>
 ```
 
-### Angular
+## ![angular] Angular
 
 We use [`[(ngModel)]`](https://angular.io/api/forms/NgModel) to have a two-way data binding inside our forms. The value in the UI will always be synced with the domain model in the component.
 
@@ -2077,11 +2082,11 @@ export class RegistrationComponent {
 
 :arrow_right: https://angular.io/guide/template-syntax#two-way-binding
 
-### React
+## ![react] React
 
 > TODO
 
-### Vue.js
+## ![vue] Vue.js
 
 You can use the `v-model` directive to create **two-way data bindings** on form `input` and `textarea` elements. It automatically picks the correct way to update the element based on the input type. Although a bit magical, `v-model` is essentially syntax sugar for updating data on user input events, plus special care for some edge cases.
 
@@ -2089,7 +2094,7 @@ You can use the `v-model` directive to create **two-way data bindings** on form 
 
 # Forms
 
-### AngularJS
+## ![angular.js] AngularJS
 
 ```js
 class SignInController {
@@ -2126,7 +2131,7 @@ class SignInController {
 </form>
 ```
 
-### Angular
+## ![angular] Angular
 
 Angular offers two ways to build forms:
 
@@ -2135,7 +2140,7 @@ Angular offers two ways to build forms:
 
 The former uses a reactive (or model-driven) approach to build forms. The latter allows you to build forms by writing templates in the Angular template syntax with the form-specific directives and techniques.
 
-#### Reactive forms example
+### ![react] Reactive forms example
 
 ```ts
 import { Component, OnInit } from '@angular/core';
@@ -2210,7 +2215,7 @@ export class TemplateDrivenFormComponent {
 
 The `novalidate` attribute in the `<form>` element prevents the browser from attempting native HTML validations.
 
-### React
+## ![react] React
 
 Two techniques exists in React to handle form data: [Controlled Components](https://reactjs.org/docs/forms.html#controlled-components) and [Uncontrolled Components](https://reactjs.org/docs/uncontrolled-components.html). A controlled component keeps the input's value in the state and updates it via `setState()`. While in an uncontrolled component, form data is handled by DOM itself and referenced via `ref`. In most cases, it is recommended to use controlled components.
 
@@ -2260,7 +2265,7 @@ export default class ReactForm extends Component {
 
 :arrow_right: https://reactjs.org/docs/forms.html
 
-### Vue.js
+## ![vue] Vue.js
 
 ```html
 <template>
@@ -2300,7 +2305,7 @@ export default {
 
 # Styling
 
-### AngularJS
+## ![angular.js] AngularJS
 
 Generally you will use a preprocessor (e.g. [Sass](http://sass-lang.com/)) and assign appropriate classes to the elements.
 
@@ -2328,7 +2333,7 @@ class HeaderController {
 </h1>
 ```
 
-### Angular
+## ![angular] Angular
 
 When defining Angular components you may also include the CSS styles that will go with the template. By default the styles will be compiled as shadow DOM, which basically means you don't need any namespacing strategy for CSS classes.
 
@@ -2366,7 +2371,7 @@ export class HeaderComponent {
 
 :arrow_right: https://angular.io/guide/component-styles
 
-### React
+## ![react] React
 
 In the React community there are many approaches to styling your app, ranging from traditional preprocessors (like in the Angular world) to so-called [CSS in JS](https://github.com/MicheleBertoli/css-in-js). The most popular include:
 
@@ -2398,7 +2403,7 @@ export class HeaderComponent {
 }
 ```
 
-### Vue.js
+## ![vue] Vue.js
 
 When using [Single File Components](https://vuejs.org/v2/guide/single-file-components.html) you can simply style a component inside the `<style>` tag. When the tag has the `scoped` attribute, its CSS will apply to elements of the current component only.
 
@@ -2440,7 +2445,7 @@ module.exports = {
 
 Also known as innerHTML.
 
-### AngularJS
+## ![angular.js] AngularJS
 
 By default, the HTML content will be sanitized using the [$sanitize](https://docs.angularjs.org/api/ngSanitize/service/$sanitize) service. To utilize this functionality, you need to include `ngSanitize` in your module's dependencies. [Read more](https://docs.angularjs.org/api/ng/directive/ngBindHtml)
 
@@ -2448,7 +2453,7 @@ By default, the HTML content will be sanitized using the [$sanitize](https://doc
 <p ng-bind-html="$ctrl.article.content"></p>
 ```
 
-### Angular
+## ![angular] Angular
 
 The values are automatically sanitized before displaying them using [DomSanitizer](https://angular.io/docs/ts/latest/api/platform-browser/index/DomSanitizer-class.html).
 
@@ -2456,7 +2461,7 @@ The values are automatically sanitized before displaying them using [DomSanitize
 <p [innerHTML]="article.content"></p>
 ```
 
-### React
+## ![react] React
 
 All string values are sanitized before being inserted into the DOM. No more details are currently available.
 You need to pass an object containing the `__html` property with the desired template contents.
@@ -2465,7 +2470,7 @@ You need to pass an object containing the `__html` property with the desired tem
 <p dangerouslySetInnerHTML={ { __html: article.content } } />;
 ```
 
-### Vue.js
+## ![vue] Vue.js
 
 The content passed to [`v-html`](https://vuejs.org/v2/guide/syntax.html#Raw-HTML) is not being [sanitized](https://github.com/vuejs/vue/issues/6333). You have to use an external library, e.g. [sanitize-html](https://www.npmjs.com/package/sanitize-html).
 
