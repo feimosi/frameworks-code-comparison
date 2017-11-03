@@ -3,7 +3,7 @@
 [react]: ./assets/logos/react-small.svg
 [vue]: ./assets/logos/vue-small.svg
 
-<h1 align="center">Frontend frameworks code comparison</h1>
+<h1 align="center">Frontend Frameworks Code Comparison</h1>
 
 <div align="center">
 
@@ -12,6 +12,8 @@
 ![./assets/logos/vue.svg](./assets/logos/vue.svg)
 
 </div>
+
+[![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Code%20comparison%20of%20modern%20web%20frameworks%2C%20based%20on%20React%2C%20Angular%20and%20Vue.js&url=https://github.com/feimosi/frameworks-code-comparison)
 
 Comparison of different approaches in writing web applications. Based on React, Angular, AngularJS and Vue.js. It is especially useful when migrating between frameworks or switching projects often.
 
