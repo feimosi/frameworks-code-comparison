@@ -97,7 +97,7 @@ export const module = angular
   .component('changePassword', component);
 ```
 
-:arrow_right: https://docs.angularjs.org/guide/component
+:link: https://docs.angularjs.org/guide/component
 
 ## ![angular] Angular
 
@@ -147,7 +147,7 @@ import { ChangePasswordComponent } from './change-password.component';
 export class ChangePasswordModule {}
 ```
 
-:arrow_right: https://angular.io/api/core/Component
+:link: https://angular.io/api/core/Component
 
 ## ![react] React
 
@@ -176,7 +176,7 @@ export class ChangePassword {
 }
 ```
 
-:arrow_right: https://reactjs.org/docs/react-component.html
+:link: https://reactjs.org/docs/react-component.html
 
 ## ![vue] Vue.js
 
@@ -206,7 +206,7 @@ Vue.component('change-password', {
 });
 ```
 
-:arrow_right: https://vuejs.org/v2/guide/components.html
+:link: https://vuejs.org/v2/guide/components.html
 
 # Dependency injection
 
@@ -233,7 +233,7 @@ export class ChangePasswordController {
 }
 ```
 
-:arrow_right: https://docs.angularjs.org/guide/di
+:link: https://docs.angularjs.org/guide/di
 
 ## ![angular] Angular
 
@@ -263,7 +263,7 @@ export class ChangePasswordComponent {
 }
 ```
 
-:arrow_right: https://angular.io/guide/dependency-injection
+:link: https://angular.io/guide/dependency-injection
 
 ## ![react] React
 
@@ -401,7 +401,7 @@ Events can be listened to using [`v-on`](https://vuejs.org/v2/guide/events.html#
 </primary-button>
 ```
 
-:arrow_right: https://vuejs.org/v2/guide/syntax.html
+:link: https://vuejs.org/v2/guide/syntax.html
 
 # Interpolation
 
@@ -426,7 +426,7 @@ Another way to "bind" data is to use [`ng-bind`](https://docs.angularjs.org/api/
 <span ng-bind="$ctrl.name"></span>
 ```
 
-:arrow_right: https://docs.angularjs.org/guide/interpolation
+:link: https://docs.angularjs.org/guide/interpolation
 
 ## ![angular] Angular
 
@@ -438,7 +438,7 @@ Angular is similar to AngularJS, so we use double curly braces (`{{ }}`) for int
 
 `[src]` presents property binding while the `alt` attribute is being interpolated.
 
-:arrow_right: https://angular.io/guide/template-syntax#interpolation
+:link: https://angular.io/guide/template-syntax#interpolation
 
 ## ![react] React
 
@@ -448,7 +448,7 @@ React uses single curly braces for interpolation. Any JavaScript can be interpol
 <img src={ this.props.image.url } alt={ this.props.image.alt } />;
 ```
 
-:arrow_right: https://reactjs.org/docs/introducing-jsx.html#embedding-expressions-in-jsx
+:link: https://reactjs.org/docs/introducing-jsx.html#embedding-expressions-in-jsx
 
 ## ![vue] Vue.js
 
@@ -462,7 +462,7 @@ You can also perform one-time interpolations that do not update on data change b
 <span v-once>Hello {{ username }}!</span>
 ```
 
-:arrow_right: https://vuejs.org/v2/guide/syntax.html#Interpolations
+:link: https://vuejs.org/v2/guide/syntax.html#Interpolations
 
 # Handling DOM Events
 
@@ -508,7 +508,7 @@ angular.module('app')
 </ul>
 ```
 
-:arrow_right: https://docs.angularjs.org/tutorial/step_12
+:link: https://docs.angularjs.org/tutorial/step_12
 
 ## ![angular] Angular
 
@@ -618,7 +618,7 @@ export class MenuTopbar extends Component {
 }
 ```
 
-:arrow_right: https://reactjs.org/docs/handling-events.html
+:link: https://reactjs.org/docs/handling-events.html
 
 ## ![vue] Vue.js
 
@@ -662,7 +662,7 @@ Vue.component('menu-topbar', {
 </ul>
 ```
 
-:arrow_right: https://vuejs.org/v2/guide/events.html
+:link: https://vuejs.org/v2/guide/events.html
 
 # Inputs and Outputs
 
@@ -794,7 +794,7 @@ export class SettingsComponent {
 ></user-preview>
 ```
 
-:arrow_right: https://angular.io/guide/component-interaction
+:link: https://angular.io/guide/component-interaction
 
 ## ![react] React
 
@@ -880,7 +880,7 @@ export class SettingsComponent extends Component {
 
 > TODO
 
-:arrow_right: https://vuejs.org/v2/guide/components.html#Props
+:link: https://vuejs.org/v2/guide/components.html#Props
 
 # Default inputs
 
@@ -950,7 +950,7 @@ export class CoursesListController extends { Component } {
 }
 ```
 
-:arrow_right: https://reactjs.org/docs/typechecking-with-proptypes.html#default-prop-values
+:link: https://reactjs.org/docs/typechecking-with-proptypes.html#default-prop-values
 
 ## ![vue] Vue.js
 
@@ -986,7 +986,7 @@ Vue.component('courses-list', {
 
 `$onDestroy()` - called when the component (a controller with its containing scope) is being destroyed.
 
-:arrow_right: https://docs.angularjs.org/api/ng/service/$compile
+:link: https://docs.angularjs.org/api/ng/service/$compile
 
 ## ![react] React
 
@@ -1198,7 +1198,7 @@ export class RegistrationComponent {
 </ng-template>
 ```
 
-:arrow_right: https://angular.io/api/common/NgIf
+:link: https://angular.io/api/common/NgIf
 
 ## ![react] React
 
@@ -1253,7 +1253,7 @@ Vue.js has three directives to perform conditional rendering: `v-if`, `v-else-if
 </template>
 ```
 
-:arrow_right: https://vuejs.org/v2/guide/conditional.html
+:link: https://vuejs.org/v2/guide/conditional.html
 
 # Lists
 
@@ -1459,7 +1459,7 @@ angular.module('app', [])
   });
 ```
 
-:arrow_right: https://docs.angularjs.org/guide/filter
+:link: https://docs.angularjs.org/guide/filter
 
 ## ![angular] Angular
 
@@ -1492,7 +1492,7 @@ The given `someUrl` is filtered through the `safe` pipe which transforms it trou
 
 Note: `[src]` above is an input to the component which 'lives' above the `iframe`.
 
-:arrow_right: https://angular.io/guide/pipes
+:link: https://angular.io/guide/pipes
 
 ## ![react] React
 
@@ -1576,7 +1576,7 @@ Vue.filter('lowercase', word => word.toLowerCase());
 
 For global filters to work, they should be declared before the Vue instance.
 
-:arrow_right: https://vuejs.org/v2/guide/filters.html
+:link: https://vuejs.org/v2/guide/filters.html
 
 # Child nodes
 
@@ -1962,7 +1962,7 @@ Result:
   </footer>
 </div>
 ```
-:arrow_right: https://vuejs.org/v2/guide/components.html#Named-Slots
+:link: https://vuejs.org/v2/guide/components.html#Named-Slots
 
 # Class toggling
 
@@ -2025,7 +2025,7 @@ class App {
 >
 ```
 
-:arrow_right: https://vuejs.org/v2/guide/class-and-style.html
+:link: https://vuejs.org/v2/guide/class-and-style.html
 
 # Data binding
 
@@ -2080,7 +2080,7 @@ export class RegistrationComponent {
 <p>Name: {{ name }}</p>
 ```
 
-:arrow_right: https://angular.io/guide/template-syntax#two-way-binding
+:link: https://angular.io/guide/template-syntax#two-way-binding
 
 ## ![react] React
 
@@ -2090,7 +2090,7 @@ export class RegistrationComponent {
 
 You can use the `v-model` directive to create **two-way data bindings** on form `input` and `textarea` elements. It automatically picks the correct way to update the element based on the input type. Although a bit magical, `v-model` is essentially syntax sugar for updating data on user input events, plus special care for some edge cases.
 
-:arrow_right: https://vuejs.org/v2/guide/forms.html
+:link: https://vuejs.org/v2/guide/forms.html
 
 # Forms
 
@@ -2263,7 +2263,7 @@ export default class ReactForm extends Component {
 }
 ```
 
-:arrow_right: https://reactjs.org/docs/forms.html
+:link: https://reactjs.org/docs/forms.html
 
 ## ![vue] Vue.js
 
@@ -2301,7 +2301,7 @@ export default {
 </script>
 ```
 
-:arrow_right: https://vuejs.org/v2/guide/forms.html
+:link: https://vuejs.org/v2/guide/forms.html
 
 # Styling
 
@@ -2369,7 +2369,7 @@ export class HeaderComponent {
 }
 ```
 
-:arrow_right: https://angular.io/guide/component-styles
+:link: https://angular.io/guide/component-styles
 
 ## ![react] React
 
