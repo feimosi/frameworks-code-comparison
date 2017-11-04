@@ -990,6 +990,150 @@ Vue.component('courses-list', {
 
 :link: https://docs.angularjs.org/api/ng/service/$compile
 
+### ![angular] Angular
+
+#### [ngOnChanges()](https://angular.io/guide/lifecycle-hooks#onchanges)
+
+Respond when Angular (re)sets data-bound input properties. The method receives a `SimpleChanges` object of current and previous property values.
+
+Called before `ngOnInit()` and whenever one or more data-bound input properties change.
+
+```ts
+export class PeekABooComponent extends PeekABoo implements OnChanges {
+  // only called for/if there is an @input variable set by parent.
+  ngOnChanges(changes: SimpleChanges) {
+    let changesMsgs: string[] = [];
+    for (let propName in changes) {
+      if (propName === 'name') {
+        let name = changes['name'].currentValue;
+        changesMsgs.push(`name ${this.verb} to "${name}"`);
+      } else {
+        changesMsgs.push(propName + ' ' + this.verb);
+      }
+    }
+    this.logIt(`OnChanges: ${changesMsgs.join('; ')}`);
+    this.verb = 'changed'; // next time it will be a change
+  } 
+}
+```
+
+#### [ngOnInit()](https://angular.io/guide/lifecycle-hooks#oninit)
+
+Initialize the directive/component after Angular first displays the data-bound properties and sets the directive/component's input properties.
+
+Called once, after the first `ngOnChanges()`.
+
+```ts
+export class PeekABoo implements OnInit {
+  constructor(private logger: LoggerService) { }
+
+  // implement OnInit's `ngOnInit` method
+  ngOnInit() { this.logIt(`OnInit`); }
+
+  logIt(msg: string) {
+    this.logger.log(`#${nextId++} ${msg}`);
+  }
+}
+```
+
+#### [ngDoCheck()](https://angular.io/guide/lifecycle-hooks#docheck)
+
+Detect and act upon changes that Angular can't or won't detect on its own.
+
+Called during every change detection run, immediately after `ngOnChanges()` and `ngOnInit()`.
+
+```ts
+export class PeekABooComponent extends PeekABoo implements DoCheck {
+  ngDoCheck() { 
+    this.logIt(`DoCheck`);
+  }
+}
+```
+
+#### [ngAfterContentInit()](https://angular.io/guide/lifecycle-hooks#aftercontent-hooks)
+
+Respond after Angular projects external content into the component's view.
+Called once after the first `ngDoCheck()`.
+
+```ts
+export class PeekABooComponent extends PeekABoo implements AfterContentInit {
+  ngAfterContentInit() { this.logIt(`AfterContentInit`);  }
+}
+```
+
+#### [ngAfterContentChecked()](https://angular.io/guide/lifecycle-hooks#aftercontent-hooks)
+
+Respond after Angular checks the content projected into the component.
+
+Called after the `ngAfterContentInit()` and every subsequent `ngDoCheck()`
+
+```ts
+export class PeekABooComponent extends PeekABoo implements AfterContentChecked {
+  // Beware! Called frequently!
+  // Called in every change detection cycle anywhere on the page
+  ngAfterContentChecked() { this.logIt(`AfterContentChecked`); }
+}
+```
+
+#### [ngAfterViewInit()](https://angular.io/guide/lifecycle-hooks#afterview)
+
+Respond after Angular initializes the component's views and child views.
+
+Called once after the first `ngAfterContentChecked()`.
+
+```ts
+export class AfterViewComponent implements  AfterViewChecked, AfterViewInit {  
+  ngAfterViewInit() {
+    // viewChild is set after the view has been initialized
+    this.logIt('AfterViewInit');
+    this.doSomething();
+  }
+}
+```
+
+#### [ngAfterViewChecked()](https://angular.io/guide/lifecycle-hooks#afterview)
+
+Respond after Angular checks the component's views and child views.
+
+Called after the `ngAfterViewInit` and every subsequent `ngAfterContentChecked()`
+
+```ts
+export class AfterViewComponent implements  AfterViewChecked, AfterViewInit 
+  ngAfterViewChecked() {
+    // viewChild is updated after the view has been checked
+    if (this.prevHero === this.viewChild.hero) {
+      this.logIt('AfterViewChecked (no change)');
+    } else {
+      this.prevHero = this.viewChild.hero;
+      this.logIt('AfterViewChecked');
+      this.doSomething();
+    }
+  }
+}
+```
+
+#### [ngOnDestroy()](https://angular.io/guide/lifecycle-hooks#ondestroy)
+
+Cleanup just before Angular destroys the directive/component. Unsubscribe Observables and detach event handlers to avoid memory leaks.
+
+Called just before Angular destroys the directive/component.
+
+```ts
+@Directive({
+    selector: '[destroyDirective]'
+})
+
+export class OnDestroyDirective implements OnDestroy {
+  sayHello: number;
+  constructor() {
+    this.sayHiya = window.setInterval(() => console.log('hello'),     1000);
+  }
+  ngOnDestroy() {
+     window.clearInterval(this.sayHiya);
+  }
+}
+```
+
 ## ![react] React
 
 #### Mounting
