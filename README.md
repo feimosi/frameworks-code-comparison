@@ -978,21 +978,31 @@ Vue.component('courses-list', {
 
 ## ![angular.js] AngularJS
 
-`$onInit()` - called when the component has been constructed and has its bindings have been initialized.
+#### `$onInit()` 
 
-`$postLink()` - called after the component and its children have been linked (mounted).
+Called when the component has been constructed and has its bindings have been initialized.
 
-`$onChanges(changes)` - called whenever one-way bindings are updated.
+#### `$postLink()` 
 
-`$doCheck()` - called on each turn of the digest cycle.
+Called after the component and its children have been linked (mounted).
 
-`$onDestroy()` - called when the component (a controller with its containing scope) is being destroyed.
+#### `$onChanges(changes)`
+
+Called whenever one-way bindings are updated.
+
+#### `$doCheck()`
+
+Called on each turn of the digest cycle.
+
+#### `$onDestroy()`
+
+Called when the component (a controller with its containing scope) is being destroyed.
 
 :link: https://docs.angularjs.org/api/ng/service/$compile
 
 ### ![angular] Angular
 
-#### [ngOnChanges()](https://angular.io/guide/lifecycle-hooks#onchanges)
+#### [`ngOnChanges()`](https://angular.io/guide/lifecycle-hooks#onchanges)
 
 Respond when Angular (re)sets data-bound input properties. The method receives a `SimpleChanges` object of current and previous property values.
 
@@ -1017,7 +1027,7 @@ export class PeekABooComponent extends PeekABoo implements OnChanges {
 }
 ```
 
-#### [ngOnInit()](https://angular.io/guide/lifecycle-hooks#oninit)
+#### [`ngOnInit()`](https://angular.io/guide/lifecycle-hooks#oninit)
 
 Initialize the directive/component after Angular first displays the data-bound properties and sets the directive/component's input properties.
 
@@ -1036,7 +1046,7 @@ export class PeekABoo implements OnInit {
 }
 ```
 
-#### [ngDoCheck()](https://angular.io/guide/lifecycle-hooks#docheck)
+#### [`ngDoCheck()`](https://angular.io/guide/lifecycle-hooks#docheck)
 
 Detect and act upon changes that Angular can't or won't detect on its own.
 
@@ -1050,7 +1060,7 @@ export class PeekABooComponent extends PeekABoo implements DoCheck {
 }
 ```
 
-#### [ngAfterContentInit()](https://angular.io/guide/lifecycle-hooks#aftercontent-hooks)
+#### [`ngAfterContentInit()`](https://angular.io/guide/lifecycle-hooks#aftercontent-hooks)
 
 Respond after Angular projects external content into the component's view.
 Called once after the first `ngDoCheck()`.
@@ -1061,7 +1071,7 @@ export class PeekABooComponent extends PeekABoo implements AfterContentInit {
 }
 ```
 
-#### [ngAfterContentChecked()](https://angular.io/guide/lifecycle-hooks#aftercontent-hooks)
+#### [`ngAfterContentChecked()`](https://angular.io/guide/lifecycle-hooks#aftercontent-hooks)
 
 Respond after Angular checks the content projected into the component.
 
@@ -1075,7 +1085,7 @@ export class PeekABooComponent extends PeekABoo implements AfterContentChecked {
 }
 ```
 
-#### [ngAfterViewInit()](https://angular.io/guide/lifecycle-hooks#afterview)
+#### [`ngAfterViewInit()`](https://angular.io/guide/lifecycle-hooks#afterview)
 
 Respond after Angular initializes the component's views and child views.
 
@@ -1091,7 +1101,7 @@ export class AfterViewComponent implements  AfterViewChecked, AfterViewInit {
 }
 ```
 
-#### [ngAfterViewChecked()](https://angular.io/guide/lifecycle-hooks#afterview)
+#### [`ngAfterViewChecked()`](https://angular.io/guide/lifecycle-hooks#afterview)
 
 Respond after Angular checks the component's views and child views.
 
@@ -1112,7 +1122,7 @@ export class AfterViewComponent implements  AfterViewChecked, AfterViewInit
 }
 ```
 
-#### [ngOnDestroy()](https://angular.io/guide/lifecycle-hooks#ondestroy)
+#### [`ngOnDestroy()`](https://angular.io/guide/lifecycle-hooks#ondestroy)
 
 Cleanup just before Angular destroys the directive/component. Unsubscribe Observables and detach event handlers to avoid memory leaks.
 
@@ -1136,48 +1146,41 @@ export class OnDestroyDirective implements OnDestroy {
 
 ## ![react] React
 
-#### Mounting
+#### [`componentWillMount()`](https://reactjs.org/docs/react-component.html#componentwillmount) 
 
-[`constructor(props)`](https://reactjs.org/docs/react-component.html#constructor) - the first method called in the lifecycle before mounting. If used, it must include `super(props)` as first call:
+Is invoked just before rendering. Modifying the state here won't trigger a re-render.
 
-```jsx
-import React, { Component } from 'react';
+#### [`componentDidMount()`](https://reactjs.org/docs/react-component.html#componentdidmount) 
 
-export class CreationDate extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      time: new Date(),
-    };
-  }
-}
-```
+Is invoked after render. Useful for the initialization that require DOM nodes.
 
-[`componentWillMount()`](https://reactjs.org/docs/react-component.html#componentwillmount) - is invoked just before rendering. Modifying the state here won't trigger a re-render.
+#### [`componentWillReceiveProps(nextProps)`](https://reactjs.org/docs/react-component.html#componentwillreceiveprops) 
 
-[`componentDidMount()`](https://reactjs.org/docs/react-component.html#componentdidmount) - is invoked after render. Useful for the initialization that require DOM nodes.
+Is only called after rendering, but before receiving new props. Because React may call this method without props changing, it is recommended to manually implement a check to see if there's a difference.
 
-#### Updating
+#### [`shouldComponentUpdate(nextProps, nextState)`](https://reactjs.org/docs/react-component.html#shouldcomponentupdate) 
 
-[`componentWillReceiveProps(nextProps)`](https://reactjs.org/docs/react-component.html#componentwillreceiveprops) - is only called after rendering, but before receiving new props. Because React may call this method without props changing, it is recommended to manually implement a check to see if there's a difference.
+This method is called before receiving new props or a change of state. By default, it returns true which means re-rendering is triggered by any change. Modifying this method allows you to only re-render in intended scenarios.
 
-[`shouldComponentUpdate(nextProps, nextState)`](https://reactjs.org/docs/react-component.html#shouldcomponentupdate) - this method is called before receiving new props or a change of state. By default, it returns true which means re-rendering is triggered by any change. Modifying this method allows you to only re-render in intended scenarios.
+#### [`componentWillUpdate(nextProps, nextState)`](https://reactjs.org/docs/react-component.html#componentwillupdate) 
 
-[`componentWillUpdate(nextProps, nextState)`](https://reactjs.org/docs/react-component.html#componentwillupdate) - is invoked whenever `shouldComponentUpdate` returns true before rendering. Note: You can't use `this.setState()` here.
+Is invoked whenever `shouldComponentUpdate` returns true before rendering. Note: You can't use `this.setState()` here.
 
-[`componentDidUpdate(prevProps, prevState)`](https://reactjs.org/docs/react-component.html#componentdidupdate) - is invoked after rendering, but not after the initial render. This method is useful for manipulating the DOM when updated.
+#### [`componentDidUpdate(prevProps, prevState)`](https://reactjs.org/docs/react-component.html#componentdidupdate) 
 
-#### Unmounting
+Is invoked after rendering, but not after the initial render. This method is useful for manipulating the DOM when updated.
 
-[`componentWillUnmount()`](https://reactjs.org/docs/react-component.html#componentwillunmount) - is invoked immediately before a component is unmounted and destroyed. Useful for resource cleanup.
+#### [`componentWillUnmount()`](https://reactjs.org/docs/react-component.html#componentwillunmount) 
 
-#### Error Handling
+Is invoked immediately before a component is unmounted and destroyed. Useful for resource cleanup.
 
-[`componentDidCatch(error,info)`](https://reactjs.org/blog/2017/07/26/error-handling-in-react-16.html) - is invoked when Javascript throws an error anywhere in the component's tree. Useful for catching errors, showing a fallback interface, and logging errors without breaking the entire application.
+#### [`componentDidCatch(error,info)`](https://reactjs.org/blog/2017/07/26/error-handling-in-react-16.html) 
+
+Is invoked when Javascript throws an error anywhere in the component's tree. Useful for catching errors, showing a fallback interface, and logging errors without breaking the entire application.
 
 ## ![vue] Vue.js
 
-#### beforeCreate
+#### [`beforeCreate`](https://vuejs.org/v2/api/#beforeCreate)
 
 Called synchronously immediately after the instance has been initialized, but before data observation and event/watcher setup. On every Vue instance lifecycle, `this` points to the vm instance itself.
 
@@ -1189,7 +1192,7 @@ new Vue({
 })
 ```
 
-#### created
+#### [`created`](https://vuejs.org/v2/api/#created)
 
 Called synchronously after the instance is created. At this stage, the instance has finished processing the options, which means the following have been set up: data observation, computed properties, methods, watch/event callbacks. However, the mounting phase has not been started, and the `$el` property will not be available yet.
 
@@ -1201,7 +1204,7 @@ new Vue({
 })
 ```
 
-#### beforeMount
+#### [`beforeMount`](https://vuejs.org/v2/api/#beforeMount)
 
 Called right before the mounting begins: the render function is about to be called for the first time.
 
@@ -1215,7 +1218,7 @@ new Vue({
 })
 ```
 
-#### mounted
+#### [`mounted`](https://vuejs.org/v2/api/#mounted)
 
 Called after the instance has been mounted, where [el](https://vuejs.org/v2/api/#el) is replaced by the newly created `vm.$el`. If the root instance is mounted to an in-document element, `vm.$el` will also be in-document when `mounted` is called.
 
@@ -1232,7 +1235,7 @@ new Vue({
 })
 ```
 
-#### beforeUpdate
+#### [`beforeUpdate`](https://vuejs.org/v2/api/#beforeUpdate)
 
 Called whenever the data changes, before the virtual DOM is re-rendered and patched.
 
@@ -1240,7 +1243,7 @@ You can perform further state changes in this hook and they will not trigger add
 
 _This hook is not called during server-side rendering._
 
-#### updated
+#### [`updated`](https://vuejs.org/v2/api/#updated)
 
 Called after a data change causes the virtual DOM to be re-rendered and patched.
 
@@ -1257,29 +1260,34 @@ updated: function () {
 }
 ```
 
-#### activated
+#### [`activated`](https://vuejs.org/v2/api/#activated)
 
 Called when a kept-alive component is activated.
 
 _This hook is not called during server-side rendering._
 
-#### deactivated
+#### [`deactivated`](https://vuejs.org/v2/api/#deactivated)
 
 Called when a kept-alive component is deactivated.
 
 _This hook is not called during server-side rendering._
 
-#### beforeDestroy
+#### [`beforeDestroy`](https://vuejs.org/v2/api/#beforeDestroy)
 
 Called right before a Vue instance is destroyed. At this stage the instance is still fully functional.
 
 _This hook is not called during server-side rendering._
 
-#### destroyed
+#### [`destroyed`](https://vuejs.org/v2/api/#destroyed)
 
 Called after a Vue instance has been destroyed. When this hook is called, all directives of the Vue instance have been unbound, all event listeners have been removed, and all child Vue instances have also been destroyed.
 
 _This hook is not called during server-side rendering._
+
+
+#### [`errorCaptured`](https://vuejs.org/v2/api/#errorCaptured)
+
+Called when an error from any descendent component is captured.
 
 # Conditional rendering
 
