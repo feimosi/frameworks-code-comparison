@@ -880,16 +880,26 @@ export class SettingsComponent extends Component {
 
 ## ![vue] Vue.js
 
-In the parent component:
+Child component:
+
 ```js
 Vue.component('child', {
-    props: ['class', 'loading', 'message'],
-    template: '<span v-bind:class="class" v-show="loading" v-text="message"></span>'
-})
+  props: {
+    class: {
+      type: String,
+      required: true,
+    },
+    loading: Boolean,
+    message: String,
+  },
+  template: '<span v-bind:class="class" v-show="loading" v-text="message"></span>',
+});
 ```
-In the template:
+
+Usage in the parent component:
+
 ```html
-<child class="small" loading="true" message="Busy Loading!"></child>
+<child class="small" :loading="true" message="Busy Loading!"></child>
 ```
 
 :link: https://vuejs.org/v2/guide/components.html#Props
